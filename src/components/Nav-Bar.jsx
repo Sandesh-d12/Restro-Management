@@ -58,14 +58,32 @@ export default function NavBar() {
   ];
   return (
     <>
-      <div className={styles.Container}>
-        <div className={styles.Wrapper}>
-          <div className={styles.ControlPanel}>My Restro</div>
-          <div className={styles.right}></div>
+      <div>
+        <div className={styles.Container}>
+          <div className={styles.Wrapper}>
+            <div className={styles.ControlPanel}>My Restro</div>
+            <div className={styles.right}></div>
+          </div>
         </div>
-      </div>
-      <div className={styles.sideBar}>
-        <Titles data={data} />{" "}
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            backgroundColor: "red",
+            height: "100%",
+          }}
+        >
+          <div style={{ width: "20%", backgroundColor: "green" }}>
+            {" "}
+            //left side
+            <div className={styles.sideBar}>
+              <Titles data={data} />
+            </div>
+          </div>
+          <div style={{ width: "80%", backgroundColor: "blue" }}>
+            Rigth Side
+          </div>
+        </div>
       </div>
     </>
   );
