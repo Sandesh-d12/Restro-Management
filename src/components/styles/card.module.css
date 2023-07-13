@@ -1,0 +1,22 @@
+.container {
+  width: auto;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.mainWrapper {
+  display: flex;
+  max-width: 350px;
+  height: 150px;
+  border: 1px solid;
+  box-sizing: border-box;
+  box-shadow: #000000;
+}
+
+.imageWrapper {
+  background-color: #160224;
+}
+
+.textWrapper {
+  background-color: #3d0564;
+}
