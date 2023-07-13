@@ -12,12 +12,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function PlaceOrderModal({ handleOpen, handleClose }) {
-  // const [open, setOpen] = React.useState(true);
-
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-
   return (
     <div>
       <Dialog
