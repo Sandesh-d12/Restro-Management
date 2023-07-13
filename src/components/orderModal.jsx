@@ -1,27 +1,17 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PlaceOrderModal({handleOpen}) {
-  const [open, setOpen] = React.useState(false);
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export default function PlaceOrderModal({ handleOpen, handleClose }) {
   return (
     <div>
       <Dialog
@@ -32,9 +22,7 @@ export default function PlaceOrderModal({handleOpen}) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>{"Place Order"}</DialogTitle>
-        <DialogContent>
-         
-        </DialogContent>
+        <DialogContent></DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose}>Agree</Button>
