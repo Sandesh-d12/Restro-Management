@@ -1,22 +1,25 @@
 .container {
-  width: auto;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
 }
 .mainWrapper {
   display: flex;
-  max-width: 350px;
-  height: 150px;
+  width: 25%;
+  /* max-width: 350px; */
+  /* height: 150px; */
+  flex-direction: column;
   border: 1px solid;
   box-sizing: border-box;
   box-shadow: #000000;
+  background-color: #36b9cc;
+  padding: 10px;
 }
 
-.imageWrapper {
-  background-color: #160224;
+.titleWrapper {
+  /* background-color: #160224; */
 }
 
-.textWrapper {
-  background-color: #3d0564;
+.statusWrapper {
+  /* background-color: #3d0564; */
 }

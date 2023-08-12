@@ -1,0 +1,29 @@
+.wrapper {
+  position: "relative";
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+/* .cards {
+  position: "relative";
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.card {
+  padding-top: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  align-items: center;
+  padding-left: 300px;
+}

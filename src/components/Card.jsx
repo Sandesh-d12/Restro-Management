@@ -1,16 +1,68 @@
-import React from "react";
-import styles from "./styles/card.module.css";
+// import React from "react";
+// import styles from "./styles/card.module.css";
 
-export default function Card({ data }) {
-  console.log(data);
+// export default function Card({ data }) {
+//   console.log(data);
+//   return (
+//     <div className={styles.container}>
+//       {data.map((d) => (
+//         <div className={styles.mainWrapper}>
+//           <div className={styles.titleWrapper}>{d.title}</div>
+//           <div className={styles.statusWrapper}>{d.status}</div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+
+export default function liveTable({ data }) {
   return (
-    <div className={styles.container}>
-      {data.map((d) => (
-        <div className={styles.mainWrapper}>
-          <div className={styles.imageWrapper}>{d.icon}ddd</div>
-          <div className={styles.textWrapper}>{d.title}</div>
+    <Card
+      sx={{
+        width: "150px",
+        alignItems: "center",
+        padding: "10px",
+        minHeight: "60px",
+        backgroundColor: data.status === "booked" ? "#36b9cc" : "white",
+        display: "flex",
+      }}
+    >
+      <Box
+        style={{
+          display: "flex",
+          gap: "20px",
+          alignItems: "space-between",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
+      >
+        <div>
+          <Typography
+            sx={{
+              fontSize: 14,
+              fontWeight: 600,
+              lineHeight: "14px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+            color="text.secondary"
+            gutterBottom
+          >
+            {data.title}
+          </Typography>
+          <div>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {data.status}
+            </Typography>
+          </div>
         </div>
-      ))}
-    </div>
+      </Box>
+    </Card>
   );
 }
