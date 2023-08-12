@@ -6,8 +6,6 @@
 .Wrapper {
   display: flex;
   gap: 2rem;
-  /* box-sizing: border-box;
-  border-style: solid; */
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
   padding: 10px;
   z-index: 1;
@@ -21,12 +19,9 @@
   padding: 10px;
 }
 
-.right {
-}
-
 .sideBar {
   width: 15%;
-  height: 100vh;
+  height: 108vh;
   background-color: #042848eb;
   position: absolute;
 }

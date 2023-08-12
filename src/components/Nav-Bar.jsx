@@ -25,18 +25,18 @@ export default function NavBar() {
     },
     {
       id: 3,
-      title: "Booking",
+      title: "Table Management",
       icon: "",
       onClick: () => {
-        navigate("/booking");
+        navigate("/tables");
       },
     },
     {
       id: 4,
-      title: "Siting Plan",
+      title: "Users",
       icon: "",
       onClick: () => {
-        navigate("/sittingPlan");
+        navigate("/users");
       },
     },
     {
