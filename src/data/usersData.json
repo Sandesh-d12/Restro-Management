@@ -1,80 +1,30 @@
 [
   {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
+    "image": "/owner.jpg",
+    "userName": "Millicent",
+    "email": "mwhatham0@comsenz.com",
+    "password": "33",
+    "role": "waiter"
   },
   {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
+    "image": "/owner.jpg",
+    "userName": "Millicent",
+    "email": "mwhatham0@comsenz.com",
+    "password": "33",
+    "role": "cashier"
   },
   {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
+    "image": "/owner.jpg",
+    "userName": "Millicent",
+    "email": "mwhatham0@comsenz.com",
+    "password": "33",
+    "role": "cashier"
   },
   {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
-  },
-  {
-    "tableName": 1,
-    "tableCapacity": "Millicent",
-    "status": "Whatham",
-    "action": "mwhatham0@comsenz.com"
+    "image": "/owner.jpg",
+    "userName": "Millicent",
+    "email": "mwhatham0@comsenz.com",
+    "password": "33",
+    "role": "cashier"
   }
 ]

@@ -1,8 +1,8 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import styles from "./styles/dashboard.module.css";
 import LiveTable from "../components/Card";
 import DashboardCard from "../components/dashboard/dashboardCard";
-import { Box, Typography } from "@mui/material";
+import styles from "./styles/dashboard.module.css";
 
 export default function Dashboard() {
   const data = [
@@ -22,7 +22,7 @@ export default function Dashboard() {
       id: 3,
       title: "Table1",
       icon: "",
-      status: "booked",
+      status: "5 person",
     },
     {
       id: 4,
@@ -34,7 +34,7 @@ export default function Dashboard() {
       id: 5,
       title: "Table1",
       icon: "",
-      status: "booked",
+      status: "3 person",
     },
     {
       id: 6,

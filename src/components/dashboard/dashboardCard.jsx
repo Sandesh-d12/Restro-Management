@@ -1,7 +1,7 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import * as React from "react";
 
 export default function DashboardCard({ title, number }) {
   return (
@@ -34,9 +34,14 @@ export default function DashboardCard({ title, number }) {
           </Typography>
         </div>
         <div>
-          <Typography variant="body2">
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
             {/* <i class="fa fa-folder-open" aria-hidden="true"></i> */}
-            <img src="/file.png" width="50px" height={"50px"} />
+            <img
+              src="/number.png"
+              width="50px"
+              height={"50px"}
+              style={{ marginTop: "7px" }}
+            />
           </Typography>
         </div>
       </Box>

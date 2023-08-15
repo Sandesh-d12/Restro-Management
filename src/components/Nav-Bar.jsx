@@ -1,7 +1,8 @@
 import React from "react";
-import styles from "./styles/navBar.module.css";
-import Titles from "./Titles";
 import { useNavigate } from "react-router-dom";
+import Titles from "./Titles";
+import Profile from "./profile/Avatar";
+import styles from "./styles/navBar.module.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function NavBar() {
     },
     {
       id: 2,
-      title: "Orders",
+      title: "Items",
       icon: "",
       onClick: () => {
         navigate("/orders");
@@ -44,7 +45,7 @@ export default function NavBar() {
       title: "Food Menu",
       icon: "",
       onClick: () => {
-        navigate("/foodMenu");
+        navigate("/#");
       },
     },
     {
@@ -52,7 +53,7 @@ export default function NavBar() {
       title: "Pages",
       icon: "",
       onClick: () => {
-        navigate("/pages");
+        navigate("/#");
       },
     },
   ];
@@ -61,8 +62,18 @@ export default function NavBar() {
       <div>
         <div className={styles.Container}>
           <div className={styles.Wrapper}>
-            <div className={styles.ControlPanel}>My Restro</div>
-            <div className={styles.right}></div>
+            <div className={styles.ControlPanel}>
+              <img
+                src="/tea.jpg"
+                width={"50px"}
+                height={"50px"}
+                style={{ marginRight: "20px", marginLeft: "5px" }}
+              ></img>
+              <span style={{ paddingTop: "10px" }}>My Restro </span>
+            </div>
+            <div className={styles.right}>
+              <Profile />
+            </div>
           </div>
         </div>
         <div
@@ -73,20 +84,13 @@ export default function NavBar() {
             height: "100%",
           }}
         >
-          <div style={{ width: "20%", backgroundColor: "green" }}>
-            {" "}
-            //left side
+          <div>
             <div className={styles.sideBar}>
               <Titles data={data} />
             </div>
-          </div>
-          <div style={{ width: "80%", backgroundColor: "blue" }}>
-            Rigth Side
           </div>
         </div>
       </div>
     </>
   );
 }
-
-// export default NavBar;

@@ -1,13 +1,15 @@
 import usersData from "../../data/usersData.json";
 import * as React from "react";
 import { useTable, usePagination } from "react-table";
+import styles from "./styles/users.module.css";
 import styled from "@emotion/styled";
 
 const TableWrapper = styled.div`
   font-family: Arial, sans-serif;
   border-collapse: collapse;
-  width: 160%;
+  width: 100%;
   overflow: hidden;
+  positiom: relative;
 `;
 
 const Ctable = styled.table`
@@ -42,6 +44,10 @@ const ActionButtons = styled.div`
   justify-content: space-between;
 `;
 
+const Image = styled.div`
+  width: 100px;
+  height: 100px;
+`;
 const StyledButton = styled.button`
   padding: 5px 10px;
   border: none;
@@ -92,18 +98,27 @@ function UsersList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Table Name",
-        accessor: "tableName",
+        Header: "Image",
+        accessor: "image",
+        Cell: ({ row }) => <Image></Image>,
       },
       {
-        Header: "Table Capacity",
-        accessor: "tableCapacity",
+        Header: "User Name",
+        accessor: "userName",
       },
       {
-        Header: "Status",
-        accessor: "status",
+        Header: "User Email",
+        accessor: "email",
       },
 
+      {
+        Header: "User Password",
+        accessor: "password",
+      },
+      {
+        Header: "User Role",
+        accessor: "role",
+      },
       {
         Header: "Action",
         accessor: "action",
@@ -154,7 +169,23 @@ function UsersList() {
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => (
-                    <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
+                    <Td
+                      {...cell.getCellProps()}
+                      className={
+                        cell.column.Header === "Image" ? "image-cell" : ""
+                      }
+                    >
+                      {cell.column.Header === "Image" ? (
+                        <div
+                          className={styles.imageBackground}
+                          style={{
+                            backgroundImage: `url(${row.original.image})`,
+                          }}
+                        />
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </Td>
                   ))}
                 </tr>
               );

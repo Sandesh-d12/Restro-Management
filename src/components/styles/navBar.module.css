@@ -9,14 +9,21 @@
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
   padding: 10px;
   z-index: 1;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 .ControlPanel {
-  font-size: large;
+  font-size: larger;
   color: aliceblue;
   font-weight: 900;
   text-align: center;
   line-height: 16px;
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sideBar {
@@ -31,4 +38,14 @@
   flex-direction: column;
   gap: 10px;
   padding-left: 10px;
+}
+
+.dropdown {
+  position: relative;
+  top: -17%;
+  /* left: 0; */
+  background-color: #042848eb;
+  /* border: 1px solid #ccc; */
+  padding: 10px;
+  z-index: 1;
 }
