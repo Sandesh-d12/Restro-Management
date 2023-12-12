@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: left;
+  color: aliceblue;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.title {
+}
