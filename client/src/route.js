@@ -11,8 +11,9 @@ import { SignUp } from "./features/users/SignUp/SignUp";
 import { LogIn } from "./features/users/logIn/LogIn";
 
 function AllRoute() {
-  let userString = localStorage.getItem("user");
-  let user = userString ? JSON.parse(userString) : null;
+  const userString = localStorage.getItem("user");
+  console.log(userString)
+  let user = userString !== "undefined"  ? JSON.parse(userString) : null;
   let isLoggedIn = user ? user.isLoginEnable : null;
 
   return (

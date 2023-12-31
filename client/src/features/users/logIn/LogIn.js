@@ -1,17 +1,20 @@
 import React from "react";
 import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
-import { useContext } from "react";
-import axios from "axios";
-import { useNavigate, Navigate } from "react-router-dom";
-import { AuthContext } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useLoginUser } from "../../react-query/users";
+
 
 export const LogIn = () => {
+  const [userData, setUserData] = React.useState()
   const navigate = useNavigate();
+  const { data, error, isLoading } = useLoginUser(userData);
+ 
+ const handleSubmit = (e) =>{
+  setUserData(e)
+  localStorage.setItem("user", JSON.stringify(data));
+ }
 
-  const ctx = useContext(AuthContext);
-
-  // console.log('formik',formik)
   return (
     <>
       <Formik
@@ -22,33 +25,8 @@ export const LogIn = () => {
             .required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            axios
-              .post(
-                "http://localhost:3001/logIn",
-                { email: values.email },
-                new URLSearchParams(values.email).toString(),
-                {
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                  },
-                }
-              )
-              .then((result) => {
-                ctx.onLogIn(result.data);
-                // setUser(result.data);
-                navigate("/dashboard");
-                // return <Navigate to="/dashboard" />;
-                location.reload();
-                window.location.href("/dashboard");
-              })
-              .catch((error) => {
-                console.error("Error submitting the form:", error);
-              })
-              .finally(() => {
-                setSubmitting(false);
-              });
-          }, 400);
+        handleSubmit(values)
+        navigate("/dashboard");
         }}
       >
         {(formik) => (
@@ -84,6 +62,16 @@ export const LogIn = () => {
               />
               {formik.touched.email && formik.errors.email ? (
                 <div style={{ color: "red" }}>{formik.errors.email}</div>
+              ) : null}
+               <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                {...formik.getFieldProps("password")}
+                style={{ height: "40px" }}
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <div style={{ color: "red" }}>{formik.errors.password}</div>
               ) : null}
               <p>
                 <a href="/signUp">Create new account</a>

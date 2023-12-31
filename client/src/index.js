@@ -5,14 +5,29 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./features/users/AuthContext";
-
+import store from "./store";
+import { Provider } from "react";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
+// const persistor = persistStore(store);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <AuthContextProvider>
-      <App />
+      {/* <Provider store={store}> */}
+      {/* <PersistGate persistor={persistor}> */}
+
+      <AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </AuthContextProvider>
+
+      {/* </PersistGate> */}
+      {/* </Provider> */}
     </BrowserRouter>
   </React.StrictMode>
 );

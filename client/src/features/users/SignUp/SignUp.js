@@ -1,14 +1,19 @@
 import React from "react";
 import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
-import { useContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {
+  useCreateUserMutation,
+} from "../../react-query/users";
 
 export const SignUp = () => {
-  const formik = useContext(Formik);
-  const navigate = useNavigate();
-  console.log("formik", formik);
+  const createPostMutation = useCreateUserMutation();
+  const handleSubmit = (values) => {
+    try {
+      createPostMutation.mutate(values);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <Formik
       initialValues={{
@@ -16,6 +21,7 @@ export const SignUp = () => {
         lastName: "",
         email: "",
         userType: "Admin" || "User",
+        password:''
       }}
       validationSchema={Yup.object({
         firstName: Yup.string()
@@ -27,34 +33,10 @@ export const SignUp = () => {
         email: Yup.string().email("Invalid email address").required("Required"),
         userType: Yup.string().required("User Type is required"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          axios
-            .post(
-              "http://localhost:3001/createUser",
-              {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                userType: values.userType,
-              },
-              new URLSearchParams(values).toString(),
-              {
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded",
-                },
-              }
-            )
-            .then((result) => {
-              navigate("/");
-            })
-            .catch((error) => {
-              console.error("Error while signing up:", error);
-            })
-            .finally(() => {
-              setSubmitting(false);
-            });
-        }, 400);
+      onSubmit={(values) => {
+        handleSubmit(values);
+
+   
       }}
     >
       {(formik) => (
@@ -123,6 +105,16 @@ export const SignUp = () => {
               <div style={{ color: "red" }}>{formik.errors.email}</div>
             ) : null}
 
+<label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              {...formik.getFieldProps("password")}
+              style={{ height: "40px" }}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div style={{ color: "red" }}>{formik.errors.password}</div>
+            ) : null}
             <button
               style={{ height: "40px", marginTop: "20px", textAlign: "center" }}
               type="submit"

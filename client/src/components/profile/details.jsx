@@ -13,7 +13,7 @@ const Details = () => {
       name: user.user.firstName,
       contactNo: "",
       email: user.user.email,
-      password: "foobar",
+      // password: "foobar",
     },
     // validationSchema: validationSchema,
     onSubmit: (values) => {
