@@ -3,6 +3,7 @@ import * as React from "react";
 import { useTable, usePagination } from "react-table";
 import styles from "./styles/users.module.css";
 import styled from "@emotion/styled";
+import { useAllUsers } from "../../features/react-query/users";
 
 const TableWrapper = styled.div`
   font-family: Arial, sans-serif;
@@ -88,7 +89,10 @@ const PaginationButton = styled.button`
 `;
 
 function UsersList() {
+  const { data1 } = useAllUsers();
+  console.log("allUsers", data1);
   const data = React.useMemo(() => usersData, []);
+
   const handleEdit = () => {
     return; //
   };
@@ -97,14 +101,18 @@ function UsersList() {
   };
   const columns = React.useMemo(
     () => [
+      // {
+      //   Header: "Image",
+      //   accessor: "image",
+      //   Cell: ({ row }) => <Image></Image>,
+      // },
       {
-        Header: "Image",
-        accessor: "image",
-        Cell: ({ row }) => <Image></Image>,
+        Header: "First Name",
+        accessor: "firstName",
       },
       {
-        Header: "User Name",
-        accessor: "userName",
+        Header: "Last Name",
+        accessor: "firstName",
       },
       {
         Header: "User Email",
@@ -117,7 +125,7 @@ function UsersList() {
       },
       {
         Header: "User Role",
-        accessor: "role",
+        accessor: "userType",
       },
       {
         Header: "Action",

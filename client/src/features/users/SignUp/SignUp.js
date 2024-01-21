@@ -1,9 +1,7 @@
 import React from "react";
 import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
-import {
-  useCreateUserMutation,
-} from "../../react-query/users";
+import { useCreateUserMutation } from "../../react-query/users";
 
 export const SignUp = () => {
   const createPostMutation = useCreateUserMutation();
@@ -21,7 +19,7 @@ export const SignUp = () => {
         lastName: "",
         email: "",
         userType: "Admin" || "User",
-        password:''
+        password: "",
       }}
       validationSchema={Yup.object({
         firstName: Yup.string()
@@ -35,8 +33,6 @@ export const SignUp = () => {
       })}
       onSubmit={(values) => {
         handleSubmit(values);
-
-   
       }}
     >
       {(formik) => (
@@ -104,8 +100,7 @@ export const SignUp = () => {
             {formik.touched.email && formik.errors.email ? (
               <div style={{ color: "red" }}>{formik.errors.email}</div>
             ) : null}
-
-<label htmlFor="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               id="password"
               type="password"

@@ -59,6 +59,7 @@ export default function NavBar({ child }) {
     },
   ];
   return (
+    <>
     <div>
       <div className={styles.Container}>
         <div className={styles.Wrapper}>
@@ -83,8 +84,10 @@ export default function NavBar({ child }) {
         <div className={styles.sideBar}>
           <Titles data={data} />
         </div>
-        <Outlet />
+
       </div>
     </div>
+            <Outlet />
+            </>
   );
 }

@@ -11,14 +11,13 @@ import { SignUp } from "./features/users/SignUp/SignUp";
 import { LogIn } from "./features/users/logIn/LogIn";
 
 function AllRoute() {
-  const userString = localStorage.getItem("user");
-  console.log(userString)
-  let user = userString !== "undefined"  ? JSON.parse(userString) : null;
-  let isLoggedIn = user ? user.isLoginEnable : null;
+  const userString = localStorage.getItem("user") ?? null;
+  // console.log("route", userString);
+  let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
   return (
     <Routes>
-      {isLoggedIn === true ? (
+      {user && (
         <>
           <Route element={<NavBar />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -30,7 +29,8 @@ function AllRoute() {
             <Route path="*" element={<Dashboard />} />
           </Route>
         </>
-      ) : (
+      )}{" "}
+      {!user && (
         <>
           <Route path="/" element={<LogIn />} />
           <Route path="/signUp" element={<SignUp />} />

@@ -27,9 +27,6 @@ const StyledButton = styled.button`
 `;
 
 export default function PlaceOrderModal({ open, handleClose }) {
-  console.log("open", open);
-  console.log("close", handleClose);
-
   return (
     <div>
       <Dialog

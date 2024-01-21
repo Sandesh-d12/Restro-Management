@@ -21,24 +21,10 @@ export default function Profile() {
     setAnchorEl(null);
   };
   const handleLogOut = () => {
-    axios
-      .get("http://localhost:3001/logout", {
-        headers: {
-          "content-type": "application/json",
-          Authorization: user.token,
-        },
-      })
-      .then((result) => {
-        console.log("Logout successful:", result.data);
-        navigate("/");
-        localStorage.clear();
-        window.location.reload();
-        // ctx.onLogOut();
-      })
-      .catch((error) => {
-        console.error("Error during logout:", error);
-      });
-    setAnchorEl(null);
+    navigate("/");
+    localStorage.clear();
+    window.location.reload();
+    // setAnchorEl(null);
   };
   const handleViewProfile = () => {
     navigate("/profile");
@@ -61,7 +47,7 @@ export default function Profile() {
                 fontWeight: 600,
               }}
             >
-              {user.user.email}
+              {user?.data?.email}
             </div>
             <MenuItem onClick={handleViewProfile}>View Profile</MenuItem>
             <MenuItem onClick={handleLogOut}>Logout</MenuItem>

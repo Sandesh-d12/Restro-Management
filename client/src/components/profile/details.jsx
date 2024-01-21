@@ -7,12 +7,12 @@ const Details = () => {
   const [displaySubmit, setDisplaySubmit] = useState(false);
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-  console.log("user", user);
+  console.log("user", user.data.firstName);
   const formik = useFormik({
     initialValues: {
-      name: user.user.firstName,
+      name: user?.data?.firstName,
       contactNo: "",
-      email: user.user.email,
+      email: user?.data?.email,
       // password: "foobar",
     },
     // validationSchema: validationSchema,
@@ -85,8 +85,8 @@ const Details = () => {
           </span>
           <TextField
             fullWidth
-            id="email"
-            name="email"
+            id="name"
+            name="name"
             value={formik.values.name}
             onChange={formik.handleChange}
           />
@@ -97,8 +97,8 @@ const Details = () => {
           </span>
           <TextField
             fullWidth
-            id="email"
-            name="email"
+            id="contact"
+            name="contact"
             value={formik.values.contactNo}
             onChange={formik.handleChange}
           />
