@@ -1,32 +1,36 @@
 import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import * as React from "react";
+import { useUpdateProduct } from "../features/react-query/products";
+import { useFormik } from "formik";
+import { toast } from "react-hot-toast";
+import * as Yup from "yup";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const StyledButton = styled.button`
-  padding: 10px 10px;
-  border: none;
-  cursor: pointer;
-  background-color: #36b9cc;
-  color: white;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+export default function PlaceOrderModal({ id, open, handleClose, title }) {
+  console.log(id);
+  const updateProduct = useUpdateProduct();
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      quantity: "",
+      price: "",
+    },
+    onSubmit: (values) => {
+      try {
+        updateProduct.mutate({ values, id });
+        toast.success("product updated successfully");
+        window.location.reload();
+      } catch (error) {
+        toast.error(error.message);
+      }
+    },
+  });
 
-  &:hover {
-    background-color: #2a8aae;
-  }
-`;
-
-export default function PlaceOrderModal({ open, handleClose }) {
   return (
     <div>
       <Dialog
@@ -36,29 +40,91 @@ export default function PlaceOrderModal({ open, handleClose }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Edit Items"}</DialogTitle>
-        <div style={{ border: "1px solid rgb(207 201 201)" }}></div>
         <div
           style={{
+            padding: "20px 20px 0 20px",
             display: "flex",
-            gap: "10px",
+            justifyContent: "space-between",
             alignItems: "center",
-            justifyContent: "left",
-            flexWrap: "wrap",
-            paddingTop: "15px",
-            paddingLeft: "15px",
           }}
         >
-          <TextField id="category" label="Category" variant="outlined" />
-          <TextField id="name" label="Name" variant="outlined" />
-          <TextField id="quantity" label="Quantity" variant="outlined" />
+          <span>Edit the product details of: {title} </span>
+          <button
+            style={{
+              float: "right",
+              padding: "12px",
+              outline: "none",
+              border: "none",
+              backgroundColor: "#fff",
+            }}
+            onClick={handleClose}
+          >
+            X
+          </button>
         </div>
-        <DialogActions>
-          <StyledButton onClick={handleClose}>Edit Items</StyledButton>
-          <Button color="error" variant="contained" onClick={handleClose}>
-            Cancel
-          </Button>
-        </DialogActions>
+        <form
+          style={{
+            width: "20vw",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+          }}
+          onSubmit={formik.handleSubmit}
+        >
+          <input
+            style={{
+              padding: "8px",
+            }}
+            type="text"
+            id="name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder="Name"
+          />
+          <input
+            style={{
+              padding: "8px",
+            }}
+            type="number"
+            id="quantity"
+            placeholder="Quantity"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.quantity}
+          />
+          <input
+            style={{
+              padding: "8px",
+            }}
+            type="number"
+            id="price"
+            placeholder="Price"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.price}
+          />
+
+          <button
+            style={{
+              padding: "10px 10px",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: "#36b9cc",
+              color: "white",
+              fontSize: "14px",
+              borderRadius: "4px",
+              transition: "background-color 0.3s ease",
+
+              "&:hover": {
+                backgroundColor: "#2a8aae",
+              },
+            }}
+            type="submit"
+          >
+            Edit
+          </button>
+        </form>
       </Dialog>
     </div>
   );

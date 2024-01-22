@@ -2,6 +2,8 @@ import tableData from "../../data/tableData.json";
 import * as React from "react";
 import { useTable, usePagination } from "react-table";
 import styled from "@emotion/styled";
+import { TableModal, useModal } from "./Modal";
+import { Modal, Button, Typography } from "@mui/material";
 
 const TableWrapper = styled.div`
   font-family: Arial, sans-serif;
@@ -35,7 +37,8 @@ const PaginationWrapper = styled.div`
 
 const ActionButtons = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledButton = styled.button`
@@ -78,13 +81,15 @@ const PaginationButton = styled.button`
 `;
 
 function Table() {
+  const { open, handleClose, handleOpen } = useModal(false);
+  console.log(tableData);
   const data = React.useMemo(() => tableData, []);
+
   const handleEdit = () => {
-    return; //
+    handleOpen();
+    return <TableModal open={open} handleClose={handleClose} />;
   };
-  const handleDelete = () => {
-    return; //
-  };
+
   const columns = React.useMemo(
     () => [
       {
@@ -105,10 +110,7 @@ function Table() {
         accessor: "action",
         Cell: ({ row }) => (
           <ActionButtons>
-            <StyledButton onClick={() => handleEdit(row)}>Edit</StyledButton>
-            <StyledButton onClick={() => handleDelete(row)}>
-              Delete
-            </StyledButton>
+            <StyledButton onClick={handleEdit}>Edit</StyledButton>
           </ActionButtons>
         ),
       },

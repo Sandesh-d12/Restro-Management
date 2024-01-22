@@ -1,7 +1,10 @@
 import React from "react";
 import UsersList from "../components/users/usersList";
+import { useAllUsers } from "./react-query/users";
 
 function Users() {
+  const { data, isError, isLoading } = useAllUsers();
+
   return (
     <div
       style={{
@@ -14,7 +17,7 @@ function Users() {
       <span style={{ fontSize: "24px", fontWeight: 500 }}>
         Users Management
       </span>
-      <UsersList />
+      <UsersList data={data} />
     </div>
   );
 }

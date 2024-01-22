@@ -1,5 +1,3 @@
-var MongoClient = require("mongodb").MongoClient;
-
 const DB = require("./config");
 
 const mongodb = require("mongodb");

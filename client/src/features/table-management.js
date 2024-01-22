@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import Table from "../components/table-management/table";
+import Table from "../components/table-management/Table";
 
 function TableManagement() {
   return (

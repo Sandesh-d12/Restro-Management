@@ -12,7 +12,7 @@ import { LogIn } from "./features/users/logIn/LogIn";
 
 function AllRoute() {
   const userString = localStorage.getItem("user") ?? null;
-  // console.log("route", userString);
+  console.log("route", userString);
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
   return (
@@ -29,7 +29,7 @@ function AllRoute() {
             <Route path="*" element={<Dashboard />} />
           </Route>
         </>
-      )}{" "}
+      )}
       {!user && (
         <>
           <Route path="/" element={<LogIn />} />

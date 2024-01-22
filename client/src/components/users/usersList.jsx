@@ -88,10 +88,8 @@ const PaginationButton = styled.button`
   }
 `;
 
-function UsersList() {
-  const { data1 } = useAllUsers();
-  console.log("allUsers", data1);
-  const data = React.useMemo(() => usersData, []);
+function UsersList({ data }) {
+  const data1 = React.useMemo(() => data, []);
 
   const handleEdit = () => {
     return; //
@@ -107,12 +105,16 @@ function UsersList() {
       //   Cell: ({ row }) => <Image></Image>,
       // },
       {
+        Header: "ID",
+        accessor: "_id",
+      },
+      {
         Header: "First Name",
         accessor: "firstName",
       },
       {
         Header: "Last Name",
-        accessor: "firstName",
+        accessor: "lastName",
       },
       {
         Header: "User Email",
@@ -154,16 +156,16 @@ function UsersList() {
     canNextPage,
     canPreviousPage,
     state,
-  } = useTable({ columns, data }, usePagination);
+  } = useTable({ columns, data1 }, usePagination);
 
   return (
     <div className="App">
       <TableWrapper>
         <Ctable {...getTableProps()}>
           <thead>
-            {headerGroups.map((headerGroup) => (
+            {headerGroups?.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+                {headerGroup?.headers?.map((column) => (
                   <Th {...column.getHeaderProps()}>
                     {column.render("Header")}
                   </Th>
@@ -176,24 +178,8 @@ function UsersList() {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <Td
-                      {...cell.getCellProps()}
-                      className={
-                        cell.column.Header === "Image" ? "image-cell" : ""
-                      }
-                    >
-                      {cell.column.Header === "Image" ? (
-                        <div
-                          className={styles.imageBackground}
-                          style={{
-                            backgroundImage: `url(${row.original.image})`,
-                          }}
-                        />
-                      ) : (
-                        cell.render("Cell")
-                      )}
-                    </Td>
+                  {row?.cells?.map((cell) => (
+                    <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
                   ))}
                 </tr>
               );

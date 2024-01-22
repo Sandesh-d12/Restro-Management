@@ -9,11 +9,12 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import * as React from "react";
 import PlaceOrderModal from "./orderModal";
+import { useParams } from "react-router-dom";
 
-export default function Products({ title, subHeader, description }) {
+export default function Products({ Id, title, subHeader, description }) {
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
+  const handleOpen = (e) => {
     setOpen(true);
   };
 
@@ -37,9 +38,9 @@ export default function Products({ title, subHeader, description }) {
         }
         action={<IconButton aria-label="settings"></IconButton>}
         title={title}
-        subheader={subHeader}
+        subheader={`price:${subHeader}`}
       />
-      <Button onClick={handleOpen}>
+      <Button onClick={(e) => handleOpen(e)}>
         <CardMedia
           component="img"
           height="104"
@@ -49,10 +50,15 @@ export default function Products({ title, subHeader, description }) {
       </Button>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {description}
+          Available Quantity: {description}
         </Typography>
       </CardContent>
-      <PlaceOrderModal open={open} handleClose={handleClose} />
+      <PlaceOrderModal
+        title={title}
+        id={Id}
+        open={open}
+        handleClose={handleClose}
+      />
     </Card>
   );
 }

@@ -7,7 +7,7 @@ function FoodMenu() {
       <FoodMenuCard
         title="Delicious Pizza"
         description="A mouthwatering pizza topped with fresh ingredients."
-        imageSrc="/path/to/pizza.jpg" // Replace with your image path
+        imageSrc="/path/to/pizza.jpg" 
       />
     </div>
   );
