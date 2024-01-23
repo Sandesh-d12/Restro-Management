@@ -1,13 +1,16 @@
 import React from "react";
-import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
+import { Formik } from "../../components/FormContext/formContext";
+import { useAddNewProduct } from "../react-query/products";
 
 export default function AddProduct(){
-
+const addNewProduct = useAddNewProduct()
   const handleSubmit = (values) => {
     try {
       
+        addNewProduct.mutate(values)
+    window.location.reload()
     } catch (error) {
       alert(error.message);
     }
@@ -21,16 +24,19 @@ export default function AddProduct(){
       }}
       validationSchema={Yup.object({
         name: Yup.string()
-          .max(15, "Must be 15 characters or less")
-          .required("First Name is Required Field"),
-       price: Yup.string()
-          .max(20, "Must be 20 characters or less")
-          .required("Last Name is Required Field"),
+          .max(35, "Must be 15 characters or less")
+          .required("Product Name is Required Field"),
+       price: Yup.number()
+  
+          .required("Price is Required Field"),
+          quantity: Yup.number()
+    
+          .required("Quantity is Required Field"),
 
       })}
       onSubmit={(values) => {
         handleSubmit(values);
-        window.location.reload()
+      
       }}
     >
       {(formik) => (
@@ -49,7 +55,7 @@ export default function AddProduct(){
             <span
               style={{ fontSize: "20px", fontWeight: 700, color: "#042848eb" }}
             >
-              Invite User
+           Add New Product
             </span>
             <label htmlFor="name"> Name</label>
             <input
@@ -93,7 +99,7 @@ export default function AddProduct(){
               type="submit"
               variant='outlined'
             >
-              Sign Up
+             Add Product
             </Button>
           </div>
         </form>

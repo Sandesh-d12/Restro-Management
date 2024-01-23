@@ -48,10 +48,38 @@ const updateProduct = async (productData) => {
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
   const updatedProduct = useMutation(updateProduct, {
+  
+  });
+
+  return updatedProduct;
+};
+
+const addNewProduct = async (data) => {
+  const response = await fetch(
+    "http://localhost:3001/api/product/addNewProduct",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify(data)
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+};
+
+export const useAddNewProduct = () => {
+  const queryClient = useQueryClient();
+  const updatedProduct = useMutation(addNewProduct, {
     onSuccess: () => {
       //   queryClient.invalidateQueries("updateProduct");
 
-      toast.success("product updated successfully");
+      toast.success("product added successfully");
+        window.location.reload()
     },
   });
 

@@ -1,18 +1,15 @@
 import React from "react";
-import UsersList from "../components/users/usersList";
 import { useAllUsers } from "./react-query/users";
 import { CiTrash } from "react-icons/ci";
-import { FaEye } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
-import UserDrawer from "../components/users/Drawer";
 import AllDrawer from "../components/food-menu/Drawer";
+import { useNavigate } from "react-router-dom";
 
-const Button = ({ type }) => {
+const Button = ({ type,id }) => {
+  const navigate = useNavigate();
   switch (type) {
-    case "view":
-      return <FaEye />;
     case "edit":
-      return <RiPencilFill />;
+      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)}><RiPencilFill /></button>
     case "delete":
       return <CiTrash />;
   }
@@ -20,8 +17,15 @@ const Button = ({ type }) => {
 
 function Users() {
   const { data, isError, isLoading } = useAllUsers();
+
   if (isLoading) {
     return <h3>Loading ...</h3>;
+  }
+
+  const handleEdit = (e) => {
+    const v = e.target.value
+    console.log(v)
+    // navigate(`/editUser/${id}`)
   }
   return (
     <div
@@ -60,8 +64,7 @@ function Users() {
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <>
-              <tr>
+              <tr key={index}>
                 <td style={{ padding: "8px" }}>{index + 1}</td>
                 <td style={{ padding: "8px" }}>{d.firstName} {d.lastName}</td>
                 <td style={{ padding: "8px" }}>{d.email}</td>
@@ -70,14 +73,13 @@ function Users() {
                     padding: "8px",
                   }}
                 >
-                  <div style={{display:"flex", justifyContent:"space-between"}}>
-                  <Button type="view" />
-                  <Button type="edit" />
+                  <div style={{display:"flex", justifyContent:"space-evenly"}}>
+                
+                  <Button type="edit" id={d._id} />
                   <Button type="delete" />
                   </div>
                 </td>
               </tr>
-            </>
           ))}
         </tbody>
       </table>

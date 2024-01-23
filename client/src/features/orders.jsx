@@ -6,7 +6,12 @@ import { Button } from "@mui/material";
 import ProductDrawer from "../components/food-menu/Drawer";
 
 const Orders = () => {
-  const { data } = useGetProducts();
+  const { data, isLoading } = useGetProducts();
+  if(isLoading){
+    return (
+      <h3>Loading...</h3>
+    )
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -19,7 +24,7 @@ const Orders = () => {
         }}
       >
         <h1>Available Items</h1>
-       <ProductDrawer />
+       <ProductDrawer type={'product'}/>
       </div>
       <div className={styles.card}>
         {data?.map((p, index) => (

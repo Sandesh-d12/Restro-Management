@@ -2,7 +2,7 @@ import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import { SignUp } from '../../features/users/SignUp/SignUp';
-import  {AddProduct}  from '../../features/product/AddProduct';
+import AddProduct  from '../../features/product/AddProduct';
 
 
 export default function AllDrawer({type}) {

@@ -9,6 +9,7 @@ import TableManagement from "./features/table-management";
 import Users from "./features/users";
 import { SignUp } from "./features/users/SignUp/SignUp";
 import { LogIn } from "./features/users/logIn/LogIn";
+import EditUsers from "./features/users/edit/EditUsers";
 
 function AllRoute() {
   const userString = localStorage.getItem("user") ?? null;
@@ -26,6 +27,7 @@ function AllRoute() {
             <Route path="/users" element={<Users />} />
             <Route path="/foodMenu" element={<FoodMenu />} />
             <Route path="/profile" element={<Details />} />
+            <Route path="/editUser/:id" element={<EditUsers />} />
             <Route path="*" element={<Dashboard />} />
           </Route>
         </>
