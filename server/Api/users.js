@@ -43,4 +43,13 @@ async function getAll(req, res) {
   }
 }
 
-module.exports = { addUser, logIn, getAll };
+async function removeUser(req, res){
+  try{
+    const result = await userService.removeUser();
+    res.status(200).json(result);
+  }catch(err){
+    res.status(400).json(err.message);
+  }
+}
+
+module.exports = { addUser, logIn, getAll, removeUser };

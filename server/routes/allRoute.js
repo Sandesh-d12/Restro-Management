@@ -6,6 +6,7 @@ const productApi = require("../Api/products");
 router.post("/user/addUser", userApi.addUser);
 router.post("/user/login", userApi.logIn);
 router.get("/user/getUsers", userApi.getAll);
+router.get("/user/removeUser/:id", userApi.removeUser);
 
 //PRODUCT
 router.post("/product/addNewProduct", productApi.addNewProduct);

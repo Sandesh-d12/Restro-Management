@@ -39,14 +39,21 @@ async function signUp(firstName, lastName, email, password, userType) {
 
 async function removeUser(id) {
   try {
-    if (await user.removeUser(id)) {
+    const selectedUser = await user.findUserFromId(id)
+    console.log('sU',selectedUser)
+    const role = selectedUser?.userType
+    console.log('role',role)
+    if(role == 'waiter' || role == 'cashier'){
+      await user.removeUser(id)
       return "user removed successfully";
+    }else{
+      return 'Can not delete Admin';
     }
   } catch (err) {
     throw err;
   }
 }
-
+removeUser('65ad0ecb0910953cebf3864d')
 async function getAll() {
   try {
     const users = await user.getUsers();

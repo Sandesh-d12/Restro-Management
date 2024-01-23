@@ -39,6 +39,21 @@ async function findUserFromEmail(email) {
   }
 }
 
+async function findUserFromId(id) {
+  try {
+    let db = await DB.db_connect("users");
+    console.log(id)
+    let user = await db.findOne({ _id: new mongodb.ObjectId(id) });
+    console.log('user',user)
+    if (user) {
+      return user;
+    }
+    return false;
+  } catch (err) {
+    throw err;
+  }
+}
+ findUserFromId('65ad0ecb0910953cebf3864d');
 async function addUser(userData) {
   try {
     let db = await DB.db_connect("users");
@@ -53,12 +68,12 @@ async function addUser(userData) {
 async function removeUser(user_id) {
   try {
     let db = await DB.db_connect("users");
-    const user = await db.findOne({ _id: new mongodb.ObjectId(user_id) });
-    if (user) {
+    // const user = await db.findOne({ _id: new mongodb.ObjectId(user_id) });
+    // if (user) {
       const result = await db.deleteOne({ _id: new mongodb.ObjectId(user_id) });
       return result.acknowledged;
-    }
-    throw new Error("error while removing product");
+    // }
+    // throw new Error("error while removing product");
   } catch (err) {
     throw err;
   }
@@ -70,4 +85,5 @@ module.exports = {
   addUser,
   findUserFromEmail,
   removeUser,
+  findUserFromId
 };

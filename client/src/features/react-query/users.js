@@ -24,7 +24,6 @@ export const useCreateUserMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
       toast.success("user created successfully");
-      navigate("/");
     },
   });
 

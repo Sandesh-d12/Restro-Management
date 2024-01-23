@@ -89,8 +89,9 @@ const PaginationButton = styled.button`
 `;
 
 function UsersList({ data }) {
+  console.log("table", data);
   const data1 = React.useMemo(() => data, []);
-
+  console.log("data1", data1);
   const handleEdit = () => {
     return; //
   };
@@ -129,18 +130,18 @@ function UsersList({ data }) {
         Header: "User Role",
         accessor: "userType",
       },
-      {
-        Header: "Action",
-        accessor: "action",
-        Cell: ({ row }) => (
-          <ActionButtons>
-            <StyledButton onClick={() => handleEdit(row)}>Edit</StyledButton>
-            <StyledButton onClick={() => handleDelete(row)}>
-              Delete
-            </StyledButton>
-          </ActionButtons>
-        ),
-      },
+      // {
+      //   Header: "Action",
+      //   accessor: "action",
+      //   Cell: ({ row }) => (
+      //     <ActionButtons>
+      //       <StyledButton onClick={() => handleEdit(row)}>Edit</StyledButton>
+      //       <StyledButton onClick={() => handleDelete(row)}>
+      //         Delete
+      //       </StyledButton>
+      //     </ActionButtons>
+      //   ),
+      // },
     ],
     []
   );
@@ -166,8 +167,8 @@ function UsersList({ data }) {
             {headerGroups?.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup?.headers?.map((column) => (
-                  <Th {...column.getHeaderProps()}>
-                    {column.render("Header")}
+                  <Th {...columns.getHeaderProps()}>
+                    {columns.render("Header")}
                   </Th>
                 ))}
               </tr>
@@ -186,7 +187,7 @@ function UsersList({ data }) {
             })}
           </tbody>
         </Ctable>
-        <PaginationWrapper>
+        {/* <PaginationWrapper>
           <PaginationButton
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
@@ -197,7 +198,7 @@ function UsersList({ data }) {
           <PaginationButton onClick={() => nextPage()} disabled={!canNextPage}>
             Next
           </PaginationButton>
-        </PaginationWrapper>
+        </PaginationWrapper> */}
       </TableWrapper>
     </div>
   );
