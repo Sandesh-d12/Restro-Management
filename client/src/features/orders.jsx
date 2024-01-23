@@ -3,6 +3,7 @@ import styles from "./styles/orders.module.css";
 import Products from "../components/products";
 import { useGetProducts } from "./react-query/products";
 import { Button } from "@mui/material";
+import ProductDrawer from "../components/food-menu/Drawer";
 
 const Orders = () => {
   const { data } = useGetProducts();
@@ -18,9 +19,7 @@ const Orders = () => {
         }}
       >
         <h1>Available Items</h1>
-        <Button variant="outlined" style={{ padding: "12px" }}>
-          Add Items
-        </Button>
+       <ProductDrawer />
       </div>
       <div className={styles.card}>
         {data?.map((p, index) => (

@@ -5,6 +5,7 @@ import { CiTrash } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 import UserDrawer from "../components/users/Drawer";
+import AllDrawer from "../components/food-menu/Drawer";
 
 const Button = ({ type }) => {
   switch (type) {
@@ -38,7 +39,8 @@ function Users() {
       <span style={{ fontSize: "24px", fontWeight: 500 }}>
         Users Management
       </span>
-      <UserDrawer />
+      {/* <UserDrawer /> */}
+      <AllDrawer type={'user'} />
       </div>
       <table
         border={1}
