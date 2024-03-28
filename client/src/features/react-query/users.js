@@ -31,6 +31,7 @@ export const useCreateUserMutation = () => {
 };
 
 const logIn = async (userData) => {
+
   const response = await fetch("http://localhost:3001/api/user/login", {
     method: "POST",
     headers: {
@@ -46,7 +47,9 @@ const logIn = async (userData) => {
 };
 
 export const useLoginUser = (userData) => {
+
   const loginUser = useQuery("login", () => logIn(userData), {
+    retry:false,
     onSuccess: () => {
       toast.success("Successfully logged in");
     },
@@ -55,7 +58,7 @@ export const useLoginUser = (userData) => {
     },
   });
 
-  return loginUser;
+  return loginUser
 };
 
 const getAll = async () => {
@@ -77,4 +80,51 @@ export const useAllUsers = () => {
   const allUser = useQuery("getAll", () => getAll(), {});
 
   return allUser;
+};
+
+
+const updateUser = async (userData) => {
+
+  const response = await fetch(`http://localhost:3001/api/user/updateUser/${userData?.id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData.values),
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+};
+
+export const useUpdateUserMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const createPostMutation = useMutation(updateUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("user");
+      toast.success("user updated successfully");
+    },
+  });
+
+  return createPostMutation;
+};
+
+export const removeUser = async (email) => {
+  const response = await fetch(
+    `http://localhost:3001/api/user/removeUser/${email}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
 };

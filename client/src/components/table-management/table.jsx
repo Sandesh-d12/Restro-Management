@@ -82,7 +82,7 @@ const PaginationButton = styled.button`
 
 function Table() {
   const { open, handleClose, handleOpen } = useModal(false);
-  console.log(tableData);
+
   const data = React.useMemo(() => tableData, []);
 
   const handleEdit = () => {

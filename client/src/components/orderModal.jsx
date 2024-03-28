@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function PlaceOrderModal({ id, open, handleClose, title }) {
-  console.log(id);
+
   const updateProduct = useUpdateProduct();
   const formik = useFormik({
     initialValues: {

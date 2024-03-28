@@ -10,6 +10,7 @@ export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
+
   const ctx = React.useContext(AuthContext);
   const navigate = useNavigate();
 

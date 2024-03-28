@@ -23,7 +23,10 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   align-items: center;
   padding-left: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+  height:100vh
 }

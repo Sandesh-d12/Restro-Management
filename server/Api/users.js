@@ -6,7 +6,7 @@ const userService = require("../Service/userService");
 async function addUser(req, res) {
   try {
     const data = req.body;
-    console.log(data);
+
     const result = await userService.signUp(
       data.firstName,
       data.lastName,
@@ -52,4 +52,15 @@ async function removeUser(req, res){
   }
 }
 
-module.exports = { addUser, logIn, getAll, removeUser };
+async function updateUser(req, res) {
+  try {
+    const user_id = req.params.id;
+    const data = req.body;
+    const result = await userService.updateUser(user_id, data);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+}
+
+module.exports = { addUser, logIn, getAll, removeUser, updateUser };

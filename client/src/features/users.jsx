@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAllUsers } from "./react-query/users";
 import { CiTrash } from "react-icons/ci";
 import { RiPencilFill } from "react-icons/ri";
 import AllDrawer from "../components/food-menu/Drawer";
 import { useNavigate } from "react-router-dom";
+import { removeUser } from "./react-query/users";
 
-const Button = ({ type,id }) => {
+const Button = ({ type,id, onClick }) => {
   const navigate = useNavigate();
   switch (type) {
     case "edit":
       return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)}><RiPencilFill /></button>
     case "delete":
-      return <CiTrash />;
+      return <button onClick={onClick}><CiTrash  />;</button>
   }
 };
 
 function Users() {
   const { data, isError, isLoading } = useAllUsers();
 
+const exceptAdmin = data?.filter((d)=>((
+  d.userType !== 'admin'
+)))
+
   if (isLoading) {
     return <h3>Loading ...</h3>;
   }
 
   const handleEdit = (e) => {
-    const v = e.target.value
-    console.log(v)
-    // navigate(`/editUser/${id}`)
+
+  }
+
+  const handleDelete = (id) =>{
+
+removeUser(id)
   }
   return (
     <div
@@ -59,15 +67,17 @@ function Users() {
             <th style={{ padding: "8px" }}>Name</th>
           
             <th style={{ padding: "8px" }}>Email</th>
+            <th style={{ padding: "8px" }}>Role</th>
             <th style={{ padding: "8px" }}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((d, index) => (
+          {exceptAdmin?.map((d, index) => (
               <tr key={index}>
                 <td style={{ padding: "8px" }}>{index + 1}</td>
                 <td style={{ padding: "8px" }}>{d.firstName} {d.lastName}</td>
                 <td style={{ padding: "8px" }}>{d.email}</td>
+                <td style={{ padding: "8px" }}>{d.userType}</td>
                 <td
                   style={{
                     padding: "8px",
@@ -76,7 +86,7 @@ function Users() {
                   <div style={{display:"flex", justifyContent:"space-evenly"}}>
                 
                   <Button type="edit" id={d._id} />
-                  <Button type="delete" />
+                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/>
                   </div>
                 </td>
               </tr>

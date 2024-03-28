@@ -27,7 +27,7 @@ export const useGetProducts = () => {
 
 const updateProduct = async (productData) => {
   const ID = productData?.id;
-  console.log("IDD", productData);
+
   const response = await fetch(
     `http://localhost:3001/api/product/updateProduct/${ID}`,
     {

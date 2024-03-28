@@ -16,14 +16,17 @@ export default function NavBar({ child }) {
       onClick: () => {
         navigate("/dashboard");
       },
+      type:'admin'
+     
     },
     {
       id: 2,
-      title: "Items",
+      title: "Orders",
       icon: "",
       onClick: () => {
-        navigate("/orders");
+        navigate("/order");
       },
+      type:'waiter'
     },
     {
       id: 3,
@@ -32,6 +35,7 @@ export default function NavBar({ child }) {
       onClick: () => {
         navigate("/tables");
       },
+      type:'cashier'
     },
     {
       id: 4,
@@ -40,14 +44,16 @@ export default function NavBar({ child }) {
       onClick: () => {
         navigate("/users");
       },
+      type:"admin"
     },
     {
       id: 5,
       title: "Food Menu",
       icon: "",
       onClick: () => {
-        navigate("#");
+        navigate("/orders");
       },
+      type:'waiter'
     },
     {
       id: 6,

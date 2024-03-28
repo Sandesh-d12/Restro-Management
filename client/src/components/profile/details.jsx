@@ -7,12 +7,13 @@ const Details = () => {
   const [displaySubmit, setDisplaySubmit] = useState(false);
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-  console.log("user", user.data.firstName);
+
   const formik = useFormik({
     initialValues: {
-      name: user?.data?.firstName,
+      name: user?.data?.firstName +  user?.data?.lastName,
       contactNo: "",
       email: user?.data?.email,
+      userType:user?.data?.userType
       // password: "foobar",
     },
     // validationSchema: validationSchema,
@@ -118,6 +119,22 @@ const Details = () => {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
+           <span
+            style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
+          >
+            {" "}
+           Role
+          </span>
+          <TextField
+            fullWidth
+            id="role"
+            name="role"
+            value={formik.values?.userType}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.userType && Boolean(formik.errors.userType)}
+            helperText={formik.touched.userType && formik.errors.userType}
+          />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
@@ -127,12 +144,9 @@ const Details = () => {
             fullWidth
             id="password"
             name="password"
-            type="password"
+            type="text"
             value={formik.values.password}
             onChange={formik.handleChange}
-            // onBlur={formik.handleBlur}
-            // error={formik.touched.password && Boolean(formik.errors.password)}
-            // helperText={formik.touched.password && formik.errors.password}
           />
           {displaySubmit === true ? (
             <div style={{ display: "flex", justifyContent: "space-between" }}>

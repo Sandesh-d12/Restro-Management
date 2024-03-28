@@ -26,6 +26,7 @@ async function addProduct(name, price, quantity) {
     throw err;
   }
 }
+// addProduct('Momo', 150, 300)
 
 async function updateProduct(productId, productInfo) {
   try {
@@ -39,7 +40,8 @@ async function updateProduct(productId, productInfo) {
 }
 
 const data = { quantity: 60, price: 5000 };
-updateProduct("65ae4a871657fb513becc080", data);
+updateProduct('65f023f8c8187944cd1cdb54',data )
+
 
 module.exports = {
   getProducts,

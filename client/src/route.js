@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import NavBar from "./components/Nav-Bar";
 import Details from "./components/profile/details";
 import FoodMenu from "./features/FoodMenu";
@@ -11,26 +11,24 @@ import { SignUp } from "./features/users/SignUp/SignUp";
 import { LogIn } from "./features/users/logIn/LogIn";
 import EditUsers from "./features/users/edit/EditUsers";
 
+
 function AllRoute() {
   const userString = localStorage.getItem("user") ?? null;
-  console.log("route", userString);
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
   return (
     <Routes>
       {user && (
-        <>
-          <Route element={<NavBar />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/tables" element={<TableManagement />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/foodMenu" element={<FoodMenu />} />
-            <Route path="/profile" element={<Details />} />
-            <Route path="/editUser/:id" element={<EditUsers />} />
-            <Route path="*" element={<Dashboard />} />
-          </Route>
-        </>
+        <Route element={<NavBar />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/tables" element={<TableManagement />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/foodMenu" element={<FoodMenu />} />
+          <Route path="/profile" element={<Details />} />
+          <Route path="/editUser/:id" element={<EditUsers />} />
+          <Route path="*" element={<Dashboard />} />
+        </Route>
       )}
       {!user && (
         <>

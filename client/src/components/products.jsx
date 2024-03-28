@@ -26,8 +26,6 @@ export default function Products({ Id, title, subHeader, description }) {
     <Card
       sx={{
         minWidth: "200px",
-        minWidth: "200px",
-        padding: "15px",
       }}
     >
       <CardHeader
@@ -52,6 +50,7 @@ export default function Products({ Id, title, subHeader, description }) {
         <Typography variant="body2" color="text.secondary">
           Available Quantity: {description}
         </Typography>
+        <Button>Order</Button>
       </CardContent>
       <PlaceOrderModal
         title={title}

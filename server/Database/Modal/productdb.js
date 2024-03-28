@@ -39,6 +39,8 @@ async function updateProduct(productId, productInfo) {
     throw err;
   }
 }
+
+
 module.exports = {
   getProducts,
   addProduct,

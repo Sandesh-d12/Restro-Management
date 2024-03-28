@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 
 export const useModal = (initialValue) => {
   const [open, setOpen] = useState(initialValue);
-  console.log(open);
+
   const handleClose = () => {
     setOpen(false);
   };

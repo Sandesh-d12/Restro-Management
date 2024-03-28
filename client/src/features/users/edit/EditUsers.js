@@ -3,28 +3,27 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
-import { useAllUsers } from "../../react-query/users";
+import { useAllUsers, useUpdateUserMutation } from "../../react-query/users";
 
 
 const EditUsers = () => {
     const { data, isError, isLoading } = useAllUsers();
+    const updateUser = useUpdateUserMutation()
     const {id} = useParams();
-    console.log(id)
-
- 
     const singleUser = data.find((user)=>user._id === id)
-    console.log('singleUser',singleUser)
+
   const formik = useFormik({
     initialValues: {
-      name: singleUser?.firstName,
-      contactNo: "",
+      firstName: singleUser?.firstName,
+      lastName:singleUser?.lastName,
       email: singleUser.email,
       password: singleUser.password,
     },
     // validationSchema: validationSchema,
     onSubmit: (values) => {
+      updateUser.mutate({values, id})
       alert(JSON.stringify(values, null, 2));
-      setDisplaySubmit(false);
+      // setDisplaySubmit(false);
     },
   });
 
@@ -33,7 +32,8 @@ const EditUsers = () => {
   };
 
   const handleCancel = () => {
-    setDisplaySubmit(false);
+    // setDisplaySubmit(false);
+    return
   };
 
   return (
@@ -76,25 +76,25 @@ const EditUsers = () => {
             }}
           >
             {" "}
-            Name
+           First Name
           </span>
           <TextField
             fullWidth
-            id="name"
-            name="name"
-            value={formik.values.name}
+            id="fName"
+            name="fName"
+            value={formik.values.firstName}
             onChange={formik.handleChange}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
-            Contact Number
+            lastName
           </span>
           <TextField
             fullWidth
-            id="contact"
-            name="contact"
-            value={formik.values.contactNo}
+            id="lName"
+            name="lName"
+            value={formik.values.lastName}
             onChange={formik.handleChange}
           />
           <span

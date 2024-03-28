@@ -89,9 +89,7 @@ const PaginationButton = styled.button`
 `;
 
 function UsersList({ data }) {
-  console.log("table", data);
   const data1 = React.useMemo(() => data, []);
-  console.log("data1", data1);
   const handleEdit = () => {
     return; //
   };

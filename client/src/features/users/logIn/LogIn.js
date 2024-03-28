@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useLoginUser } from "../../react-query/users";
+import { useNavigate } from "react-router-dom";
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -10,27 +11,31 @@ const schema = Yup.object().shape({
     .email("Invalid email format"),
   password: Yup.string()
     .required("Password is a required field")
-    .min(8, "Password must be at least 8 characters"),
+    
 });
 
 export const LogIn = () => {
-  const [userData, setUserData] = React.useState("");
+  const initialValues= {
+    email: "",
+    password: "",
+  }
+  const [userData, setUserData] = React.useState(initialValues);
+  const navigate = useNavigate();
   const { data } = useLoginUser(userData);
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues: initialValues,
+    validationSchema:schema,
     onSubmit: (values) => {
-      console.log(values);
       setUserData(values);
       if (data) {
         localStorage.setItem("user", JSON.stringify(data));
         navigate("/dashboard");
-        window.location.reload();
+        window.location.reload()
       }
     },
   });
+
+
 
   return (
     <div>
@@ -52,7 +57,7 @@ export const LogIn = () => {
             padding: "45px",
             textAlign: "center",
           }}
-          noValidate
+          // noValidate
           onSubmit={formik.handleSubmit}
         >
           <span
@@ -149,3 +154,5 @@ export const LogIn = () => {
     </div>
   );
 };
+
+

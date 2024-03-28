@@ -35,25 +35,46 @@ async function signUp(firstName, lastName, email, password, userType) {
   }
 }
 
-//   signUp('sand', 'esh', 's1@gmail.com', 'abc', 'admin')
+  // signUp('sand', 'esh', 's1@gmail.com', 'abc', 'admin')
 
-async function removeUser(id) {
+async function removeUser(email) {
   try {
-    const selectedUser = await user.findUserFromId(id)
-    console.log('sU',selectedUser)
-    const role = selectedUser?.userType
-    console.log('role',role)
-    if(role == 'waiter' || role == 'cashier'){
-      await user.removeUser(id)
+  
+//     const selectedUser = await user.findUserFromEmail(email)
+
+//     const role = selectedUser?.userType
+//     const id = selectedUser._id
+// console.log(selectedUser)
+    // if(role == 'waiter' || role == 'cashier'){
+      await user.deleteUser(email)
       return "user removed successfully";
-    }else{
-      return 'Can not delete Admin';
-    }
+    // }else{
+    //   return 'can not delete user';
+    // }
   } catch (err) {
     throw err;
   }
 }
-removeUser('65ad0ecb0910953cebf3864d')
+// removeUser('nyfo@mailinator.com')
+
+async function updateUser(userInfo, id) {
+  try {
+   const a = await user.updateUser(id, userInfo)
+   if (a){
+    console.log(a)
+    return a
+   }
+    throw new Error("error while updating user")
+  } catch (err) {
+    throw err;
+  }
+}
+const data={
+  firstName:'Sandes1',
+  lastName:'random',
+}
+// updateUser('65f6ab1ded00f65a7de14f68', data)
+
 async function getAll() {
   try {
     const users = await user.getUsers();
@@ -70,4 +91,5 @@ module.exports = {
   signUp,
   removeUser,
   getAll,
+  updateUser
 };
