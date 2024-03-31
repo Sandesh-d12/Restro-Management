@@ -7,9 +7,9 @@ function Titles({ data, handleClick }) {
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
   return (
-    <div>
+    <div style={{
+    }}>
       {data.map((s, index) => {
-        // If userType is 'admin', render all items. Otherwise, match userType.
         if (user.data.userType === 'admin' || user.data.userType === s.type) {
           return (
             <div className={styles.wrapper} key={index}>
@@ -18,7 +18,7 @@ function Titles({ data, handleClick }) {
             </div>
           );
         }
-        return null; // Return null if no condition is met
+        return null;
       })}
     </div>
   );

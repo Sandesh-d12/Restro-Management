@@ -1,4 +1,4 @@
-const product = require("../Database/Modal/productdb");
+const product = require("../Database/productdb");
 
 async function getProducts() {
   try {

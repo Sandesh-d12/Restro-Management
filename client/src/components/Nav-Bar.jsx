@@ -69,10 +69,17 @@ export default function NavBar({ child }) {
     <div>
       <div className={styles.Container}>
         <div className={styles.Wrapper}>
+        <a href="/" style={{
+          cursor:"pointer",
+          textDecoration:'none'
+        }}>
           <div className={styles.ControlPanel}>
+           
             <img src="/resturant.png" width={"50px"} height={"50px"}></img>
             <span>My Restro </span>
+           
           </div>
+          </a>
           <div className={styles.right}>
             <Profile />
           </div>

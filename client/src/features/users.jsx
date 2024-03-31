@@ -12,7 +12,7 @@ const Button = ({ type,id, onClick }) => {
     case "edit":
       return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)}><RiPencilFill /></button>
     case "delete":
-      return <button onClick={onClick}><CiTrash  />;</button>
+      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick}><CiTrash  /></button>
   }
 };
 

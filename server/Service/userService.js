@@ -1,4 +1,4 @@
-const user = require("../Database/Modal/userdb");
+const user = require("../Database/userdb");
 const userModal = require("../Database/Modal/users/Users");
 
 async function signIn(email, password) {
