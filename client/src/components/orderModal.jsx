@@ -11,25 +11,46 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PlaceOrderModal({ id, open, handleClose, title }) {
+export default function PlaceOrderModal({ id, open, handleClose, title, price, quantity }) {
+
+  // const updateProduct = useUpdateProduct();
+  // const formik = useFormik({
+  //   initialValues: {
+  //     name: "",
+  //     quantity: "",
+  //     price: "",
+  //   },
+  //   onSubmit: (values) => {
+  //     try {
+  //       updateProduct.mutate({ values, id });
+  //       toast.success("product updated successfully");
+  //       window.location.reload();
+  //     } catch (error) {
+  //       toast.error(error.message);
+  //     }
+  //   },
+  // });
 
   const updateProduct = useUpdateProduct();
   const formik = useFormik({
     initialValues: {
-      name: "",
-      quantity: "",
-      price: "",
+      name: title, // Set initial value from props
+      quantity: quantity, // Set initial value from props
+      price: price, // Set initial value from props
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      quantity: Yup.number().required('Quantity is required'),
+      price: Yup.number().required('Price is required'),
+    }),
     onSubmit: (values) => {
-      try {
-        updateProduct.mutate({ values, id });
-        toast.success("product updated successfully");
-        window.location.reload();
-      } catch (error) {
-        toast.error(error.message);
-      }
+      updateProduct.mutate({ values, id });
+      toast.success("product updated successfully");
+      handleClose()
+      window.location.reload()
     },
   });
+
 
   return (
     <div>
@@ -72,6 +93,9 @@ export default function PlaceOrderModal({ id, open, handleClose, title }) {
           }}
           onSubmit={formik.handleSubmit}
         >
+
+<div style={{display:"flex", gap:"16px"}}>
+<span style={{width:"50px", textAlign:'left'}}>name</span>
           <input
             style={{
               padding: "8px",
@@ -80,31 +104,45 @@ export default function PlaceOrderModal({ id, open, handleClose, title }) {
             id="name"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Name"
+            value={formik.values.name}
           />
+          {formik.touched.name && formik.errors.name ? (
+      <div style={{ color: 'red' }}>{formik.errors.name}</div>
+    ) : null}
+</div>
+<div style={{display:'flex', gap:"16px"}}>
+          <span style={{width:"50px", textAlign:'left'}}>price</span>
           <input
             style={{
               padding: "8px",
             }}
-            type="number"
+            type="text"
+            id="name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.price}
+            // value={price}
+          />
+           {formik.touched.name && formik.errors.name ? (
+      <div style={{ color: 'red' }}>{formik.errors.name}</div>
+    ) : null}
+    </div>
+    <div  style={{display:'flex', gap:"16px"}}>
+    <span style={{width:"50px", textAlign:'left'}}>quantity</span>
+          <input
+            style={{
+              padding: "8px",
+            }}
+            type="text"
             id="quantity"
-            placeholder="Quantity"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.quantity}
           />
-          <input
-            style={{
-              padding: "8px",
-            }}
-            type="number"
-            id="price"
-            placeholder="Price"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.price}
-          />
-
+           {formik.touched.name && formik.errors.name ? (
+      <div style={{ color: 'red' }}>{formik.errors.name}</div>
+    ) : null}
+         </div>
           <button
             style={{
               padding: "10px 10px",

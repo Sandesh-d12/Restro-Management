@@ -95,7 +95,7 @@ const updateUser = async (userData) => {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-
+console.log(response.json())
   return response.json();
 };
 
@@ -107,6 +107,9 @@ export const useUpdateUserMutation = () => {
       queryClient.invalidateQueries("user");
       toast.success("user updated successfully");
     },
+    onLoading:()=>{
+
+    }
   });
 
   return createPostMutation;

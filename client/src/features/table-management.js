@@ -1,8 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import Table from "../components/table-management/Table";
+import AllDrawer from "../components/food-menu/Drawer";
 
 function TableManagement() {
+  const [open, setOpen] = React.useState(false)
   return (
     <div
       style={{
@@ -26,19 +28,7 @@ function TableManagement() {
       >
         Table Management
       </Typography>
-      {/* <Box
-        sx={{
-          // width: "70%",
-          display: "flex",
-          // padding: "40px",
-          // //   alignItems: "center",
-          // //   justifyContent: "center",
-          // position: "relative",
-          // marginLeft: "300px",
-        }}
-      > */}
       <Table />
-      {/* </Box> */}
     </div>
   );
 }

@@ -11,7 +11,7 @@ async function getUsers() {
     throw err;
   }
 }
-
+getUsers()
 async function findUserFromUserData(email, password) {
   try {
     let db = await DB.db_connect("users");

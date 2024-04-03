@@ -11,7 +11,7 @@ import * as React from "react";
 import PlaceOrderModal from "./orderModal";
 import { useParams } from "react-router-dom";
 
-export default function Products({ Id, title, subHeader, description }) {
+export default function Products({ Id, title, price, quantity }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (e) => {
@@ -36,7 +36,7 @@ export default function Products({ Id, title, subHeader, description }) {
         }
         action={<IconButton aria-label="settings"></IconButton>}
         title={title}
-        subheader={`price:${subHeader}`}
+        price={`price:${price}`}
       />
       <Button onClick={(e) => handleOpen(e)}>
         <CardMedia
@@ -48,7 +48,7 @@ export default function Products({ Id, title, subHeader, description }) {
       </Button>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Available Quantity: {description}
+          Available Quantity: {quantity}
         </Typography>
         <Button>Order</Button>
       </CardContent>
@@ -57,6 +57,8 @@ export default function Products({ Id, title, subHeader, description }) {
         id={Id}
         open={open}
         handleClose={handleClose}
+        price={price}
+        quantity={quantity}
       />
     </Card>
   );

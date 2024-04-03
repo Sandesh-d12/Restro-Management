@@ -121,7 +121,7 @@ export const SignUp = () => {
               type="submit"
               variant='outlined'
             >
-              Sign Up
+              Add User
             </Button>
           </div>
         </form>

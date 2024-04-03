@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { useAllUsers, useUpdateUserMutation } from "../../react-query/users";
 
 
@@ -18,23 +23,25 @@ const EditUsers = () => {
       lastName:singleUser?.lastName,
       email: singleUser.email,
       password: singleUser.password,
+      userType:singleUser.userType
     },
-    // validationSchema: validationSchema,
-    onSubmit: (values) => {
+    validationSchema:Yup.object({
+      firstName: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("First Name is Required Field"),
+      lastName: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Last Name is Required Field"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string().required("password is required"),
+    }),
+    onSubmit: (values, ) => {
+      
       updateUser.mutate({values, id})
-      alert(JSON.stringify(values, null, 2));
-      // setDisplaySubmit(false);
+      toast.success('user updated successfully')
+
     },
   });
-
-  const onEdit = () => {
-    setDisplaySubmit(true);
-  };
-
-  const handleCancel = () => {
-    // setDisplaySubmit(false);
-    return
-  };
 
   return (
     <div
@@ -80,8 +87,8 @@ const EditUsers = () => {
           </span>
           <TextField
             fullWidth
-            id="fName"
-            name="fName"
+            id="firstName"
+            name="firstName"
             value={formik.values.firstName}
             onChange={formik.handleChange}
           />
@@ -92,8 +99,8 @@ const EditUsers = () => {
           </span>
           <TextField
             fullWidth
-            id="lName"
-            name="lName"
+            id="lastName"
+            name="lastName"
             value={formik.values.lastName}
             onChange={formik.handleChange}
           />
@@ -113,6 +120,18 @@ const EditUsers = () => {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
+          <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    name='userType'
+    value={formik.values.userType}
+    label=""
+    onChange={formik.handleChange}
+  >
+    <MenuItem style={{textAlign:"left"}} value={'cashier'}>Cashier</MenuItem>
+    <MenuItem style={{textAlign:"left"}} value={'waiter'}>Waiter</MenuItem>
+    <MenuItem style={{textAlign:"left"}} value={'admin'}>Admin</MenuItem>
+  </Select>
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
@@ -129,17 +148,9 @@ const EditUsers = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button color="primary" variant="contained" type="submit">
+              <Button color="primary" variant="contained" onClick={formik.handleSubmit}>
                 Submit
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={handleCancel}
-              >
-                Cancel
               </Button>
             </div>
        
@@ -162,6 +173,7 @@ const EditUsers = () => {
         </div>
       </div>
     </div>
+    // </>
   );
 };
 

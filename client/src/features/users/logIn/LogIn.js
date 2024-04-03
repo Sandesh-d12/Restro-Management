@@ -11,7 +11,6 @@ const schema = Yup.object().shape({
     .email("Invalid email format"),
   password: Yup.string()
     .required("Password is a required field")
-    
 });
 
 export const LogIn = () => {

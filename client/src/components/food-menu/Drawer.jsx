@@ -3,6 +3,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import { SignUp } from '../../features/users/SignUp/SignUp';
 import AddProduct  from '../../features/product/AddProduct';
+import { AddTable } from '../table-management/AddTable';
 
 
 export default function AllDrawer({type}) {
@@ -26,6 +27,10 @@ switch(type){
             return(
                 <AddProduct />
             )
+            case 'table':
+              return(
+                <AddTable />
+              )
             case 'default':
                 break;
 }

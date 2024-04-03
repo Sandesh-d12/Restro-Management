@@ -24,15 +24,15 @@ async function addOrder(order) {
     }
   }
 
-  // async function placeOrder(order) {
-  //   try {
-  //     let db = await DB.db_connect("order");
-  //     let result = await db.insertOne(order);
-  //     return result.acknowledged;
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // }
+  async function placeOrder(order) {
+    try {
+      let db = await DB.db_connect("order");
+      let result = await db.insertOne(order);
+      return result.acknowledged;
+    } catch (err) {
+      throw err;
+    }
+  }
 
   async function findOrder(order_id) {
     try {

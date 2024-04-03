@@ -5,7 +5,9 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
+
 export default function liveTable({ data }) {
+console.log('data',data)
   return (
     <Card
       sx={{
@@ -13,7 +15,7 @@ export default function liveTable({ data }) {
         alignItems: "center",
         padding: "10px",
         minHeight: "60px",
-        backgroundColor: data.status === "booked" ? "#36b9cc" : "white",
+        backgroundColor: data.occupancy == data.tableCapacity ? "#36b9cc" : "white",
         display: "flex",
       }}
     >
@@ -39,12 +41,13 @@ export default function liveTable({ data }) {
             color="text.secondary"
             gutterBottom
           >
-            {data.title}
+           table {data.tableNumber}
           </Typography>
           <div>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {data.status}
+              {data.occupancy}/{data.tableCapacity}
             </Typography>
+       
           </div>
         </div>
       </Box>

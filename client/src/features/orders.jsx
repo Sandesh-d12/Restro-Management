@@ -12,7 +12,7 @@ const Orders = () => {
       <h3>Loading...</h3>
     )
   }
-
+console.log('data',data)
   return (
     <div className={styles.wrapper}>
       <div
@@ -32,8 +32,8 @@ const Orders = () => {
             key={index}
             Id={p?._id}
             title={p?.name}
-            subHeader={p?.price}
-            description={p?.quantity}
+            price={p?.price}
+            quantity={p?.quantity}
           />
         ))}
       </div>

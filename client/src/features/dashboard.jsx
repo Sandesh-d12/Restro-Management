@@ -3,9 +3,13 @@ import React from "react";
 import LiveTable from "../components/Card";
 import DashboardCard from "../components/dashboard/dashboardCard";
 import styles from "./styles/dashboard.module.css";
+import { useAllTable } from "./react-query/table";
 
 export default function Dashboard() {
-  const data = [
+
+  const {data} = useAllTable()
+  console.log('data',data)
+  const data1 = [
     {
       id: 1,
       title: "Table1",
@@ -113,7 +117,7 @@ export default function Dashboard() {
         <div className={styles.container}>
           <div className={styles.text}> Live Table Status </div>
           <div className={styles.card}>
-            {data.map((d, index) => (
+            {data?.map((d, index) => (
               <LiveTable data={d} key={index} />
             ))}
           </div>

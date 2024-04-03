@@ -1,179 +1,91 @@
-import tableData from "../../data/tableData.json";
-import * as React from "react";
-import { useTable, usePagination } from "react-table";
-import styled from "@emotion/styled";
-import { TableModal, useModal } from "./Modal";
-import { Modal, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { CiTrash } from "react-icons/ci";
+import { RiPencilFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import { useAllTable } from "../../features/react-query/table";
+import AllDrawer from "../food-menu/Drawer";
 
-const TableWrapper = styled.div`
-  font-family: Arial, sans-serif;
-  border-collapse: collapse;
-`;
-
-const Ctable = styled.table`
-  border-collapse: collapse;
-  margin: 10px 0;
-  min-width: 1000px;
-`;
-
-const Th = styled.th`
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 15px;
-  background-color: #f2f2f2;
-`;
-
-const Td = styled.td`
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 10px;
-`;
-
-const PaginationWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
-
-const ActionButtons = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledButton = styled.button`
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  background-color: #36b9cc;
-  color: white;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #2a8aae;
+const Button = ({ type,id, onClick }) => {
+  const navigate = useNavigate();
+  switch (type) {
+    case "edit":
+      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate('#')}><RiPencilFill /></button>
+    case "delete":
+      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick}><CiTrash  /></button>
   }
-`;
-
-const PaginationButton = styled.button`
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  background-color: #2e59d9;
-  color: white;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #2a8aae;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
-`;
+};
 
 function Table() {
-  const { open, handleClose, handleOpen } = useModal(false);
+  const { data, isError, isLoading } = useAllTable();
 
-  const data = React.useMemo(() => tableData, []);
 
-  const handleEdit = () => {
-    handleOpen();
-    return <TableModal open={open} handleClose={handleClose} />;
-  };
+  if (isLoading) {
+    return <h3>Loading ...</h3>;
+  }
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Table Name",
-        accessor: "tableName",
-      },
-      {
-        Header: "Table Capacity",
-        accessor: "tableCapacity",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-      },
+  const handleEdit = (e) => {
 
-      {
-        Header: "Action",
-        accessor: "action",
-        Cell: ({ row }) => (
-          <ActionButtons>
-            <StyledButton onClick={handleEdit}>Edit</StyledButton>
-          </ActionButtons>
-        ),
-      },
-    ],
-    []
-  );
+  }
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    state,
-  } = useTable({ columns, data }, usePagination);
+  const handleDelete = (id) =>{
 
+  }
   return (
-    <div className="App" style={{ marginLeft: "50px" }}>
-      <TableWrapper>
-        <Ctable {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <Th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </Th>
-                ))}
+    <div
+      style={{
+        width: "70%",
+        paddingLeft: "300px",
+        paddingTop: "20px",
+        textAlign: "left",
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+      }}
+    >
+      <div style={{display:"flex", justifyContent:"space-between"}}>
+      <AllDrawer type={'table'} />
+      </div>
+      <table
+        border={1}
+        style={{
+          borderCollapse: "collapse",
+          border:'1px solid #ccc'
+        }}
+      >
+        <thead style={{backgroundColor:'#eee'}}>
+          <tr>
+            <th style={{ padding: "8px" }}>S.N</th>
+            <th style={{ padding: "8px" }}>Table Number</th>
+          
+            <th style={{ padding: "8px" }}>Table Capacity</th>
+            <th style={{ padding: "8px" }}>Occupied</th>
+            <th style={{ padding: "8px" }}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.map((d, index) => (
+              <tr key={index}>
+                <td style={{ padding: "8px" }}>{index + 1}</td>
+                <td style={{ padding: "8px" }}>{d.tableNumber}</td>
+                <td style={{ padding: "8px" }}>{d.tableCapacity}</td>
+                <td style={{ padding: "8px" }}>{d.occupancy}</td>
+                <td
+                  style={{
+                    padding: "8px",
+                  }}
+                >
+                  <div style={{display:"flex", justifyContent:"space-evenly"}}>
+                
+                  <Button type="edit" id={d._id} />
+                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/>
+                  </div>
+                </td>
               </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </Ctable>
-        <PaginationWrapper>
-          <PaginationButton
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            Previous
-          </PaginationButton>
-
-          <PaginationButton onClick={() => nextPage()} disabled={!canNextPage}>
-            Next
-          </PaginationButton>
-        </PaginationWrapper>
-      </TableWrapper>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default Table;
+export default Table

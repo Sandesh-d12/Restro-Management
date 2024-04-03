@@ -8,10 +8,7 @@ async function placeOrder(user_id, payment, shipment) {
   try {
     total_cost = 0;
  
-    const cartResult = await cartData.findCart(user_id);
-    if (cartResult.status !== "active") {
-      throw new Error("no active cart found");
-    }
+   
     // for (p of cartResult.products) {
       const product_result = await productData.checkProductOnStore(p.id);
       if (product_result.quantity < p.quantity) {
@@ -20,12 +17,6 @@ async function placeOrder(user_id, payment, shipment) {
       total_cost += product_result.price * p.quantity;
       productData.decreaseQuantityOnStore(p.id, p.quantity);
     // }
-    const orderData = await Schema.orderModel(
-      cartResult,
-      total_cost,
-      payment,
-      shipment
-    );
     const result = await order.addOrder(orderData);
     if (result.acknowledged) {
       if (cartData.changeStatusOfCart(user_id)) {

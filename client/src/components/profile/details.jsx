@@ -1,25 +1,48 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import * as Yup from "yup";
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useAllUsers, useUpdateUserMutation } from "../../features/react-query/users";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Details = () => {
   const [displaySubmit, setDisplaySubmit] = useState(false);
+
+  const updateUser = useUpdateUserMutation()
+  // const { data, isError, isLoading } = useAllUsers();
+  // console.log('data',data)
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-
+const id = user?.data?._id
+// const user = data.find((user)=>user._id === id)
   const formik = useFormik({
     initialValues: {
-      name: user?.data?.firstName +  user?.data?.lastName,
-      contactNo: "",
+      firstName: user?.data?.firstName ,
+      lastName: user?.data?.lastName,
       email: user?.data?.email,
-      userType:user?.data?.userType
-      // password: "foobar",
+      userType:user?.data?.userType,
+      password: user?.data?.password,
     },
-    // validationSchema: validationSchema,
+    validationSchema:Yup.object({
+      firstName: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("First Name is Required Field"),
+      lastName: Yup.string()
+        .max(20, "Must be 20 characters or less")
+        .required("Last Name is Required Field"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string().required("password is required"),
+    }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      updateUser.mutate({values, id})
+     
       setDisplaySubmit(false);
+      toast.success('profile edited successfully')
     },
   });
 
@@ -32,6 +55,7 @@ const Details = () => {
   };
 
   return (
+    <>
     <div
       style={{
         display: "flex",
@@ -53,23 +77,23 @@ const Details = () => {
             fontSize: "24px",
             fontWeight: 500,
             marginBottom: "30px",
-            justifyContent: "space-between",
-            display: "flex",
+
           }}
         >
           <span>Profile</span>
-          <button
-            style={{
-              backgroundColor: "#36b9cc",
-              border: "1px solid #36b9cc",
+        <button
+             style={{
+               backgroundColor: "#36b9cc",
+               border: "1px solid #36b9cc",
               borderRadius: "4px",
-              padding: "8px",
+               padding: "8px",
+               display:displaySubmit ? 'none' : 'block'
             }}
-            onClick={onEdit}
-          >
-            Edit
-          </button>
-        </span>
+             onClick={onEdit}
+           >
+             Edit
+           </button>
+       </span>
         <form
           onSubmit={formik.handleSubmit}
           style={{ display: "flex", flexDirection: "column", gap: "10px" }}
@@ -82,26 +106,28 @@ const Details = () => {
             }}
           >
             {" "}
-            Name
+           First Name
           </span>
           <TextField
             fullWidth
-            id="name"
-            name="name"
-            value={formik.values.name}
+            id="firstName"
+            name="firstName"
+            value={formik.values.firstName}
+            disabled={!displaySubmit}
             onChange={formik.handleChange}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
-            Contact Number
+            lastName
           </span>
           <TextField
             fullWidth
-            id="contact"
-            name="contact"
-            value={formik.values.contactNo}
+            id="lastName"
+            name="lastName"
+            value={formik.values.lastName}
             onChange={formik.handleChange}
+            disabled={!displaySubmit}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
@@ -114,27 +140,25 @@ const Details = () => {
             id="email"
             name="email"
             value={formik.values.email}
+            disabled={!displaySubmit}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
-           <span
+           {/* <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
             {" "}
-           Role
+            userType
           </span>
           <TextField
             fullWidth
-            id="role"
-            name="role"
-            value={formik.values?.userType}
-            onChange={formik.handleChange}
+            id="email"
+            name="email"
+            value={formik.values.userType}
             onBlur={formik.handleBlur}
-            error={formik.touched.userType && Boolean(formik.errors.userType)}
-            helperText={formik.touched.userType && formik.errors.userType}
-          />
+          /> */}
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
           >
@@ -147,10 +171,16 @@ const Details = () => {
             type="text"
             value={formik.values.password}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            disabled={!displaySubmit}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
           />
-          {displaySubmit === true ? (
+          {
+            displaySubmit &&
+        
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button color="primary" variant="contained" type="submit">
+              <Button color="primary" variant="contained" onClick={formik.handleSubmit}>
                 Submit
               </Button>
               <Button
@@ -161,9 +191,8 @@ const Details = () => {
                 Cancel
               </Button>
             </div>
-          ) : (
-            ""
-          )}
+              }
+       
         </form>
       </div>
       <div>
@@ -182,7 +211,7 @@ const Details = () => {
           />
         </div>
       </div>
-    </div>
+    </div></>
   );
 };
 
