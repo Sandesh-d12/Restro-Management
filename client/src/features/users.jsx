@@ -6,13 +6,24 @@ import AllDrawer from "../components/food-menu/Drawer";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "./react-query/users";
 
-const Button = ({ type,id, onClick }) => {
+export const Button = ({ type,id, onClick}) => {
   const navigate = useNavigate();
+  const userString = localStorage.getItem("user") ?? null;
+let user = userString !== "undefined" ? JSON.parse(userString) : null;
+
+const isDisable = (userType) => {
+  if(userType === 'admin'){
+return false;
+  }
+  else{
+   return true
+  }
+}
   switch (type) {
     case "edit":
-      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)}><RiPencilFill /></button>
+      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)} disabled={isDisable(user?.userType)}><RiPencilFill /></button>
     case "delete":
-      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick}><CiTrash  /></button>
+      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick} disabled={isDisable(user?.userType)}><CiTrash  /></button>
   }
 };
 
@@ -23,6 +34,8 @@ const exceptAdmin = data?.filter((d)=>((
   d.userType !== 'admin'
 )))
 
+
+
   if (isLoading) {
     return <h3>Loading ...</h3>;
   }
@@ -30,6 +43,7 @@ const exceptAdmin = data?.filter((d)=>((
   const handleEdit = (e) => {
 
   }
+
 
   const handleDelete = (id) =>{
 
@@ -86,7 +100,7 @@ removeUser(id)
                   <div style={{display:"flex", justifyContent:"space-evenly"}}>
                 
                   <Button type="edit" id={d._id} />
-                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/>
+                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} />
                   </div>
                 </td>
               </tr>

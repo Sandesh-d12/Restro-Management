@@ -5,7 +5,7 @@ async function getUsers() {
   try {
     let db = await DB.db_connect("users");
     let user = await db.find().toArray();
-    if (user) console.log(user);
+    if (user) 
     return user;
   } catch (err) {
     throw err;
@@ -101,7 +101,6 @@ async function findUserFromId(id) {
 async function addUser(userData) {
   try {
     let db = await DB.db_connect("users");
-    console.log("userData", userData);
     let user = await db.insertOne(userData);
     return user.acknowledged;
   } catch (err) {
@@ -134,7 +133,6 @@ async function deleteUser(user_id) {
   try {
     let db = await DB.db_connect("users");
     const user = await findUserFromEmail(user_id)
-    console.log(user)
     if (user && user.userType !== 'admin') {
 
       const result = await db.deleteOne({ email: user_id });

@@ -3,7 +3,7 @@ const mongodb = require("mongodb");
 
 async function getAllTables() {
   try {
-    let db = await DB.db_connect("table");
+    const db = await DB.db_connect("tables");
     let user = await db.find().toArray();
     if (user) console.log(user);
     return user;
@@ -15,7 +15,7 @@ async function getAllTables() {
 async function findTableFromTableId(id) {
     try {
 
-      let db = await DB.db_connect("users");
+      let db = await DB.db_connect("tables");
       let user = await db.findOne({ _id: new mongodb.ObjectId(id) });
   
       if (user) {
@@ -29,7 +29,7 @@ async function findTableFromTableId(id) {
 
   async function addTable(tableData) {
     try {
-      let db = await DB.db_connect("table");
+      let db = await DB.db_connect("tables");
       let user = await db.insertOne(tableData);
       return user.acknowledged;
     } catch (err) {
@@ -39,7 +39,7 @@ async function findTableFromTableId(id) {
 
   async function updateTable(tableData, id) {
     try {
-      let db = await DB.db_connect("table");
+      let db = await DB.db_connect("tables");
       const updatedTable = await db.findOneAndUpdate(
         { _id: new mongodb.ObjectId(id) },
         { $set: tableData },

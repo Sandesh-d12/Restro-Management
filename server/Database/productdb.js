@@ -5,7 +5,33 @@ async function getProducts() {
   try {
     let db = await DB.db_connect("products");
     let products = await db.find().toArray();
-    if (products) console.log(products);
+    if (products) 
+    return products;
+  } catch (err) {
+    throw err;
+  }
+}
+
+// async function getProductById(id) {
+//   try {
+//     console.log(id)
+//     let db = await DB.db_connect("products");
+//     let products = await db.find({_id: new mongodb.ObjectId(id)}).toArray();
+//     if (products) console.log(products);
+//     return products;
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
+async function getProductById(ids) {
+  try {
+    console.log('ids',ids)
+    // const objectIds = ids.map(id => new mongodb.ObjectId(id));
+    // console.log(objectIds)
+    let db = await DB.db_connect("products");
+    let products = await db.find({ _id: new mongodb.ObjectId(ids) }).toArray();
+    if (products) 
     return products;
   } catch (err) {
     throw err;
@@ -45,4 +71,5 @@ module.exports = {
   getProducts,
   addProduct,
   updateProduct,
+  getProductById
 };

@@ -18,15 +18,16 @@ const Details = () => {
   // console.log('data',data)
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-const id = user?.data?._id
+  console.log('user',user)
+const id = user?._id
 // const user = data.find((user)=>user._id === id)
   const formik = useFormik({
     initialValues: {
-      firstName: user?.data?.firstName ,
-      lastName: user?.data?.lastName,
-      email: user?.data?.email,
-      userType:user?.data?.userType,
-      password: user?.data?.password,
+      firstName: user?.firstName ,
+      lastName: user?.lastName,
+      email: user?.email,
+      userType:user?.userType,
+      password: user?.password,
     },
     validationSchema:Yup.object({
       firstName: Yup.string()
@@ -52,6 +53,7 @@ const id = user?.data?._id
 
   const handleCancel = () => {
     setDisplaySubmit(false);
+    window.location.reload()
   };
 
   return (
@@ -127,7 +129,7 @@ const id = user?.data?._id
             name="lastName"
             value={formik.values.lastName}
             onChange={formik.handleChange}
-            disabled={!displaySubmit}
+            disabled={user?.userType !== 'admin' && !displaySubmit}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
@@ -140,7 +142,7 @@ const id = user?.data?._id
             id="email"
             name="email"
             value={formik.values.email}
-            disabled={!displaySubmit}
+            disabled={user?.userType !== 'admin' && !displaySubmit}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}

@@ -3,18 +3,26 @@ import * as Yup from "yup";
 import { Button } from "@mui/material";
 import { Formik } from "../../components/FormContext/formContext";
 import { useAddNewProduct } from "../react-query/products";
+import { toast } from "react-hot-toast";
 
 export default function AddProduct(){
-const addNewProduct = useAddNewProduct()
+const {mutate:addProduct, isError, isSuccess, isLoading} = useAddNewProduct()
   const handleSubmit = (values) => {
     try {
-      
-        addNewProduct.mutate(values)
-    window.location.reload()
+      console.log(values)
+        addProduct(values)
+        // toast.success("product added successfully");
+
     } catch (error) {
       alert(error.message);
     }
   };
+  if(isSuccess){
+    window.location.reload()
+  }
+  if(isLoading){
+    return <h1>Loading....</h1>
+  }
   return (
     <Formik
       initialValues={{

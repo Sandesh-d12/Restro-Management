@@ -27,6 +27,7 @@ async function logIn(req, res) {
     if (result) {
       res.status(200).json({
         data: result,
+        message:'User successfully logged in'
       });
     }
   } catch (err) {

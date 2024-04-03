@@ -9,9 +9,9 @@ async function addNewProduct(req, res) {
     const result = await productService.addProduct(
       data.name,
       data.price,
-      data.quantity
+      data.quantity,
     );
-    res.status(200).send(result);
+    res.status(200).send({message:result});
   } catch (err) {
     res.status(400).send(err.message);
   }

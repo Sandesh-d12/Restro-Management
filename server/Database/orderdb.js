@@ -24,15 +24,6 @@ async function addOrder(order) {
     }
   }
 
-  async function placeOrder(order) {
-    try {
-      let db = await DB.db_connect("order");
-      let result = await db.insertOne(order);
-      return result.acknowledged;
-    } catch (err) {
-      throw err;
-    }
-  }
 
   async function findOrder(order_id) {
     try {
@@ -66,5 +57,23 @@ async function addOrder(order) {
       throw err;
     }
   }
+
+  async function decreaseQuantityOnStore(product_id, quantity) {
+    console.log(product_id, quantity)
+    try {
+      let db = await DB.db_connect("products");
+      const product = await db.findOne({ _id: new mongodb.ObjectId(product_id) });
+      if (product) {
+        const res = await db.updateOne(
+          { _id: new mongodb.ObjectId(product_id) },
+          { $set: { quantity: product.quantity - quantity } }
+        );
+        return res.acknowledged;
+      }
+      throw new Error("no product found for id:" + product_id);
+    } catch (err) {
+      throw err;
+    }
+  }
   
-module.exports = {getOrder, addOrder, findOrder, updateOrder}
+module.exports = {getOrder, addOrder, findOrder, updateOrder, decreaseQuantityOnStore}

@@ -48,7 +48,7 @@ export default function Profile() {
                 fontWeight: 600,
               }}
             >
-              {user?.data?.email}
+              {user?.email}
             </div>
             <MenuItem onClick={handleViewProfile}>View Profile</MenuItem>
             <MenuItem onClick={handleLogOut}>Logout</MenuItem>

@@ -1,0 +1,35 @@
+const express = require("express");
+const router = express.Router();
+router.use(express.json());
+const orderService = require("../Service/orderService");
+
+async function placeOrder(req, res) {
+  try {
+    const data = req.body;
+    console.log('data',data)
+    const result = await orderService.placeOrder(
+        data.tableNumber,
+      data.payment,
+      data.productId,
+      data.quantity,
+     
+    );
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+}
+
+async function allOrder(req, res) {
+  try {
+    const result = await orderService.getAll();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
+
+module.exports = {
+    placeOrder,
+    allOrder
+  };

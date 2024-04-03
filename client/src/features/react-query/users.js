@@ -31,7 +31,7 @@ export const useCreateUserMutation = () => {
 };
 
 const logIn = async (userData) => {
-
+console.log('uD',userData)
   const response = await fetch("http://localhost:3001/api/user/login", {
     method: "POST",
     headers: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 
 import { Button } from "@mui/material";
@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { addTable } from "../../features/react-query/table";
 
 export const AddTable = () => {
-
+ 
   return (
     <Formik
       initialValues={{
@@ -68,6 +68,7 @@ addTable(values)
           style={{ height: "40px", marginTop: "20px", textAlign: "center", color: 'black' }}
           type="submit"
           variant='outlined'
+         
         >
           Add Table
         </Button>

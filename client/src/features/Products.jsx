@@ -5,7 +5,7 @@ import { useGetProducts } from "./react-query/products";
 import { Button } from "@mui/material";
 import ProductDrawer from "../components/food-menu/Drawer";
 
-const Orders = () => {
+const AllProducts = () => {
   const { data, isLoading } = useGetProducts();
   if(isLoading){
     return (
@@ -41,4 +41,4 @@ console.log('data',data)
   );
 };
 
-export default Orders;
+export default AllProducts;
