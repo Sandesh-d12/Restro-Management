@@ -4,7 +4,6 @@ const userModal = require("../Database/Modal/users/Users");
 async function signIn(email, password) {
   try {
     const data = await user.findUserFromUserData(email, password);
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err.message);
@@ -24,7 +23,6 @@ async function signUp(firstName, lastName, email, password, userType) {
     if (
       await user.addUser({ firstName, lastName, email, password, userType })
     ) {
-      console.log("user added");
       return "successfully signed up";
     } else {
       throw new Error("error while adding account");
