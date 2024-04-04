@@ -4,6 +4,7 @@ import { RiPencilFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
+import toast from "react-hot-toast";
 
 const Button = ({ type,id, onClick }) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Button = ({ type,id, onClick }) => {
 };
 
 function Table() {
-  const { data, isError, isLoading } = useAllTable();
+  const { data, isError, isLoading, isSuccess } = useAllTable();
 
 
   if (isLoading) {

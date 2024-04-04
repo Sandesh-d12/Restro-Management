@@ -15,8 +15,6 @@ async function signIn(email, password) {
 
 async function signUp(firstName, lastName, email, password, userType) {
   try {
-    // console.log(firstName, lastName, email, password, userType)
-    //   const customer = userModal(firstName, lastName, email, password,userType);
     if (await user.findUserFromEmail(email)) {
       throw new Error("email already exists");
     }
@@ -37,18 +35,8 @@ async function signUp(firstName, lastName, email, password, userType) {
 
 async function removeUser(email) {
   try {
-  
-//     const selectedUser = await user.findUserFromEmail(email)
-
-//     const role = selectedUser?.userType
-//     const id = selectedUser._id
-// console.log(selectedUser)
-    // if(role == 'waiter' || role == 'cashier'){
       await user.deleteUser(email)
       return "user removed successfully";
-    // }else{
-    //   return 'can not delete user';
-    // }
   } catch (err) {
     throw err;
   }

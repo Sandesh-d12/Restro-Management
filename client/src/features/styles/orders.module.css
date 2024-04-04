@@ -20,7 +20,7 @@
   padding-top: 20px;
   display: flex;
   gap: 20px;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   justify-content: center;
   /* overflow: hidden; */
@@ -28,5 +28,5 @@
   padding-left: 300px;
   overflow-y: auto;
   overflow-x: auto;
-  height:100vh
+  height:300px
 }

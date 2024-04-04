@@ -6,37 +6,24 @@ import AddProduct from "../../features/product/AddProduct";
 import { AddTable } from "../table-management/AddTable";
 import PlaceOrder from "../../features/order/PlaceOrder";
 
-export default function AllDrawer({ type, productId }) {
+export default function AllDrawer({ type}) {
   const [state, setState] = React.useState({
     right: false,
   });
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
-  // const isDisable = (process, userType) => {
-  //   if (userType === "admin") {
-  //     return false;
-  //   }if(process === 'order' || userType === 'waiter'){
-  //     return true
-  //   }else{
-  //     return false;
-  //   }
-  //   //  else {
-  //   //   return true;
-  //   // }
-  // };
 
-  const isDisable = (process, userType) => {
-    if (userType === "admin") {
-      return false;
-    } else if (process === 'order' && userType === 'waiter') {
-      return false;
-    } else if (process === 'order' && userType === 'cashier') {
+  const isDisabled = (userType) => {
+    if(userType !== 'admin'){
       return true;
-    } else {
-      return false;
+    }
+    else{
+      return false
     }
   };
+
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -55,8 +42,6 @@ export default function AllDrawer({ type, productId }) {
         return <AddProduct />;
       case "table":
         return <AddTable />;
-      case "order":
-        return <PlaceOrder productId={productId} />;
       case "default":
         break;
     }
@@ -65,27 +50,14 @@ export default function AllDrawer({ type, productId }) {
   return (
     <div>
       <React.Fragment>
-        {
-          type === 'order' && user.userType === 'cashier' ?
-          <Button
-          variant="outlined"
-          onClick={toggleDrawer("right", true)}
-          disabled={isDisable(user.userType, 'order')}
-        >
-          Add {type}
-     
-        </Button>
-           :
-           <Button
-           variant="outlined"
-           onClick={toggleDrawer("right", true)}
-           disabled={isDisable(user?.userType)}
-         >
-           Add New {type}
-      
-         </Button>
-
-           }
+            <Button
+            variant="outlined"
+            onClick={toggleDrawer("right", true)}
+            disabled={isDisabled(user.userType)}
+          >
+            Add New {type}
+       
+          </Button>
         <Drawer
           anchor={"right"}
           open={state["right"]}

@@ -67,7 +67,9 @@ removeUser(id)
       </span>
       {/* <UserDrawer /> */}
       <AllDrawer type={'user'} />
-      </div>
+      </div>{
+        exceptAdmin.length !== 0 ?
+      
       <table
         border={1}
         style={{
@@ -107,6 +109,7 @@ removeUser(id)
           ))}
         </tbody>
       </table>
+      : <p>'No active User'</p>}
     </div>
   );
 }

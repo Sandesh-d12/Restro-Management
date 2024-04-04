@@ -12,13 +12,14 @@ async function getAllTables() {
   }
 }
 
-async function findTableFromTableId(id) {
+async function findTableFromTableNumber(id) {
     try {
 
       let db = await DB.db_connect("tables");
-      let user = await db.findOne({ _id: new mongodb.ObjectId(id) });
-  
+      let user = await db.findOne({tableNumber: id });
+      console.log('user',user)
       if (user) {
+        console.log('user',user)
         return user;
       }
       return false;
@@ -58,5 +59,5 @@ async function findTableFromTableId(id) {
   
 
   module.exports={
-    getAllTables, findTableFromTableId, addTable, updateTable
+    getAllTables, findTableFromTableNumber, addTable, updateTable
   }

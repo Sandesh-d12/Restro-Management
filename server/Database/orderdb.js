@@ -6,7 +6,7 @@ const mongodb = require("mongodb")
 
 async function getOrder() {
     try {
-      let db = await DB.db_connect("order");
+      let db = await DB.db_connect("orders");
       let orders = await db.find().toArray();
       return orders;
     } catch (err) {
@@ -16,7 +16,7 @@ async function getOrder() {
  
 async function addOrder(order) {
     try {
-      let db = await DB.db_connect("order");
+      let db = await DB.db_connect("orders");
       let result = await db.insertOne(order);
       return result;
     } catch (err) {
@@ -28,7 +28,7 @@ async function addOrder(order) {
   async function findOrder(order_id) {
     try {
       console.log(order_id)
-      let db = await DB.db_connect("order");
+      let db = await DB.db_connect("orders");
 
       const order = await db.findOne({ _id:new mongodb.ObjectId(order_id)});
       console.log(order)
@@ -42,7 +42,7 @@ async function addOrder(order) {
 
   async function updateOrder(order_id, new_order) {
     try {
-      let db = await DB.db_connect("order");
+      let db = await DB.db_connect("orders");
       const order = await db.findOne({_id: new mongodb.ObjectId(order_id)})
       if (order) {
         const result = await db.updateOne(
@@ -75,5 +75,19 @@ async function addOrder(order) {
       throw err;
     }
   }
+
+  async function getProductById(ids) {
+    try {
+      console.log('ids',ids)
+      // const objectIds = ids.map(id => new mongodb.ObjectId(id));
+      // console.log(objectIds)
+      let db = await DB.db_connect("products");
+      let products = await db.find({ _id: new mongodb.ObjectId(ids) }).toArray();
+      if (products) 
+      return products;
+    } catch (err) {
+      throw err;
+    }
+  }
   
-module.exports = {getOrder, addOrder, findOrder, updateOrder, decreaseQuantityOnStore}
+module.exports = {getOrder, addOrder, findOrder, updateOrder, decreaseQuantityOnStore, getProductById}

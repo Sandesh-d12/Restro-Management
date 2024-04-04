@@ -10,7 +10,7 @@ import { red } from "@mui/material/colors";
 import * as React from "react";
 import PlaceOrderModal from "./orderModal";
 import { useParams } from "react-router-dom";
-import AllDrawer from "./food-menu/Drawer";
+import OrderDrawer from "./OrderDrawer";
 
 export default function Products({ Id, title, price, quantity }) {
   const [open, setOpen] = React.useState(false);
@@ -51,7 +51,7 @@ export default function Products({ Id, title, price, quantity }) {
         <Typography variant="body2" color="text.secondary">
           Available Quantity: {quantity}
         </Typography>
-        <AllDrawer type={'order'} productId={Id} />
+        <OrderDrawer productId={Id} />
       </CardContent>
       <PlaceOrderModal
         title={title}

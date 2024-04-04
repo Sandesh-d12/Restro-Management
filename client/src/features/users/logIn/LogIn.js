@@ -168,6 +168,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const schema = Yup.object().shape({
   email: Yup.string().required("Email is a required field").email("Invalid email format"),
@@ -197,8 +198,10 @@ export const LogIn = () => {
         });
 
         if (!response.ok) {
+          toast.error('invalid login credentials')
           throw new Error("Failed to login");
         }
+        toast.success('successfully logged in')
 
         const data = await response.json();
         console.log(data)

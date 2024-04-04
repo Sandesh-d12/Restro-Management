@@ -5,11 +5,18 @@ const productData = require("../Database/productdb");
 async function placeOrder(table_number, payment, productId, quantity) {
   try {
   
-  const product = await productData.getProductById(productId)
+  // const products= await productData.getProductById(productId)
+  // const product = products && products.filter((d)=>d.quantity)
+  const products = await productData.getProductById(productId);
+const product = products.map(product => {
+  // Destructure the product object and remove the "quantity" property
+  const { quantity, ...productWithoutQuantity } = product;
+  return productWithoutQuantity;
+});
+  console.log('pppp',product)
   total_cost = 0;
       total_cost += product.price * product.quantity;
-      // order.decreaseQuantityOnStore(productId, quantity);
-    // }
+
     const orderData = {
       table_number,
       payment,
@@ -17,15 +24,11 @@ async function placeOrder(table_number, payment, productId, quantity) {
       product,
       quantity
     }
-// console.log('oD',orderData)
     const result = await order.addOrder(orderData);
-
     if (result.acknowledged) {
-
         return { message: "order placed successfully", orderId: result.insertedId };
     }
     throw new Error("order failed");
-  // }
 } catch (err) {
     throw err;
   }
@@ -36,8 +39,7 @@ const id = ['65f0241b3768b8a73740eabe', '65f02425a6581ce199145770']
 
 // placeOrder("16", payment, '65f0241b3768b8a73740eabe', '12');
 
-// UPDATE PRODUCTS
-
+// GET ALL ORDER
 async function getAll() {
   try {
     const res_user = await order.getOrder();

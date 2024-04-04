@@ -11,6 +11,7 @@ if(allOrder){
 
   return (
     <div style={{marginLeft:"500px"}}>
+      {allOrder && allOrder?.length !== 0 ?
       <table
         border={1}
         style={{
@@ -52,6 +53,7 @@ if(allOrder){
            ))}
         </tbody>
       </table>
+      :<p>No Orders Found</p>}
     </div>
   )
 }

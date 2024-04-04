@@ -106,12 +106,14 @@ export const useUpdateUserMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
       toast.success("user updated successfully");
+  
     },
     onLoading:()=>{
 
     }
   });
-
+  // localStorage.setItem('user', JSON.stringify(createPostMutation?.data));
+  console.log('cM',createPostMutation)
   return createPostMutation;
 };
 

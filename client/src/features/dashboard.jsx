@@ -8,7 +8,7 @@ import { useAllTable } from "./react-query/table";
 export default function Dashboard() {
 
   const {data} = useAllTable()
-  console.log('data',data)
+console.log(data)
   const data1 = [
     {
       id: 1,
@@ -117,9 +117,9 @@ export default function Dashboard() {
         <div className={styles.container}>
           <div className={styles.text}> Live Table Status </div>
           <div className={styles.card}>
-            {data?.map((d, index) => (
+            {data?.length !== 0 ? data?.map((d, index) => (
               <LiveTable data={d} key={index} />
-            ))}
+            )) : <p>No table found</p>}
           </div>
         </div>
       </div>

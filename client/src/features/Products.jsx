@@ -7,12 +7,12 @@ import ProductDrawer from "../components/food-menu/Drawer";
 
 const AllProducts = () => {
   const { data, isLoading } = useGetProducts();
-  if(isLoading){
-    return (
-      <h3>Loading...</h3>
-    )
-  }
-console.log('data',data)
+  // if(isLoading){
+  //   return (
+  //     <h3>Loading...</h3>
+  //   )
+  // }
+console.log(data)
   return (
     <div className={styles.wrapper}>
       <div
@@ -27,7 +27,8 @@ console.log('data',data)
        <ProductDrawer type={'product'}/>
       </div>
       <div className={styles.card}>
-        {data?.map((p, index) => (
+        {data?.length !== 0 ? 
+        data?.map((p, index) => (
           <Products
             key={index}
             Id={p?._id}
@@ -35,7 +36,8 @@ console.log('data',data)
             price={p?.price}
             quantity={p?.quantity}
           />
-        ))}
+        ))
+        :<p>No products</p>}
       </div>
     </div>
   );
