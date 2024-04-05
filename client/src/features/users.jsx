@@ -62,9 +62,9 @@ removeUser(id)
       }}
     >
       <div style={{display:"flex", justifyContent:"space-between"}}>
-      <span style={{ fontSize: "24px", fontWeight: 500 }}>
+      <h1>
         Users Management
-      </span>
+      </h1>
       {/* <UserDrawer /> */}
       <AllDrawer type={'user'} />
       </div>{
@@ -102,7 +102,8 @@ removeUser(id)
                   <div style={{display:"flex", justifyContent:"space-evenly"}}>
                 
                   <Button type="edit" id={d._id} />
-                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} />
+                  <Button type={'delete'} />
+                  {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} disable /> */}
                   </div>
                 </td>
               </tr>

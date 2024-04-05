@@ -55,7 +55,6 @@ export const useUpdateProduct = () => {
 };
 
 const addNewProduct = async (data) => {
-  console.log('xyz',data)
   const response = await fetch(
     "http://localhost:3001/api/product/addNewProduct",
     {
@@ -78,7 +77,6 @@ export const useAddNewProduct = () => {
   const queryClient = useQueryClient();
   const addProduct = useMutation(addNewProduct, {
     onSuccess: (data) => {
-      console.log('resData',data)
       toast.success(data.message)
     },
   });

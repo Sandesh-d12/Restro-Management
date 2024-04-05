@@ -6,18 +6,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePlaceOrder } from "../react-query/order";
 
 function PlaceOrder({ productId, tableNumber }) {
-  console.log(productId);
   const { mutate: placeOrder, isError, isSuccess, isLoading } = usePlaceOrder();
 
   const methods = ["esewa", "khalti", "cash payment", "mobile banking"];
   const handleSubmit = (values) => {
     try {
-      console.log(values);
-      // alert(values)
       placeOrder(values);
-      console.log("values", values);
-
-      // toast.success("product added successfully");
     } catch (error) {
       alert(error.message);
     }
@@ -48,10 +42,28 @@ function PlaceOrder({ productId, tableNumber }) {
       >
         <>
           {/* {({ isSubmitting }) => ( */}
-          <Form>
+          <span
+            style={{
+              color: "#042848eb",
+              fontSize: "20px",
+              fontWeight: 700,
+              marginBottom: "8px",
+            }}
+          >
+            Place Order
+          </span>
+          <br />
+          <Form
+            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+          >
             <div>
               <label htmlFor="tableNumber">Table Number</label>
-              <Field as="select" name="tableNumber">
+              <br />
+              <Field
+                as="select"
+                name="tableNumber"
+                style={{ width: "100%", height: "50px" }}
+              >
                 <option value="">Select Table Number</option>
                 {tableNumber.map((item, index) => (
                   <option key={index} value={item}>
@@ -59,11 +71,16 @@ function PlaceOrder({ productId, tableNumber }) {
                   </option>
                 ))}
               </Field>
-              <ErrorMessage name="tableNumber" />
+
+              <ErrorMessage style={{ color: "red" }} name="tableNumber" />
             </div>
             <div>
               <label htmlFor="payment.type">Payment Type</label>
-              <Field as="select" name="payment.type">
+              <Field
+                as="select"
+                name="payment.type"
+                style={{ width: "100%", height: "50px" }}
+              >
                 <option value="">Select Payment Type</option>
                 {methods.map((item, index) => (
                   <option key={index} value={item}>
@@ -79,18 +96,22 @@ function PlaceOrder({ productId, tableNumber }) {
             </div>
             <div>
               <label htmlFor="quantity">Quantity</label>
-              <Field type="text" name="quantity" />
+              <Field
+                type="text"
+                name="quantity"
+                style={{ width: "100%", height: "50px" }}
+              />
               <ErrorMessage name="quantity" />
             </div>
-            <button type="submit" disabled={isLoading}>
+            <Button type="submit" variant="outlined" disabled={isLoading}>
               Submit
-            </button>
+            </Button>
           </Form>
         </>
       </Formik>
       {isSuccess && (
         <p>
-          order placed successfully, <a href="/order"> view</a>{" "}
+          order placed successfully <a href="/order"> view</a>{" "}
         </p>
       )}
     </>

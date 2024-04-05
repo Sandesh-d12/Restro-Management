@@ -5,7 +5,7 @@ import Button from "./Button";
 function Titles({ data, handleClick }) {
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
-console.log('usssss',user)
+
   return (
     <div style={{
     }}>

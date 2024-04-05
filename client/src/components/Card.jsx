@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 
 export default function liveTable({ data }) {
-console.log('data',data)
+
   return (
     <Card
       sx={{

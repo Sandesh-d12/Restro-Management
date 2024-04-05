@@ -31,7 +31,6 @@ export const useCreateUserMutation = () => {
 };
 
 const logIn = async (userData) => {
-console.log('uD',userData)
   const response = await fetch("http://localhost:3001/api/user/login", {
     method: "POST",
     headers: {
@@ -95,7 +94,6 @@ const updateUser = async (userData) => {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-console.log(response.json())
   return response.json();
 };
 
@@ -113,7 +111,7 @@ export const useUpdateUserMutation = () => {
     }
   });
   // localStorage.setItem('user', JSON.stringify(createPostMutation?.data));
-  console.log('cM',createPostMutation)
+
   return createPostMutation;
 };
 

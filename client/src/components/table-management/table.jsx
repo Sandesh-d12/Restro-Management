@@ -6,7 +6,7 @@ import { useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
 import toast from "react-hot-toast";
 
-const Button = ({ type,id, onClick }) => {
+export const Button = ({ type,id, onClick }) => {
   const navigate = useNavigate();
   switch (type) {
     case "edit":

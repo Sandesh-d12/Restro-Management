@@ -17,7 +17,7 @@ import OrderList from "./features/order/OrderList";
 function AllRoute() {
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
-console.log('uS', user)
+
   return (
     <Routes>
       {user && (

@@ -42,7 +42,6 @@ export const AddTable = () => {
         occupancy: Yup.string().required("Required"),
       })}
       onSubmit={(values) => {
-        console.log(values);
         addTable(values);
         toast.success("table added successfully");
         setReload(true)

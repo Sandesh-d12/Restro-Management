@@ -16,7 +16,7 @@ function TableManagement() {
         width: "100%",
       }}
     >
-      <Typography
+      {/* <Typography
         sx={{
           textAlign: "left",
           // paddingLeft: "300px",
@@ -27,7 +27,8 @@ function TableManagement() {
         }}
       >
         Table Management
-      </Typography>
+      </Typography> */}
+      <h1>Table Management</h1>
       <Table />
     </div>
   );

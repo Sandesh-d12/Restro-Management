@@ -21,15 +21,22 @@ export default function NavBar({ child }) {
     },
     {
       id: 2,
-      title: "Orders",
+      title: "Users",
       icon: "",
       onClick: () => {
-        navigate("/order");
+        navigate("/users");
       },
-      // type:['cashier', 'waiter']
     },
     {
       id: 3,
+      title: "Food Menu",
+      icon: "",
+      onClick: () => {
+        navigate("/products");
+      },
+    },
+    {
+      id: 4,
       title: "Table Management",
       icon: "",
       onClick: () => {
@@ -38,20 +45,13 @@ export default function NavBar({ child }) {
       // type:['cashier', 'waiter']
     },
     {
-      id: 4,
-      title: "Users",
-      icon: "",
-      onClick: () => {
-        navigate("/users");
-      },
-    },
-    {
       id: 5,
-      title: "Food Menu",
+      title: "Orders",
       icon: "",
       onClick: () => {
-        navigate("/products");
+        navigate("/order");
       },
+      // type:['cashier', 'waiter']
     },
     {
       id: 6,

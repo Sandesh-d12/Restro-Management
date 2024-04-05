@@ -17,12 +17,10 @@ const Details = () => {
   const [displaySubmit, setDisplaySubmit] = useState(false);
 
   const {mutate:updateUser, isSuccess} = useUpdateUserMutation();
-  // const { data, isError, isLoading } = useAllUsers();
-  // console.log('data',data)
-  // console.log('isSuccess',isSuccess)
+
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-  console.log("user", user);
+
   const id = user?._id;
   // const user = data.find((user)=>user._id === id)
   const formik = useFormik({
@@ -45,7 +43,6 @@ const Details = () => {
     }),
     onSubmit: (values) => {
       updateUser({ values, id });
-      console.log('uUuu',updateUser)
       setDisplaySubmit(false);
       toast.success("profile edited successfully");
     },

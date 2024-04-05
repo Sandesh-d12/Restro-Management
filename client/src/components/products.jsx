@@ -51,6 +51,9 @@ export default function Products({ Id, title, price, quantity }) {
         <Typography variant="body2" color="text.secondary">
           Available Quantity: {quantity}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Price: {price}
+        </Typography>
         <OrderDrawer productId={Id} />
       </CardContent>
       <PlaceOrderModal

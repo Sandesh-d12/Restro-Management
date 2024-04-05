@@ -3,7 +3,6 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const placeOrder = async (data) => {
-    console.log('xyz',data)
     const response = await fetch(
       "http://localhost:3001/api/order/addOrder",
       {
@@ -26,7 +25,6 @@ const placeOrder = async (data) => {
     const queryClient = useQueryClient();
     const addProduct = useMutation(placeOrder, {
       onSuccess: (data) => {
-        console.log('resData',data)
         toast.success(data.message)
       },
     });

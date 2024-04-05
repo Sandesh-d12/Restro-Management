@@ -11,46 +11,45 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PlaceOrderModal({ id, open, handleClose, title, price, quantity }) {
-
-  // const updateProduct = useUpdateProduct();
-  // const formik = useFormik({
-  //   initialValues: {
-  //     name: "",
-  //     quantity: "",
-  //     price: "",
-  //   },
-  //   onSubmit: (values) => {
-  //     try {
-  //       updateProduct.mutate({ values, id });
-  //       toast.success("product updated successfully");
-  //       window.location.reload();
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   },
-  // });
-
+export default function PlaceOrderModal({
+  id,
+  open,
+  handleClose,
+  title,
+  price,
+  quantity,
+}) {
   const updateProduct = useUpdateProduct();
   const formik = useFormik({
     initialValues: {
-      name: title, // Set initial value from props
-      quantity: quantity, // Set initial value from props
-      price: price, // Set initial value from props
+      name: title,
+      quantity: quantity,
+      price: price,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
-      quantity: Yup.number().required('Quantity is required'),
-      price: Yup.number().required('Price is required'),
+      name: Yup.string().required("Name is required"),
+      quantity: Yup.number()
+        .required("Quantity is required")
+        .test(
+          "is-number",
+          "Quantity must be a number and greater than 0",
+          (value) => !isNaN(value) && value > 0
+        ),
+      price: Yup.number()
+        .required("Price is required")
+        .test(
+          "is-number",
+          "price must be a number and greater than 0",
+          (value) => !isNaN(value) && value > 0
+        ),
     }),
     onSubmit: (values) => {
       updateProduct.mutate({ values, id });
       toast.success("product updated successfully");
-      handleClose()
-      window.location.reload()
+      handleClose();
+      window.location.reload();
     },
   });
-
 
   return (
     <div>
@@ -93,56 +92,55 @@ export default function PlaceOrderModal({ id, open, handleClose, title, price, q
           }}
           onSubmit={formik.handleSubmit}
         >
-
-<div style={{display:"flex", gap:"16px"}}>
-<span style={{width:"50px", textAlign:'left'}}>name</span>
-          <input
-            style={{
-              padding: "8px",
-            }}
-            type="text"
-            id="name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-          />
+          <div style={{ display: "flex", gap: "16px" }}>
+            <span style={{ width: "50px", textAlign: "left" }}>name</span>
+            <input
+              style={{
+                padding: "8px",
+              }}
+              type="text"
+              id="name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+            />
+          </div>
           {formik.touched.name && formik.errors.name ? (
-      <div style={{ color: 'red' }}>{formik.errors.name}</div>
-    ) : null}
-</div>
-<div style={{display:'flex', gap:"16px"}}>
-          <span style={{width:"50px", textAlign:'left'}}>price</span>
-          <input
-            style={{
-              padding: "8px",
-            }}
-            type="text"
-            id="name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.price}
-            // value={price}
-          />
-           {formik.touched.name && formik.errors.name ? (
-      <div style={{ color: 'red' }}>{formik.errors.name}</div>
-    ) : null}
-    </div>
-    <div  style={{display:'flex', gap:"16px"}}>
-    <span style={{width:"50px", textAlign:'left'}}>quantity</span>
-          <input
-            style={{
-              padding: "8px",
-            }}
-            type="text"
-            id="quantity"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.quantity}
-          />
-           {formik.touched.name && formik.errors.name ? (
-      <div style={{ color: 'red' }}>{formik.errors.name}</div>
-    ) : null}
-         </div>
+            <div style={{ color: "red" }}>{formik.errors.name}</div>
+          ) : null}
+          <div style={{ display: "flex", gap: "16px" }}>
+            <span style={{ width: "50px", textAlign: "left" }}>price</span>
+            <input
+              style={{
+                padding: "8px",
+              }}
+              type="text"
+              id="price"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.price}
+              // value={price}
+            />
+          </div>
+          {formik.touched.price && formik.errors.price ? (
+            <div style={{ color: "red" }}>{formik.errors.price}</div>
+          ) : null}
+          <div style={{ display: "flex", gap: "16px" }}>
+            <span style={{ width: "50px", textAlign: "left" }}>quantity</span>
+            <input
+              style={{
+                padding: "8px",
+              }}
+              type="text"
+              id="quantity"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.quantity}
+            />
+          </div>
+          {formik.touched.quantity && formik.errors.quantity ? (
+            <div style={{ color: "red" }}>{formik.errors.quantity}</div>
+          ) : null}
           <button
             style={{
               padding: "10px 10px",

@@ -176,14 +176,16 @@ const schema = Yup.object().shape({
 });
 
 export const LogIn = () => {
-  const [data, setData] = useState({})
+  const [reload, setReload] = useState(false)
   const initialValues = {
     email: "",
     password: ""
   };
 
   const navigate = useNavigate();
-
+if(reload){
+ window.location.reload()
+}
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: schema,
@@ -201,16 +203,17 @@ export const LogIn = () => {
           toast.error('invalid login credentials')
           throw new Error("Failed to login");
         }
-        toast.success('successfully logged in')
+        
 
         const data = await response.json();
-        console.log(data)
         localStorage.setItem("user", JSON.stringify(data?.data));
         if(data.message){
+          toast.success(data.message)
         // <Redirect to='/dashboard') /> ;
           navigate("/dashboard");
         actions.setSubmitting(false)
-        window.location.reload()
+        setReload(true)
+       
         } 
    
         
@@ -269,7 +272,7 @@ export const LogIn = () => {
       
             id="email"
           />
-          <p>{formik.errors.email && formik.touched.email && formik.errors.email}</p>
+          <p style={{color:'red'}}>{formik.errors.email && formik.touched.email && formik.errors.email}</p>
           <input
             type="password"
             name="password"
@@ -279,7 +282,7 @@ export const LogIn = () => {
             placeholder="Enter password"
           
           />
-          <p>{formik.errors.password && formik.touched.password && formik.errors.password}</p>
+          <p style={{color:'red'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</p>
           <button type="submit" >
             Login
           </button>

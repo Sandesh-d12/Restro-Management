@@ -11,7 +11,7 @@ export default function OrderDrawer({productId}) {
   const { data, isError, isLoading } = useAllTable();
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
-// console.log(data)
+
 const tableNumbers = data && data?.map(d => d.tableNumber);
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -53,7 +53,7 @@ const tableNumbers = data && data?.map(d => d.tableNumber);
           open={state["right"]}
           onClose={toggleDrawer("right", false)}
         >
-          <div style={{ width: "300px", padding: "24px" }}> <PlaceOrder tableNumber={tableNumbers} productId={productId} />;</div>
+          <div style={{ width: "300px", padding: "24px" }}> <PlaceOrder tableNumber={tableNumbers} productId={productId} /></div>
         </Drawer>
       </React.Fragment>
     </div>

@@ -8,81 +8,8 @@ import { useAllTable } from "./react-query/table";
 export default function Dashboard() {
 
   const {data} = useAllTable()
-console.log(data)
-  const data1 = [
-    {
-      id: 1,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 2,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 3,
-      title: "Table1",
-      icon: "",
-      status: "5 person",
-    },
-    {
-      id: 4,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 5,
-      title: "Table1",
-      icon: "",
-      status: "3 person",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "booked",
-    },
-    {
-      id: 6,
-      title: "Table1",
-      icon: "",
-      status: "3 person",
-    },
-  ];
+
+
   const dashboardData = [
     { id: 1, title: "Today's Sale", number: "332" },
     { id: 2, title: "Yesterday's Sale", number: "332" },
