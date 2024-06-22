@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import PlaceOrder from "../features/order/PlaceOrder";
 import { useAllTable } from "../features/react-query/table";
 
-export default function OrderDrawer({productId}) {
+export default function OrderDrawer({productId, onClick}) {
   const [state, setState] = React.useState({
     right: false,
   });
@@ -53,7 +53,7 @@ const tableNumbers = data && data?.map(d => d.tableNumber);
           open={state["right"]}
           onClose={toggleDrawer("right", false)}
         >
-          <div style={{ width: "300px", padding: "24px" }}> <PlaceOrder tableNumber={tableNumbers} productId={productId} /></div>
+          <div style={{ width: "300px", padding: "24px" }}> <PlaceOrder tableNumber={tableNumbers} productId={productId} onClick={onClick}/></div>
         </Drawer>
       </React.Fragment>
     </div>

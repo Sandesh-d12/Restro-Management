@@ -5,39 +5,36 @@ import { Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePlaceOrder } from "../react-query/order";
 
-function PlaceOrder({ productId, tableNumber }) {
+function PlaceOrder({ tableNumber, onClick }) {
   const { mutate: placeOrder, isError, isSuccess, isLoading } = usePlaceOrder();
 
-  const methods = ["esewa", "khalti", "cash payment", "mobile banking"];
-  const handleSubmit = (values) => {
-    try {
-      placeOrder(values);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  const methods = ["esewa", "khalti", "cash_payment", "mobile_banking"];
+  // const handleSubmit = (values) => {
+  //   try {
+  //     placeOrder(values);
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  // };
 
   return (
     <>
       <Formik
         initialValues={{
-          tableNumber: "",
+          table_number: "",
           payment: {
             type: "",
             status: "pending",
           },
-          productId: productId,
-          quantity: "",
         }}
         validationSchema={Yup.object({
-          tableNumber: Yup.string().required("Table Number is Required Field"),
-          quantity: Yup.number().required("Quantity is Required Field"),
+          table_number: Yup.string().required("Table Number is Required Field"),
           payment: Yup.object().shape({
             type: Yup.string().required("Payment Type is Required Field"),
           }),
         })}
         onSubmit={(values) => {
-          handleSubmit(values);
+          onClick(values );
         }}
       >
         <>
@@ -57,11 +54,11 @@ function PlaceOrder({ productId, tableNumber }) {
             style={{ display: "flex", flexDirection: "column", gap: "12px" }}
           >
             <div>
-              <label htmlFor="tableNumber">Table Number</label>
+              <label htmlFor="table_number">Table Number</label>
               <br />
               <Field
                 as="select"
-                name="tableNumber"
+                name="table_number"
                 style={{ width: "100%", height: "50px" }}
               >
                 <option value="">Select Table Number</option>
@@ -72,7 +69,7 @@ function PlaceOrder({ productId, tableNumber }) {
                 ))}
               </Field>
 
-              <ErrorMessage style={{ color: "red" }} name="tableNumber" />
+              <ErrorMessage style={{ color: "red" }} name="table_number" />
             </div>
             <div>
               <label htmlFor="payment.type">Payment Type</label>
@@ -93,15 +90,6 @@ function PlaceOrder({ productId, tableNumber }) {
                 component="div"
                 className="error-message"
               />
-            </div>
-            <div>
-              <label htmlFor="quantity">Quantity</label>
-              <Field
-                type="text"
-                name="quantity"
-                style={{ width: "100%", height: "50px" }}
-              />
-              <ErrorMessage name="quantity" />
             </div>
             <Button type="submit" variant="outlined" disabled={isLoading}>
               Submit

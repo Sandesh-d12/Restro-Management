@@ -32,7 +32,7 @@ export default function NavBar({ child }) {
       title: "Food Menu",
       icon: "",
       onClick: () => {
-        navigate("/products");
+        navigate("/menu");
       },
     },
     {

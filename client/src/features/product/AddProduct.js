@@ -3,7 +3,14 @@ import * as Yup from "yup";
 import { Button } from "@mui/material";
 import { Formik } from "../../components/FormContext/formContext";
 import { useAddNewProduct } from "../react-query/products";
-import { toast } from "react-hot-toast";
+
+const categoryOptions = [
+  { label: "Beverage", value: "beverage" },
+  { label: "Starter", value: "starter" },
+  { label: "Main Course", value: "main_course" },
+  { label: "Desserts", value: "desserts" },
+  { label: "Chef Special", value: "chef_special" },
+];
 
 export default function AddProduct() {
   const {
@@ -12,6 +19,7 @@ export default function AddProduct() {
     isSuccess,
     isLoading,
   } = useAddNewProduct();
+
   const handleSubmit = (values) => {
     try {
       addProduct(values);
@@ -19,27 +27,37 @@ export default function AddProduct() {
       alert(error.message);
     }
   };
+
   if (isSuccess) {
     window.location.reload();
   }
+
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
+
   return (
     <Formik
       initialValues={{
         name: "",
         price: "",
         quantity: "",
+        category: "", // Added category field
       }}
       validationSchema={Yup.object({
         name: Yup.string()
-          .max(35, "Must be 15 characters or less")
+          .max(35, "Must be 35 characters or less")
           .required("Product Name is Required Field"),
         price: Yup.number()
-        .required("Price is Required Field"),
+          .required("Price is Required Field"),
         quantity: Yup.number()
-        .required("Quantity is Required Field"),
+          .required("Quantity is Required Field"),
+        category: Yup.string()
+          .oneOf(
+            categoryOptions.map(option => option.value),
+            "Invalid Category"
+          )
+          .required("Category is Required Field"), // Added validation for category
       })}
       onSubmit={(values) => {
         handleSubmit(values);
@@ -108,6 +126,27 @@ export default function AddProduct() {
               ) : null}
             </div>
 
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+            >
+              <label htmlFor="category">Category</label>
+              <select
+                id="category"
+                {...formik.getFieldProps("category")}
+                style={{ height: "40px" }}
+              >
+                <option value="" label="Select category" />
+                {categoryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {formik.touched.category && formik.errors.category ? (
+                <div style={{ color: "red" }}>{formik.errors.category}</div>
+              ) : null}
+            </div>
+    
             <Button
               style={{
                 height: "40px",

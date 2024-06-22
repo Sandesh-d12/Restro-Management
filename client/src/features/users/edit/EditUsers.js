@@ -14,7 +14,7 @@ const EditUsers = () => {
   const { data, isError, isLoading } = useAllUsers();
   const updateUser = useUpdateUserMutation();
   const { id } = useParams();
-  const singleUser = data.find((user) => user._id === id);
+  const singleUser = data?.find((user) => user._id === id);
 
   const formik = useFormik({
     initialValues: {

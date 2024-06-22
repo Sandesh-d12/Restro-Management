@@ -26,7 +26,5 @@
   /* overflow: hidden; */
   align-items: center;
   padding-left: 300px;
-  overflow-y: auto;
-  overflow-x: auto;
-  height:300px
+  /* height:300px */
 }

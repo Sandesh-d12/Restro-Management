@@ -14,9 +14,9 @@ async function getProducts() {
 
 // getProducts();
 
-async function addProduct(name, price, quantity) {
+async function addProduct(name, price, quantity, category) {
   try {
-    if (product.addProduct({ name, price, quantity })) {
+    if (product.addProduct({ name, price, quantity, category })) {
       return "product added";
     } else {
       throw new Error("error occur");

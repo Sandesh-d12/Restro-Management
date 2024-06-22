@@ -8,10 +8,9 @@ async function placeOrder(req, res) {
     const data = req.body;
     console.log('data',data)
     const result = await orderService.placeOrder(
-        data.tableNumber,
-      data.payment,
-      data.productId,
-      data.quantity,
+      data?.table_number,
+      data?.paymentType,
+      data?.product,
      
     );
     res.status(200).send(result);

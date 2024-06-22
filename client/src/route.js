@@ -23,7 +23,8 @@ function AllRoute() {
       {user && (
         <Route element={<NavBar />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/products" element={<AllProducts />} />
+          <Route path="/products/:category" element={<AllProducts />} />
+          <Route path="/menu" element={<FoodMenu />} />
           <Route path="/tables" element={<TableManagement />} />
           <Route path="/users" element={<Users />} />
           <Route path="/foodMenu" element={<FoodMenu />} />

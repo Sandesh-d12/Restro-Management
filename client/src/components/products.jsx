@@ -2,6 +2,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
@@ -11,8 +12,9 @@ import * as React from "react";
 import PlaceOrderModal from "./orderModal";
 import { useParams } from "react-router-dom";
 import OrderDrawer from "./OrderDrawer";
+import { getFirstLetter } from "../utils";
 
-export default function Products({ Id, title, price, quantity }) {
+export default function Products({ Id, title, price, quantity, selected,orderQuantity, onSelect,onQuantityChange, selectionEnabled }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (e) => {
@@ -23,16 +25,42 @@ export default function Products({ Id, title, price, quantity }) {
     setOpen(false);
   };
 
+  const handleCheckboxChange = (event) => {
+    if (selectionEnabled) {
+      onSelect(Id);
+    }
+  };
+
+
+
+  const handleQuantityChange = (change) => {
+    onQuantityChange(Id, orderQuantity + change);
+  };
+
+
   return (
     <Card
       sx={{
         minWidth: "200px",
+        overflow:'visible',
+        overflowX:'visivle',
+        overflowY:'visible'
       }}
     >
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={selected}
+              onChange={handleCheckboxChange}
+              disabled={!selectionEnabled}
+            />
+          }
+          label=""
+        />
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {getFirstLetter(title)}
           </Avatar>
         }
         action={<IconButton aria-label="settings"></IconButton>}
@@ -54,7 +82,18 @@ export default function Products({ Id, title, price, quantity }) {
         <Typography variant="body2" color="text.secondary">
           Price: {price}
         </Typography>
-        <OrderDrawer productId={Id} />
+        {selectionEnabled && (
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+            <Button variant="outlined" onClick={() => handleQuantityChange(-1)} disabled={orderQuantity <= 1}>-</Button>
+            <TextField
+              value={orderQuantity}
+              inputProps={{ readOnly: true }}
+              style={{ width: '40px', textAlign: 'center', margin: '0 10px' }}
+            />
+            <Button variant="outlined" onClick={() => handleQuantityChange(1)}>+</Button>
+          </div>
+        )}
+        {/* <OrderDrawer productId={Id} /> */}
       </CardContent>
       <PlaceOrderModal
         title={title}

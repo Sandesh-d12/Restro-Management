@@ -10,6 +10,7 @@ async function addNewProduct(req, res) {
       data.name,
       data.price,
       data.quantity,
+      data.category
     );
     res.status(200).send({message:result});
   } catch (err) {

@@ -66,10 +66,28 @@ async function updateProduct(productId, productInfo) {
   }
 }
 
+async function getProductsById(productIds) {
+  try {
+    const db = await db_connect("products"); // Connect to 'products' database
+    const collection = db.collection('products'); // Assuming 'products' is the collection name
+
+    const query = { productId: { $in: productIds } };
+    const products = await collection.find(query).toArray();
+
+    return products;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+}
+
+
+
 
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
-  getProductById
+  getProductById,
+  getProductsById
 };
