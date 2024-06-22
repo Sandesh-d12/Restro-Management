@@ -13,51 +13,70 @@ async function getAllTables() {
 }
 
 async function findTableFromTableNumber(id) {
-    try {
+  try {
+    let db = await DB.db_connect("tables");
+    let user = await db.findOne({ tableNumber: id });
 
-      let db = await DB.db_connect("tables");
-      let user = await db.findOne({tableNumber: id });
-      console.log('user',user)
-      if (user) {
-        console.log('user',user)
-        return user;
-      }
-      return false;
-    } catch (err) {
-      throw err;
+    if (user) {
+
+      return user;
     }
+    return false;
+  } catch (err) {
+    throw err;
   }
+}
 
-  async function addTable(tableData) {
-    try {
-      let db = await DB.db_connect("tables");
-      let user = await db.insertOne(tableData);
-      return user.acknowledged;
-    } catch (err) {
-      throw err;
+async function addTable(tableData) {
+  try {
+    let db = await DB.db_connect("tables");
+    let user = await db.insertOne(tableData);
+    return user.acknowledged;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function updateTable(tableData, id) {
+  try {
+    let db = await DB.db_connect("tables");
+    const updatedTable = await db.findOneAndUpdate(
+      { _id: new mongodb.ObjectId(id) },
+      { $set: tableData },
+      { returnDocument: "after" }
+    );
+
+    if (!updatedTable) {
+      throw new Error("User not found");
     }
-  }
 
-  async function updateTable(tableData, id) {
-    try {
-      let db = await DB.db_connect("tables");
-      const updatedTable = await db.findOneAndUpdate(
-        { _id: new mongodb.ObjectId(id) },
-        { $set: tableData },
-        { returnDocument: 'after' } 
-      );
-  
-      if (!updatedTable) {
-        throw new Error('User not found');
-      }
-  
-      return updatedTable
-    } catch (err) {
-      throw err;
+    return updatedTable;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function deleteTable(id) {
+  try {
+
+    let db = await DB.db_connect("tables");
+    const table = await db.findOne({ tableNumber: id });
+
+    if (!table) {
+      throw new Error("table not found");
     }
-  }
-  
+    const result = await db.deleteOne({ tableNumber: id });
 
-  module.exports={
-    getAllTables, findTableFromTableNumber, addTable, updateTable
+    return result.acknowledged;
+  } catch (err) {
+    throw err;
   }
+}
+
+module.exports = {
+  getAllTables,
+  findTableFromTableNumber,
+  addTable,
+  updateTable,
+  deleteTable
+};

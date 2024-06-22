@@ -35,13 +35,14 @@ async function signUp(firstName, lastName, email, password, userType) {
 
 async function removeUser(email) {
   try {
+
       await user.deleteUser(email)
       return "user removed successfully";
   } catch (err) {
     throw err;
   }
 }
-// removeUser('nyfo@mailinator.com')
+// removeUser('buceqy@mailinator.com')
 
 async function updateUser(userInfo, id) {
   try {

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const signUp = async (userData) => {
   const response = await fetch("http://localhost:3001/api/user/addUser", {
@@ -11,7 +12,8 @@ const signUp = async (userData) => {
     body: JSON.stringify(userData),
   });
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    const errorMessage = await response.json();
+    throw new Error(errorMessage?.data)
   }
 
   return response.json();
@@ -19,16 +21,20 @@ const signUp = async (userData) => {
 
 export const useCreateUserMutation = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+const [error, setError] = useState('')
   const createPostMutation = useMutation(signUp, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
-      toast.success("user created successfully");
+      // toast.success("user created successfully");
     },
+    onError: (err) =>{
+      console.log('err',err)
+setError(err)
+    }
   });
-
-  return createPostMutation;
-};
+console.log('error',error)
+  return {...createPostMutation, error}
+;};
 
 const logIn = async (userData) => {
   const response = await fetch("http://localhost:3001/api/user/login", {
@@ -115,16 +121,38 @@ export const useUpdateUserMutation = () => {
   return createPostMutation;
 };
 
+// export const removeUser = async (email) => {
+//   console.log(email)
+//   const response = await fetch(
+//     `http://localhost:3001/api/user/removeUser`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body:email
+//     }
+//   );
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+
+//   return response.json();
+// };
+
 export const removeUser = async (email) => {
+  console.log(email);
   const response = await fetch(
-    `http://localhost:3001/api/user/removeUser/${email}`,
+    `http://localhost:3001/api/user/removeUser`,
     {
-      method: "DELETE",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ email }), 
     }
   );
+
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }

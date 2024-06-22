@@ -29,7 +29,19 @@ async function allOrder(req, res) {
   }
 }
 
+
+async function removeOrder(req, res){
+  try{
+
+    const result = await orderService.removeOrder(req?.body?.id);
+    res.status(200).json(result);
+  }catch(err){
+    res.status(400).json(err.message);
+  }
+}
+
 module.exports = {
     placeOrder,
-    allOrder
+    allOrder,
+    removeOrder
   };

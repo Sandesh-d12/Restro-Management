@@ -1,17 +1,35 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
+import { toast } from "react-hot-toast";
 import { useCreateUserMutation } from "../../react-query/users";
 import { Button } from "@mui/material";
 
 export const SignUp = () => {
-  const createPostMutation = useCreateUserMutation();
+  const { mutate, error } = useCreateUserMutation();
+
+  useEffect(() => {
+    if (error) {
+    alert(error);
+    }
+  }, [error]);
+
+
   const handleSubmit = (values) => {
     try {
-      createPostMutation.mutate(values);
+     mutate(values);
+     alert('user added successfully')
+     reload()
     } catch (error) {
-      alert(error.message);
+      console.log(error)
+      // toast.error(error.message);
     }
+  };
+
+
+  const reload = () => {
+      window.location.reload(); 
+
   };
   return (
     <Formik
@@ -34,8 +52,11 @@ export const SignUp = () => {
       })}
       onSubmit={(values) => {
         handleSubmit(values);
-        window.location.reload()
+        // reload()
+        // window.location.reload()
       }}
+
+   
     >
       {(formik) => (
         <form

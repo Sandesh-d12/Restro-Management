@@ -37,9 +37,20 @@ async function addTable(req, res) {
       res.status(400).json(err.message);
     }
   }
+
+  async function removeTable(req, res){
+    try{
+      console.log('req',req.body.tableNumber)
+      const result = await tableService.removeTable(req?.body?.tableNumber);
+      res.status(200).json(result);
+    }catch(err){
+      res.status(400).json(err.message);
+    }
+  }
   
   module.exports={
     addTable,
     updateTable,
-    getAll
+    getAll,
+    removeTable
   }

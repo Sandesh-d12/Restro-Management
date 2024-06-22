@@ -26,7 +26,7 @@ async function getProducts() {
 
 async function getProductById(ids) {
   try {
-    console.log('ids',ids)
+
     // const objectIds = ids.map(id => new mongodb.ObjectId(id));
     // console.log(objectIds)
     let db = await DB.db_connect("products");

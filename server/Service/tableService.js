@@ -47,8 +47,19 @@ async function getAll() {
   }
 }
 
+async function removeTable(id) {
+  try {
+console.log(id)
+      await table.deleteTable(id)
+      return "table removed successfully";
+  } catch (err) {
+    throw err;
+  }
+}
+
   module.exports={
     addTable,
     updateTable,
-    getAll
+    getAll,
+    removeTable
   }

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { CiTrash } from "react-icons/ci";
 import { RiPencilFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { useAllTable } from "../../features/react-query/table";
+import { removeTable, useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
-import toast from "react-hot-toast";
+import DeleteModal from '../DeleteModal'
 
 export const Button = ({ type,id, onClick }) => {
   const navigate = useNavigate();
@@ -18,7 +18,15 @@ export const Button = ({ type,id, onClick }) => {
 
 function Table() {
   const { data, isError, isLoading, isSuccess } = useAllTable();
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = ()=>{
+    setOpen(true)
+  }
+
+  const handleClose = ()=>{
+    setOpen(false)
+  }
 
   if (isLoading) {
     return <h3>Loading ...</h3>;
@@ -29,8 +37,11 @@ function Table() {
   }
 
   const handleDelete = (id) =>{
-
-  }
+    setOpen(false)
+    removeTable(id)
+    alert('succesfully deleted table')
+    window.location.reload()
+      }
   return (
     <div
       style={{
@@ -67,9 +78,9 @@ function Table() {
           {data?.map((d, index) => (
               <tr key={index}>
                 <td style={{ padding: "8px" }}>{index + 1}</td>
-                <td style={{ padding: "8px" }}>{d.tableNumber}</td>
-                <td style={{ padding: "8px" }}>{d.tableCapacity}</td>
-                <td style={{ padding: "8px" }}>{d.occupancy}</td>
+                <td style={{ padding: "8px" }}>{d?.tableNumber}</td>
+                <td style={{ padding: "8px" }}>{d?.tableCapacity}</td>
+                <td style={{ padding: "8px" }}>{d?.occupancy}</td>
                 <td
                   style={{
                     padding: "8px",
@@ -78,7 +89,8 @@ function Table() {
                   <div style={{display:"flex", justifyContent:"space-evenly"}}>
                 
                   <Button type="edit" id={d._id} />
-                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/>
+                  <DeleteModal description={'Are you sure want to delete table?'} id={d?.tableNumber} handleDelete={handleDelete} open={open} handleOpen={handleOpen} handleClose={handleClose}></DeleteModal>
+                  {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/> */}
                   </div>
                 </td>
               </tr>

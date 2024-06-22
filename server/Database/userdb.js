@@ -39,21 +39,8 @@ async function findUserFromEmail(email) {
     throw err;
   }
 }
-// findUserFromEmail('sandesh.dhakal@smaitic.com')
-// async function findUserFromId(user_id) {
-//   try {
-//     let db = await DB.db_connect("users");
-//     console.log(user_id)
-//     let user = await db.findOne({ _id: new mongodb.ObjectId(user_id) });
-//     console.log('user',user)
-//     if (user) {
-//       return user;
-//     }
-//     return false;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+// findUserFromEmail('gisyjem@mailinator.com')
+
 
 async function findUserFromId(id) {
   try {
@@ -74,30 +61,6 @@ async function findUserFromId(id) {
 }
 
 
-// async function findUserFromId(id) {
-//   try {
-//     // Validate the id format
-//     if (!mongodb.ObjectId.isValid(id)) {
-//       console.error('Invalid ID format');
-//       return false;
-//     }
-
-//     let db = await DB.db_connect("users");
-//     let user = await db.findOne({ _id: new mongodb.ObjectId(id) });
-
-//     if (user) {
-//       return user;
-//     } else {
-//       console.error('User not found');
-//       return false;
-//     }
-//   } catch (err) {
-//     console.error('Error in findUserFromId:', err);
-//     throw err;
-//   }
-// }
-
-//  findUserFromId('65f025dfad123b33894e6c20');
 async function addUser(userData) {
   try {
     let db = await DB.db_connect("users");
@@ -129,21 +92,25 @@ async function updateUser(userData, id) {
 }
 
 
-async function deleteUser(user_id) {
+async function deleteUser(email) {
   try {
-    let db = await DB.db_connect("users");
-    const user = await findUserFromEmail(user_id)
-    if (user && user.userType !== 'admin') {
 
-      const result = await db.deleteOne({ email: user_id });
-      return result.acknowledged;
+    let db = await DB.db_connect("users");
+    const user = await db.findOne({ email: email });
+    if (!user) {
+   throw new Error('user not found')
     }
-    throw new Error("error while removing user");
+if(user.userType === 'admin'){
+  throw new Error('can not delete admin')
+}
+          const result = await db.deleteOne({ email: email});
+   
+      return result.acknowledged;
   } catch (err) {
     throw err;
   }
 }
-
+//  deleteUser('gykixejo@mailinator.com')
 module.exports = {
   getUsers,
   findUserFromUserData,

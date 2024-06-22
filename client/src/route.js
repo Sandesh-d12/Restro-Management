@@ -33,7 +33,7 @@ function AllRoute() {
           <Route path="*" element={<Dashboard />} />
         </Route>
       )}
-      {!user && (
+      {(!user || user == null )&& (
         <>
           <Route path="/" element={<LogIn />} />
           <Route path="/signUp" element={<SignUp />} />

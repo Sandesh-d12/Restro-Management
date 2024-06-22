@@ -1,14 +1,31 @@
 import React from 'react'
 import AllDrawer from '../../components/food-menu/Drawer'
-import { useAllOrder } from '../react-query/order'
+import { removeOrder, useAllOrder } from '../react-query/order'
 import { Button } from '../../components/table-management/Table'
+import DeleteModal from '../../components/DeleteModal'
 
 function OrderList() {
 const allOrder = useAllOrder()
+const [open, setOpen] = React.useState(false);
+
+const handleOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
 
 if(allOrder){
   // return window.location.reload()
 }
+
+const handleDelete = (id) => {
+  setOpen(false);
+  removeOrder(id)
+  alert("succesfully deleted user");
+  window.location.reload();
+};
 
   return (
     <>
@@ -60,7 +77,14 @@ if(allOrder){
                   <div style={{width:"100px",display:"flex", justifyContent:"space-evenly"}}>
                 
                   <Button type="edit"  />
-                  <Button type="delete"  />
+                  <DeleteModal
+                      description={"Are you sure you want to delete?"}
+                      handleDelete={handleDelete}
+                      id={d._id}
+                      open={open}
+                      handleOpen={handleOpen}
+                      handleClose={handleClose}
+                    />
                   </div>
                 </td>
               </tr>

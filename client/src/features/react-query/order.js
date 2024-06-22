@@ -53,3 +53,23 @@ const placeOrder = async (data) => {
     return allOrder.data;
   };
   
+
+  export const removeOrder = async (id) => {
+
+    const response = await fetch(
+      `http://localhost:3001/api/order/removeOrder`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }), 
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  
+    return response.json();
+  };

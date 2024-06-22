@@ -16,7 +16,7 @@ async function addUser(req, res) {
     );
     res.status(200).send({ data: result });
   } catch (err) {
-    res.status(400).send({ data: err.message });
+    res.status(401).send({ data: err.message });
   }
 }
 
@@ -46,7 +46,8 @@ async function getAll(req, res) {
 
 async function removeUser(req, res){
   try{
-    const result = await userService.removeUser();
+    console.log('req',req.body.email)
+    const result = await userService.removeUser(req?.body?.email);
     res.status(200).json(result);
   }catch(err){
     res.status(400).json(err.message);

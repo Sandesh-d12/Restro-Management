@@ -44,7 +44,7 @@ async function getAll() {
   try {
     const res_user = await order.getOrder();
     if (res_user) {
-      console.log("order::", res_user);
+
       return res_user;
     }
     throw new Error("error getting order");
@@ -54,8 +54,19 @@ async function getAll() {
   }
 }
 
+async function removeOrder(id) {
+  try {
+
+      await order.deleteOrder(id)
+      return "order removed successfully";
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 module.exports={
   placeOrder,
-  getAll
+  getAll,
+  removeOrder
 }

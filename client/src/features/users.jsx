@@ -5,50 +5,69 @@ import { RiPencilFill } from "react-icons/ri";
 import AllDrawer from "../components/food-menu/Drawer";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "./react-query/users";
+import DeleteModal from "../components/DeleteModal";
 
-export const Button = ({ type,id, onClick}) => {
+export const Button = ({ type, id, onClick }) => {
   const navigate = useNavigate();
   const userString = localStorage.getItem("user") ?? null;
-let user = userString !== "undefined" ? JSON.parse(userString) : null;
+  let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
-const isDisable = (userType) => {
-  if(userType === 'admin'){
-return false;
-  }
-  else{
-   return true
-  }
-}
+  const isDisable = (userType) => {
+    if (userType === "admin") {
+      return false;
+    } else {
+      return true;
+    }
+  };
   switch (type) {
     case "edit":
-      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate(`/editUser/${id}`)} disabled={isDisable(user?.userType)}><RiPencilFill /></button>
+      return (
+        <button
+          style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
+          onClick={() => navigate(`/editUser/${id}`)}
+          disabled={isDisable(user?.userType)}
+        >
+          <RiPencilFill />
+        </button>
+      );
     case "delete":
-      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick} disabled={isDisable(user?.userType)}><CiTrash  /></button>
+      return (
+        <button
+          style={{ border: "none", backgroundColor: "#fff", cursor: "pointer" }}
+          onClick={onClick}
+          disabled={isDisable(user?.userType)}
+        >
+          <CiTrash />
+        </button>
+      );
   }
 };
 
 function Users() {
   const { data, isError, isLoading } = useAllUsers();
+  const [open, setOpen] = React.useState(false);
 
-const exceptAdmin = data?.filter((d)=>((
-  d.userType !== 'admin'
-)))
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
+  const exceptAdmin = data?.filter((d) => d.userType !== "admin");
 
   if (isLoading) {
     return <h3>Loading ...</h3>;
   }
 
-  const handleEdit = (e) => {
 
-  }
-
-
-  const handleDelete = (id) =>{
-
-removeUser(id)
-  }
+  const handleDelete = (id) => {
+    setOpen(false);
+    removeUser(id);
+    alert("succesfully deleted user");
+    window.location.reload();
+  };
   return (
     <div
       style={{
@@ -61,37 +80,36 @@ removeUser(id)
         gap: "16px",
       }}
     >
-      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <h1>
-        Users Management
-      </h1>
-      {/* <UserDrawer /> */}
-      <AllDrawer type={'user'} />
-      </div>{
-        exceptAdmin.length !== 0 ?
-      
-      <table
-        border={1}
-        style={{
-          borderCollapse: "collapse",
-          border:'1px solid #ccc'
-        }}
-      >
-        <thead style={{backgroundColor:'#eee'}}>
-          <tr>
-            <th style={{ padding: "8px" }}>S.N</th>
-            <th style={{ padding: "8px" }}>Name</th>
-          
-            <th style={{ padding: "8px" }}>Email</th>
-            <th style={{ padding: "8px" }}>Role</th>
-            <th style={{ padding: "8px" }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {exceptAdmin?.map((d, index) => (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h1>Users Management</h1>
+        {/* <UserDrawer /> */}
+        <AllDrawer type={"user"} />
+      </div>
+      {exceptAdmin.length !== 0 ? (
+        <table
+          border={1}
+          style={{
+            borderCollapse: "collapse",
+            border: "1px solid #ccc",
+          }}
+        >
+          <thead style={{ backgroundColor: "#eee" }}>
+            <tr>
+              <th style={{ padding: "8px" }}>S.N</th>
+              <th style={{ padding: "8px" }}>Name</th>
+
+              <th style={{ padding: "8px" }}>Email</th>
+              <th style={{ padding: "8px" }}>Role</th>
+              <th style={{ padding: "8px" }}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {exceptAdmin?.map((d, index) => (
               <tr key={index}>
                 <td style={{ padding: "8px" }}>{index + 1}</td>
-                <td style={{ padding: "8px" }}>{d.firstName} {d.lastName}</td>
+                <td style={{ padding: "8px" }}>
+                  {d.firstName} {d.lastName}
+                </td>
                 <td style={{ padding: "8px" }}>{d.email}</td>
                 <td style={{ padding: "8px" }}>{d.userType}</td>
                 <td
@@ -99,18 +117,29 @@ removeUser(id)
                     padding: "8px",
                   }}
                 >
-                  <div style={{display:"flex", justifyContent:"space-evenly"}}>
-                
-                  <Button type="edit" id={d._id} />
-                  <Button type={'delete'} />
-                  {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} disable /> */}
+                  <div
+                    style={{ display: "flex", justifyContent: "space-evenly" }}
+                  >
+                    <Button type="edit" id={d._id} />
+                    {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} disable /> */}
+                    {/* <Button type="delete" id={d._id} onClick={} disable /> */}
+                    <DeleteModal
+                      description={"Are you sure you want to delete?"}
+                      handleDelete={handleDelete}
+                      id={d.email}
+                      open={open}
+                      handleOpen={handleOpen}
+                      handleClose={handleClose}
+                    />
                   </div>
                 </td>
               </tr>
-          ))}
-        </tbody>
-      </table>
-      : <p>'No active User'</p>}
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>'No active User'</p>
+      )}
     </div>
   );
 }
