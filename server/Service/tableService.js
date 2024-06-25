@@ -16,12 +16,12 @@ async function addTable(tableNumber, tableCapacity) {
     }
   }
 
-async function updateTable(tableInfo, id) {
-  const {tableId, ...tableData} = tableInfo;
+async function updateTable(tableInfo) {
+const {id, ...tableData} = tableInfo;
+
     try {
-     const a = await table.updateTable(tableId, tableData)
+     const a = await table.updateTable(id, tableData)
      if (a){
-      console.log(a)
       return a
      }
       throw new Error("error while updating user")

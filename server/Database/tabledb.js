@@ -37,7 +37,7 @@ async function addTable(tableData) {
   }
 }
 
-async function updateTable(tableData, id) {
+async function updateTable(id, tableData) {
   try {
     let db = await DB.db_connect("tables");
     const updatedTable = await db.findOneAndUpdate(
@@ -47,7 +47,7 @@ async function updateTable(tableData, id) {
     );
 
     if (!updatedTable) {
-      throw new Error("User not found");
+      throw new Error("table not found");
     }
 
     return updatedTable;

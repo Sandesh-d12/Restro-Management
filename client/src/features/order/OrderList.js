@@ -28,7 +28,6 @@ export default function OrderList() {
   const handleChange = () => {
     setChecked((prev) => !prev);
     const payload = checked ? 'received' : 'pending';
-    console.log(payload);
   };
 
   const handleDelete = (id) => {

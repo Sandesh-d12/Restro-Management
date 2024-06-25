@@ -21,7 +21,7 @@ router.post("/product/getProductByCategory", productApi.getProductByCategory);
 //TABLE
 router.post("/table/addTable", tableApi.addTable);
 router.get("/table/getAll", tableApi.getAll)
-router.post("/table/updateTable/:id", tableApi.updateTable);
+router.post("/table/updateTable", tableApi.updateTable);
 router.post("/table/removeTable", tableApi.removeTable);
 
 

@@ -20,9 +20,8 @@ async function addTable(req, res) {
 
   async function updateTable(req, res) {
     try {
-      const table_id = req.body.id;
       const data = req.body;
-      const result = await tableService.updateTable(table_id, data);
+      const result = await tableService.updateTable(data);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send(err.message);

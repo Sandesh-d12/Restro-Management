@@ -2,26 +2,16 @@ import React from "react";
 import styles from "./styles/title.module.css";
 import Button from "./Button";
 
-function Titles({ data, handleClick }) {
-  const userString = localStorage.getItem("user") ?? null;
-  let user = userString !== "undefined" ? JSON.parse(userString) : null;
-
+function Titles({ title, handleClick, active, icon ,id }) {
+console.log('act',active)
   return (
-    <div style={{
-    }}>
-      {data.map((s, index) => {
-        // if (user?.userType === 'admin' || user?.userType === s?.type) {
-          return (
-            <div className={styles.wrapper} key={index}>
-              <div className={styles.icon}>{s.icon}</div>
-              <Button name={s.title} handleClick={s.onClick} />
+
+    <div className={styles.wrapper}>
+              <div className={styles.icon}>{icon}</div>
+              <Button name={title} handleClick={handleClick} active={active}/>
             </div>
           );
-        // }
-        return null;
-      })}
-    </div>
-  );
+
 }
 
 export default Titles;
