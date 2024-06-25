@@ -90,6 +90,7 @@ export default function NavBar() {
           <div className={styles.sideBar}>
             {data?.map((item) => (
               <Titles
+              key={item.id}
                 title={item.title}
                 id={item.id}
                 active={path == item?.path}

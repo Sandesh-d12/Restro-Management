@@ -76,8 +76,6 @@ const Menu = () => {
 function FoodMenu() {
   const { data, isLoading } = useGetProducts();
 
-  const category = data && data.filter((d) => d.category);
-  console.log(category);
   return (
     <div
       style={{

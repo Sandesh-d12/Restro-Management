@@ -33,7 +33,6 @@ export default function EditOrderModal({ id }) {
   let [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [singleOrder, setSingleOrder] = React.useState([]);
-  const [selectedProduct, setSelectedProduct] = React.useState("");
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
@@ -41,7 +40,6 @@ export default function EditOrderModal({ id }) {
     const fetchData = async () => {
       try {
         const data = await getOrder(id);
-        console.log(data);
         setSingleOrder(data);
       } catch (error) {
         console.error("Error fetching order:", error);

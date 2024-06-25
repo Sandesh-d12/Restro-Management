@@ -3,7 +3,7 @@ import styles from "./styles/title.module.css";
 import Button from "./Button";
 
 function Titles({ title, handleClick, active, icon ,id }) {
-console.log('act',active)
+
   return (
 
     <div className={styles.wrapper}>

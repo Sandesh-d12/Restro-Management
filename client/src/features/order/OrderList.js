@@ -57,7 +57,7 @@ export default function OrderList() {
             </tr>
           </thead>
           <tbody>
-            {allOrder && allOrder.map((d, index) => (
+            {allOrder && allOrder.slice().reverse().map((d, index) => (
               <React.Fragment key={d._id}>
                 <tr>
                   <td colSpan={5}>
