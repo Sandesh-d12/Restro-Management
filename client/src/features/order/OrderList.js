@@ -41,7 +41,7 @@ export default function OrderList() {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   return (
-    <div style={{ maxWidth: '1500px', width: '100%', marginLeft: '18rem', marginTop: '2rem', textAlign: 'left', padding: '0px 32px 0px 32px' }}>
+    <div style={{ maxWidth: '1500px', width: '100%', marginLeft: '18rem', marginTop: '2rem', textAlign: 'left',zIndex:2, padding: '0px 32px 0px 32px' }}>
       <h1>Orders</h1>
       <div style={{ maxHeight: '800px', overflowY: 'auto' }}>
         <table
@@ -64,12 +64,12 @@ export default function OrderList() {
                   <td colSpan={5}>
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon style={{ paddingLeft: '1rem' }} />} aria-controls={`panel${index + 1}-content`} id={`panel${index + 1}-header`}>
-                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', zIndex: 1 }}>
+                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', zIndex: 0 }}>
                           <Typography>Order {index + 1}</Typography>
                           <Typography>{d?.table_number}</Typography>
                           <Typography>{d?.paymentDetails?.type}</Typography>
                           <Typography>{d?.paymentDetails?.status}</Typography>
-                          <div style={{ display: 'flex', gap: '1rem' }}>
+                          <div style={{ display: 'flex', gap: '1rem', alignItems:'center' }}>
                             <Switch {...label} checked={checked} onChange={handleChange} />
                             <EditOrderModal id={d._id} />
                             <DeleteModal
