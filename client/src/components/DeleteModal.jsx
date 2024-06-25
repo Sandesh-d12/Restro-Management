@@ -20,11 +20,11 @@ const style = {
   gap:'24px'
 };
 
-export default function DeleteModal({description, id, handleDelete, handleOpen, open, handleClose}) {
+export default function DeleteModal({description, id, handleDelete, handleOpen, open, handleClose, tableId}) {
 
   return (
     <div>
-        <Button type='delete' style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={handleOpen} ><CiTrash  /></Button>
+        <Button type='delete' style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={()=>handleOpen(tableId)} ><CiTrash  /></Button>
       <Modal
         open={open}
         onClose={handleClose}

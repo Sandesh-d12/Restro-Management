@@ -20,6 +20,7 @@ export default function PlaceOrderModal({
   quantity,
 }) {
   const updateProduct = useUpdateProduct();
+  
   const formik = useFormik({
     initialValues: {
       name: title,

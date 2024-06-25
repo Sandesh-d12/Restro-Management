@@ -57,15 +57,16 @@ async function updateTable(tableData, id) {
 }
 
 async function deleteTable(id) {
+  console.log('tnnn',id)
   try {
 
     let db = await DB.db_connect("tables");
-    const table = await db.findOne({ tableNumber: id });
+    const table = await db.findOne({ _id: new mongodb.ObjectId(id) });
 
     if (!table) {
       throw new Error("table not found");
     }
-    const result = await db.deleteOne({ tableNumber: id });
+    const result = await db.deleteOne({ _id: new mongodb.ObjectId(id) });
 
     return result.acknowledged;
   } catch (err) {

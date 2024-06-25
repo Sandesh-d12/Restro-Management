@@ -4,44 +4,59 @@ import { RiPencilFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { removeTable, useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
-import DeleteModal from '../DeleteModal'
+import DeleteModal from "../DeleteModal";
 
-export const Button = ({ type,id, onClick }) => {
+export const Button = ({ type, id, onClick }) => {
   const navigate = useNavigate();
   switch (type) {
     case "edit":
-      return <button style={{cursor:"pointer", backgroundColor:'#fff', border:"none"}} onClick={()=>navigate('#')}><RiPencilFill /></button>
+      return (
+        <button
+          style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
+          onClick={() => navigate("#")}
+        >
+          <RiPencilFill />
+        </button>
+      );
     case "delete":
-      return <button style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={onClick}><CiTrash  /></button>
+      return (
+        <button
+          style={{ border: "none", backgroundColor: "#fff", cursor: "pointer" }}
+          onClick={onClick}
+        >
+          <CiTrash />
+        </button>
+      );
   }
 };
 
 function Table() {
   const { data, isError, isLoading, isSuccess } = useAllTable();
   const [open, setOpen] = React.useState(false);
+  const [openTableId, setOpenTableId] = useState(null);
 
-  const handleOpen = ()=>{
-    setOpen(true)
-  }
+  const handleOpen = (id) => {
+    setOpen(true);
+    setOpenTableId(id);
+  };
 
-  const handleClose = ()=>{
-    setOpen(false)
-  }
+  const handleClose = () => {
+    setOpen(false);
+    setOpenTableId(null);
+  };
 
   if (isLoading) {
     return <h3>Loading ...</h3>;
   }
 
-  const handleEdit = (e) => {
+  const handleEdit = (e) => {};
 
-  }
-
-  const handleDelete = (id) =>{
-    setOpen(false)
-    removeTable(id)
-    alert('succesfully deleted table')
-    window.location.reload()
-      }
+  const handleDelete = (id) => {
+    setOpen(false);
+    removeTable(id);
+    alert("succesfully deleted table");
+    // window.location.reload();
+  };
   return (
     <div
       style={{
@@ -54,21 +69,21 @@ function Table() {
         gap: "16px",
       }}
     >
-      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <AllDrawer type={'table'} />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <AllDrawer type={"table"} />
       </div>
       <table
         border={1}
         style={{
           borderCollapse: "collapse",
-          border:'1px solid #ccc'
+          border: "1px solid #ccc",
         }}
       >
-        <thead style={{backgroundColor:'#eee'}}>
+        <thead style={{ backgroundColor: "#eee" }}>
           <tr>
             <th style={{ padding: "8px" }}>S.N</th>
             <th style={{ padding: "8px" }}>Table Number</th>
-          
+
             <th style={{ padding: "8px" }}>Table Capacity</th>
             <th style={{ padding: "8px" }}>Occupied</th>
             <th style={{ padding: "8px" }}>Actions</th>
@@ -76,24 +91,43 @@ function Table() {
         </thead>
         <tbody>
           {data?.map((d, index) => (
-              <tr key={index}>
-                <td style={{ padding: "8px" }}>{index + 1}</td>
-                <td style={{ padding: "8px" }}>{d?.tableNumber}</td>
-                <td style={{ padding: "8px" }}>{d?.tableCapacity}</td>
-                <td style={{ padding: "8px" }}>{d?.occupancy}</td>
-                <td
-                  style={{
-                    padding: "8px",
-                  }}
+            <tr key={index}>
+              <td style={{ padding: "8px" }}>{index + 1}</td>
+              <td style={{ padding: "8px" }}>{d?.tableNumber}</td>
+              <td style={{ padding: "8px" }}>{d?.tableCapacity}</td>
+              <td style={{ padding: "8px" }}>{d?.occupancy}</td>
+              <td
+                style={{
+                  padding: "8px",
+                }}
+              >
+                <div
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <div style={{display:"flex", justifyContent:"space-evenly"}}>
-                
                   <Button type="edit" id={d._id} />
-                  <DeleteModal description={'Are you sure want to delete table?'} id={d?.tableNumber} handleDelete={handleDelete} open={open} handleOpen={handleOpen} handleClose={handleClose}></DeleteModal>
-                  {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/> */}
-                  </div>
-                </td>
-              </tr>
+                  {/* <DeleteModal
+                    description={"Are you sure want to delete table?"}
+                    id={d?.tableNumber}
+                    handleDelete={handleDelete}
+                    open={open}
+                    handleOpen={handleOpen}
+                    handleClose={handleClose}
+                  ></DeleteModal>
+                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/> */}
+                  {(
+                    <DeleteModal
+                      description={'Are you sure you want to delete this table?'}
+                      id={d?.tableNumber}
+                      tableId={d._id}
+                      handleDelete={() => handleDelete(d._id)}
+                      open={openTableId === d._id}
+                      handleClose={handleClose}
+                      handleOpen={handleOpen}
+                    />
+                  )}
+                </div>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -101,4 +135,4 @@ function Table() {
   );
 }
 
-export default Table
+export default Table;

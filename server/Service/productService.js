@@ -42,9 +42,23 @@ async function updateProduct(productId, productInfo) {
 const data = { quantity: 60, price: 5000 };
 // updateProduct('65f023f8c8187944cd1cdb54',data )
 
+async function getProductsByCategory(category) {
+  try {
+    const products = await product.getProductByCategory(category);
+    if (products.length > 0) {
+      return products;
+    }
+    throw new Error("no product found");
+  } catch (err) {
+    throw err;
+  }
+}
+
+
 
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
+  getProductsByCategory
 };

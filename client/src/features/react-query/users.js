@@ -25,9 +25,11 @@ const [error, setError] = useState('')
   const createPostMutation = useMutation(signUp, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
+      alert('user added successfully')
       // toast.success("user created successfully");
     },
     onError: (err) =>{
+      alert(err)
       console.log('err',err)
 setError(err)
     }
@@ -89,7 +91,7 @@ export const useAllUsers = () => {
 
 
 const updateUser = async (userData) => {
-
+console.log('uDD',userData)
   const response = await fetch(`http://localhost:3001/api/user/updateUser/${userData?.id}`, {
     method: "POST",
     headers: {
@@ -98,7 +100,8 @@ const updateUser = async (userData) => {
     body: JSON.stringify(userData.values),
   });
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    const errorMessage = await response.json()
+    throw new Error(errorMessage)
   }
   return response.json();
 };
@@ -109,8 +112,11 @@ export const useUpdateUserMutation = () => {
   const createPostMutation = useMutation(updateUser, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");
-      toast.success("user updated successfully");
+  alert('user updated successfully')
   
+    },
+    onError:(err)=>{
+      alert(err)
     },
     onLoading:()=>{
 
@@ -141,7 +147,7 @@ export const useUpdateUserMutation = () => {
 // };
 
 export const removeUser = async (email) => {
-  console.log(email);
+
   const response = await fetch(
     `http://localhost:3001/api/user/removeUser`,
     {

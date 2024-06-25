@@ -18,8 +18,7 @@ export const SignUp = () => {
   const handleSubmit = (values) => {
     try {
      mutate(values);
-     alert('user added successfully')
-     reload()
+    //  reload()
     } catch (error) {
       console.log(error)
       // toast.error(error.message);
@@ -37,7 +36,7 @@ export const SignUp = () => {
         firstName: "",
         lastName: "",
         email: "",
-        userType: "Admin" || "User",
+        userType: "",
         password: "",
       }}
       validationSchema={Yup.object({

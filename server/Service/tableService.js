@@ -2,10 +2,6 @@ const table = require("../Database/tabledb");
 
 async function addTable(tableNumber, tableCapacity) {
     try {
-// if(table.findTableFromTableNumber(tableNumber)){
-//   throw new Error('Table Number should be unique')
-// }
-  // else{
     if (
       await table.addTable({ tableNumber, tableCapacity, occupancy:0 })
     ) {
@@ -14,7 +10,6 @@ async function addTable(tableNumber, tableCapacity) {
     } else {
       throw new Error("error while adding table");
     }
-  // }
     } catch (err) {
       console.log(err.message);
       throw err;
@@ -22,8 +17,9 @@ async function addTable(tableNumber, tableCapacity) {
   }
 
 async function updateTable(tableInfo, id) {
+  const {tableId, ...tableData} = tableInfo;
     try {
-     const a = await table.updateTable(id, tableInfo)
+     const a = await table.updateTable(tableId, tableData)
      if (a){
       console.log(a)
       return a
@@ -49,7 +45,7 @@ async function getAll() {
 
 async function removeTable(id) {
   try {
-console.log(id)
+
       await table.deleteTable(id)
       return "table removed successfully";
   } catch (err) {

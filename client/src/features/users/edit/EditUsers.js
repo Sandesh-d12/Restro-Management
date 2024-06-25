@@ -6,23 +6,33 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useFormik } from "formik";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useAllUsers, useUpdateUserMutation } from "../../react-query/users";
 
 const EditUsers = () => {
   const { data, isError, isLoading } = useAllUsers();
-  const updateUser = useUpdateUserMutation();
   const { id } = useParams();
-  const singleUser = data?.find((user) => user._id === id);
+  const [displaySubmit, setDisplaySubmit] = useState(false);
+  const single = data?.find((user) => user._id === id);
+  const [singleUser, setSingleUser]=useState(single)
+  const updateUser = useUpdateUserMutation();
 
+  let {searchParams} = useSearchParams();
+
+
+React.useEffect(()=>{
+  const single = data?.find((user) => user._id === id);
+  setSingleUser(single)
+},[])
+console.log(singleUser)
   const formik = useFormik({
     initialValues: {
       firstName: singleUser?.firstName,
       lastName: singleUser?.lastName,
-      email: singleUser.email,
-      password: singleUser.password,
-      userType: singleUser.userType,
+      email: singleUser?.email,
+      password: singleUser?.password,
+      userType: singleUser?.userType,
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -36,9 +46,18 @@ const EditUsers = () => {
     }),
     onSubmit: (values) => {
       updateUser.mutate({ values, id });
-      toast.success("user updated successfully");
+      // toast.success("user updated successfully");
     },
   });
+
+  const onEdit = () => {
+    setDisplaySubmit(true);
+  };
+
+  const handleCancel = () => {
+    setDisplaySubmit(false);
+    window.location.reload();
+  };
 
   return (
     <div
@@ -65,6 +84,18 @@ const EditUsers = () => {
           }}
         >
           <span>Edit User</span>
+          <button
+              style={{
+                backgroundColor: "#36b9cc",
+                border: "1px solid #36b9cc",
+                borderRadius: "4px",
+                padding: "8px",
+                display: displaySubmit ? "none" : "block",
+              }}
+              onClick={onEdit}
+            >
+              Edit
+            </button>
         </span>
         <form
           onSubmit={formik.handleSubmit}
@@ -150,6 +181,9 @@ const EditUsers = () => {
             helperText={formik.touched.password && formik.errors.password}
           />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {
+              displaySubmit &&
+         <>
             <Button
               color="primary"
               variant="contained"
@@ -157,6 +191,15 @@ const EditUsers = () => {
             >
               Submit
             </Button>
+            <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
+                </>
+                   }
           </div>
         </form>
       </div>

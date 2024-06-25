@@ -27,10 +27,10 @@ async function findUserFromUserData(email, password) {
 
 async function findUserFromEmail(email) {
   try {
-    console.log(email)
+    console.log('eeeee',email)
     let db = await DB.db_connect("users");
     let user = await db.findOne({ email: email });
-
+console.log('useeer',user)
     if (user) {
       return user;
     }

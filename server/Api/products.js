@@ -39,8 +39,19 @@ async function updateProduct(req, res) {
   }
 }
 
+async function getProductByCategory(req, res) {
+  try {
+    const data = req.body;
+    const result = await productService.getProductsByCategory(data.category);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
+
 module.exports = {
   addNewProduct,
   allProducts,
   updateProduct,
+  getProductByCategory
 };

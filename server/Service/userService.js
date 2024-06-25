@@ -46,9 +46,8 @@ async function removeUser(email) {
 
 async function updateUser(userInfo, id) {
   try {
-   const a = await user.updateUser(id, userInfo)
+   const a = await user.updateUser(userInfo, id)
    if (a){
-    console.log(a)
     return a
    }
     throw new Error("error while updating user")

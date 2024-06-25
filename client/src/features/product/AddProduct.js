@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { Formik } from "../../components/FormContext/formContext";
 import { useAddNewProduct } from "../react-query/products";
 
-const categoryOptions = [
+export const categoryOptions = [
   { label: "Beverage", value: "beverage" },
   { label: "Starter", value: "starter" },
   { label: "Main Course", value: "main_course" },

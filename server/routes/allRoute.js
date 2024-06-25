@@ -15,6 +15,7 @@ router.post("/user/updateUser/:id", userApi.updateUser);
 router.post("/product/addNewProduct", productApi.addNewProduct);
 router.get("/product/allProducts", productApi.allProducts);
 router.post("/product/updateProduct/:id", productApi.updateProduct);
+router.post("/product/getProductByCategory", productApi.getProductByCategory);
 
 
 //TABLE
@@ -23,10 +24,13 @@ router.get("/table/getAll", tableApi.getAll)
 router.post("/table/updateTable/:id", tableApi.updateTable);
 router.post("/table/removeTable", tableApi.removeTable);
 
+
 //ORDER
 router.post("/order/addOrder", orderApi.placeOrder);
 router.get("/order/allOrder", orderApi.allOrder);
 router.post("/order/removeOrder", orderApi.removeOrder);
+router.post("/order/updateOrder", orderApi.updateOrder);
+router.get("/order/getOrder/:id", orderApi.getOrder);
 
 module.exports = router;
 

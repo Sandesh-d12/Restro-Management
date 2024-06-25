@@ -86,6 +86,17 @@ async function getProductById(ids) {
   }
 }
 
+async function getOrderById(id) {
+  try {
+
+    let db = await DB.db_connect("orders");
+    let order = await db.find({ _id: new mongodb.ObjectId(id) }).toArray()
+    if (order) return order;
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function deleteOrder(id) {
   try {
     let db = await DB.db_connect("orders");
@@ -101,6 +112,23 @@ async function deleteOrder(id) {
   }
 }
 
+async function updateOrder(orderId, orderInfo) {
+  try {
+    let db = await DB.db_connect("orders");
+    const order = await db.findOne({ _id: new mongodb.ObjectId(orderId) });
+    if (order) {
+      const result = await db.updateOne(
+        { _id: new mongodb.ObjectId(orderId) },
+        { $set: orderInfo }
+      );
+      return result.acknowledged;
+    }
+    throw new Error("No Order Found for Id");
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
   getOrder,
   addOrder,
@@ -108,5 +136,7 @@ module.exports = {
   updateOrder,
   decreaseQuantityOnStore,
   getProductById,
-  deleteOrder
+  deleteOrder,
+  updateOrder,
+  getOrderById
 };

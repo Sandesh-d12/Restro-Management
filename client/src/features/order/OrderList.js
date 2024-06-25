@@ -107,18 +107,50 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { removeOrder, useAllOrder } from '../react-query/order'
 import DeleteModal from '../../components/DeleteModal'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Button } from '../../components/table-management/Table'
+import EditOrderModal from '../../components/EditOrderModal';
+import Switch from '@mui/material/Switch';
+
+const Line = () => {
+  return (
+    <div style={{
+      height:'100px',
+      border:'1px solid #ccc',
+      marginLeft:'30px'
+    }}>
+
+    </div>
+  )
+}
 
 export default function OrderList() {
 
   const allOrder = useAllOrder()
   const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
+  const [openOrderId, setOpenOrderId] = React.useState(null);
   
-  const handleOpen = () => {
+  const handleOpen = (id) => {
     setOpen(true);
+    setOpenOrderId(id);
   };
   
   const handleClose = () => {
     setOpen(false);
+    setOpenOrderId(null);
+  };
+
+  const handleChange = () => {
+
+    setChecked((prev) => !prev);
+
+ 
+    const payload = checked ? 'received' : 'pending';
+
+    
+    console.log(payload);
+
   };
   
   if(allOrder){
@@ -129,21 +161,24 @@ export default function OrderList() {
     setOpen(false);
     removeOrder(id)
     alert("succesfully deleted user");
-    window.location.reload();
+    // window.location.reload();
   };
+
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
   
   return (
-    <div style={{width:'1000px', marginLeft:'30rem', marginTop:'2rem', border:'1px solid #ccc', textAlign:'left', padding:'32px'}}>
+    <div style={{maxWidth:'1500px',width:'100%', marginLeft:'18rem', marginTop:'2rem', textAlign:'left', padding:'0px 32px 0px 32px'}}>
       <h1>Orders</h1>
       <table
         border={1}
         style={{
           borderCollapse: "collapse",
-          border:'1px solid #ccc'
+          border:'1px solid #ccc',
+          maxWidth:'1500px',width:'100%',
         }}
       >
         <thead style={{backgroundColor:'#eee'}}>
-          <tr style={{display:'flex', gap:'10px'}}>
+
             <th style={{ padding: "18px" }}>S.N</th>
             <th style={{ padding: "18px" }}>Table Number</th>
           
@@ -153,7 +188,6 @@ export default function OrderList() {
             <th style={{ padding: "18px" }}>Product Name</th>
             <th style={{ padding: "18px" }}>Price</th>
             <th style={{ padding: "18px" }}>Actions</th>
-          </tr>
         </thead>
         
       </table>
@@ -161,33 +195,48 @@ export default function OrderList() {
        allOrder && allOrder.map((d, index)=>((
 <Accordion>
         <AccordionSummary
-          expandIcon={ <DeleteModal
-            description={"Are you sure you want to delete?"}
-            handleDelete={handleDelete}
-            // id={d._id}
-            open={open}
-            handleOpen={handleOpen}
-            handleClose={handleClose}
-          />}
+          expandIcon={ <ExpandMoreIcon style={{paddingLeft:'1rem'}}/>}
             aria-controls="panel1-content"
           id="panel1-header"
         >
+          <div style={{display:'flex',width:'100%', justifyContent:'space-between', zIndex:1}}>
           <Typography>Order {index + 1}</Typography>
+          <div style={{display:'flex', gap:'1rem'}}>
+          <Switch {...label}   checked={checked}
+      onChange={handleChange} />
+        <EditOrderModal id={d._id} />
+          <DeleteModal
+            description={"Are you sure you want to delete?"}
+            handleDelete={handleDelete}
+            id={d._id}
+            open={openOrderId === d._id}
+            handleOpen={()=>handleOpen(d._id)}
+            handleClose={handleClose}
+          />
+          </div>
+          </div>
         </AccordionSummary>
         <AccordionDetails>
         <tbody>
    
               <tr key={index} style={{display:'flex', gap:'10px'}}>
                  <td style={{ padding: "18px" }}>{index + 1}</td>
+                 <Line />
                 <td style={{ padding: "18px" }}>{d?.table_number}</td>
+                <Line />
                 <td style={{ padding: "18px" }}>{d?.paymentDetails?.type}</td>
+                <Line />
                 <td style={{ padding: "18px" }}>{d?.paymentDetails?.status}</td>
+                <Line />
                 {
                   d?.product?.map((i, index)=>((
                     <>
                     <td style={{ padding: "18px" }}>{i?.name}</td>
+                    <Line />
                     <td style={{ padding: "18px" }}>{i?.price}</td>
+                    <Line />
                     <td style={{ padding: "18px" }}>{i?.quantity}</td>
+                    <Line />
                     </>
                   )))
                 }

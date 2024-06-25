@@ -46,13 +46,16 @@ export const Button = ({ type, id, onClick }) => {
 function Users() {
   const { data, isError, isLoading } = useAllUsers();
   const [open, setOpen] = React.useState(false);
+  const [openTableId, setOpenTableId] = React.useState(null)
 
-  const handleOpen = () => {
+  const handleOpen = (id) => {
     setOpen(true);
+    setOpenTableId(id)
   };
 
   const handleClose = () => {
     setOpen(false);
+    setOpenTableId(null)
   };
 
   const exceptAdmin = data?.filter((d) => d.userType !== "admin");
@@ -127,8 +130,8 @@ function Users() {
                       description={"Are you sure you want to delete?"}
                       handleDelete={handleDelete}
                       id={d.email}
-                      open={open}
-                      handleOpen={handleOpen}
+                      open={openTableId === d?._id}
+                      handleOpen={()=>handleOpen(d?._id)}
                       handleClose={handleClose}
                     />
                   </div>

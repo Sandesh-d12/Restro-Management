@@ -46,7 +46,6 @@ async function getAll(req, res) {
 
 async function removeUser(req, res){
   try{
-    console.log('req',req.body.email)
     const result = await userService.removeUser(req?.body?.email);
     res.status(200).json(result);
   }catch(err){
@@ -58,10 +57,10 @@ async function updateUser(req, res) {
   try {
     const user_id = req.params.id;
     const data = req.body;
-    const result = await userService.updateUser(user_id, data);
+    const result = await userService.updateUser(data, user_id);
     res.status(200).send(result);
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(401).json(err.message);
   }
 }
 

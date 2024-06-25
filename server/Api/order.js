@@ -6,7 +6,7 @@ const orderService = require("../Service/orderService");
 async function placeOrder(req, res) {
   try {
     const data = req.body;
-    console.log('data',data)
+
     const result = await orderService.placeOrder(
       data?.table_number,
       data?.paymentType,
@@ -39,8 +39,33 @@ async function removeOrder(req, res){
   }
 }
 
+async function updateOrder(req, res) {
+  try {
+ 
+    const data = req.body;
+ 
+    const result = await orderService.updateOrder(data.id, data);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+}
+
+async function getOrder(req, res) {
+  try {
+
+    const id = req.params.id
+    const result = await orderService.getOrderById(id);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+}
+
 module.exports = {
     placeOrder,
     allOrder,
-    removeOrder
+    removeOrder,
+    updateOrder,
+    getOrder
   };

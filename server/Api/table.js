@@ -20,7 +20,7 @@ async function addTable(req, res) {
 
   async function updateTable(req, res) {
     try {
-      const table_id = req.params.id;
+      const table_id = req.body.id;
       const data = req.body;
       const result = await tableService.updateTable(table_id, data);
       res.status(200).send(result);
@@ -40,7 +40,7 @@ async function addTable(req, res) {
 
   async function removeTable(req, res){
     try{
-      console.log('req',req.body.tableNumber)
+    
       const result = await tableService.removeTable(req?.body?.tableNumber);
       res.status(200).json(result);
     }catch(err){

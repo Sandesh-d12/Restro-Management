@@ -73,3 +73,48 @@ const placeOrder = async (data) => {
   
     return response.json();
   };
+
+  const updateOrder = async (orderData) => {
+ 
+    const response = await fetch(
+      `http://localhost:3001/api/order/updateOrder`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  
+    return response;
+  };
+  
+  export const useUpdateOrder = () => {
+    const queryClient = useQueryClient();
+    const updatedOrder = useMutation(updateOrder, {
+    
+    });
+  
+    return updatedOrder;
+  };
+
+  export const getOrder = async (id) => {
+  
+    const response = await fetch(`http://localhost:3001/api/order/getOrder/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  };
+  

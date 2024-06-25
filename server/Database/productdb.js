@@ -38,6 +38,38 @@ async function getProductById(ids) {
   }
 }
 
+async function getProductByCategory(category) {
+  try {
+
+    // const objectIds = ids.map(id => new mongodb.ObjectId(id));
+    // console.log(objectIds)
+    let db = await DB.db_connect("products");
+    let products = await db.find({ category:category }).toArray();
+    if (products) 
+    return products;
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getCategoryByProductName(productName) {
+  try {
+
+    // const objectIds = ids.map(id => new mongodb.ObjectId(id));
+    // console.log(objectIds)
+    let db = await DB.db_connect("products");
+    let products = await db.find({ name:productName }).toArray();
+    if (products) {
+      return products
+    }
+    throw new Error('product invalid')
+   
+  } catch (err) {
+    throw err;
+  }
+}
+//  getCategoryByProductName('Keaton Zamora')
+
 async function addProduct(productData) {
   try {
     let db = await DB.db_connect("products");
@@ -89,5 +121,7 @@ module.exports = {
   addProduct,
   updateProduct,
   getProductById,
-  getProductsById
+  getProductsById,
+  getProductByCategory,
+  getCategoryByProductName
 };
