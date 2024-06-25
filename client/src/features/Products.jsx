@@ -125,7 +125,7 @@ const AllProducts = () => {
         onClick={handlePlaceOrderClick}
         disabled={selectionEnabled}
       >
-        Place Order
+     Select Items
       </Button>
       <div className={styles.card}>
         {filteredData && filteredData.length !== 0 ? (

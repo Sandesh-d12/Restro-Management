@@ -47,7 +47,7 @@ function PlaceOrder({ tableNumber, onClick }) {
               marginBottom: "8px",
             }}
           >
-            Place Order
+            Proceed to Place Order
           </span>
           <br />
           <Form

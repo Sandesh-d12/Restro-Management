@@ -34,7 +34,7 @@ const tableNumbers = data && data?.map(d => d.tableNumber);
             onClick={toggleDrawer("right", true)}
             disabled={true}
           >
-            Place Order
+            Proceed to Place Order
        
           </Button>
           :
@@ -43,7 +43,7 @@ const tableNumbers = data && data?.map(d => d.tableNumber);
            onClick={toggleDrawer("right", true)}
            disabled={false}
          >
-          Place Order
+   Proceed to Place Order
       
          </Button>
 

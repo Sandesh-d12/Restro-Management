@@ -40,7 +40,7 @@ export default function OrderList() {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   return (
-    <div style={{ maxWidth: '1500px', width: '100%', marginLeft: '18rem', marginTop: '2rem', textAlign: 'left',zIndex:2, padding: '0px 32px 0px 32px' }}>
+    <div style={{ maxWidth: '1500px',  marginLeft: '18rem', marginTop: '2rem', textAlign: 'left',zIndex:2, padding: '0px 32px 0px 32px' }}>
       <h1>Orders</h1>
       <div style={{ maxHeight: '800px', overflowY: 'auto' }}>
         <table
