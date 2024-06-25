@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-// Define your validation schema using Yup
+
 const validationSchema = Yup.object().shape({
   tableNumber: Yup.number().required("Table number is required"),
   tableCapacity: Yup.number()
@@ -87,8 +87,6 @@ export default function EditTableModal({id}) {
                           {msg => <FormHelperText className="error-text">{msg}</FormHelperText>}
                         </ErrorMessage>
                       }
-                //   className={classes.formField}
-                //   helperText={<ErrorMessage name="tableNumber" />}
                 />
                 <Field
                   as={TextField}
@@ -96,7 +94,6 @@ export default function EditTableModal({id}) {
                   label="Table Capacity"
                   fullWidth
                   sx={formStyles}
-                //   className={classes.formField}
                 helperText={
                     <ErrorMessage name="tableCapacity">
                       {msg => <FormHelperText className="error-text">{msg}</FormHelperText>}
@@ -109,7 +106,6 @@ export default function EditTableModal({id}) {
                   label="Occupancy"
                   fullWidth
                   sx={formStyles}
-                //   className={classes.formField}
                 helperText={
                     <ErrorMessage name="occupancy">
                       {msg => <FormHelperText className="error-text">{msg}</FormHelperText>}
