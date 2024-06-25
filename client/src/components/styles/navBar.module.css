@@ -31,8 +31,8 @@
 
 .sideBar {
   width: 16%;
-  /* height: 100%; */
-  height: 120vh;
+  height: 100%;
+  /* height: 120vh; */
   background-color: #042848eb;
   position: absolute;
 }
