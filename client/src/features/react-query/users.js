@@ -84,9 +84,10 @@ const getAll = async () => {
 };
 
 export const useAllUsers = () => {
-  const allUser = useQuery("getAll", () => getAll(), {});
-
-  return allUser;
+  return useQuery('getAll', getAll, {
+    staleTime: 1000 * 60 * 5, 
+    cacheTime: 1000 * 60 * 10, 
+  });
 };
 
 

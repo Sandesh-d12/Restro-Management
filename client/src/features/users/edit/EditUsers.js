@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import { useFormik } from "formik";
 import { useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -14,26 +13,26 @@ const EditUsers = () => {
   const { data, isError, isLoading } = useAllUsers();
   const { id } = useParams();
   const [displaySubmit, setDisplaySubmit] = useState(false);
-  const single = data?.find((user) => user._id === id);
-  const [singleUser, setSingleUser]=useState(single)
+  const [singleUser, setSingleUser] = useState(null);
   const updateUser = useUpdateUserMutation();
+  const [searchParams] = useSearchParams();
 
-  let {searchParams} = useSearchParams();
+  useEffect(() => {
+    if (data) {
+      const single = data.find((user) => user._id === id);
+      setSingleUser(single);
+    }
+  }, [data, id]);
 
-
-React.useEffect(()=>{
-  const single = data?.find((user) => user._id === id);
-  setSingleUser(single)
-},[])
-console.log(singleUser)
   const formik = useFormik({
     initialValues: {
-      firstName: singleUser?.firstName,
-      lastName: singleUser?.lastName,
-      email: singleUser?.email,
-      password: singleUser?.password,
-      userType: singleUser?.userType,
+      firstName: singleUser?.firstName || '',
+      lastName: singleUser?.lastName || '',
+      email: singleUser?.email || '',
+      password: singleUser?.password || '',
+      userType: singleUser?.userType || '',
     },
+    enableReinitialize: true,
     validationSchema: Yup.object({
       firstName: Yup.string()
         .max(15, "Must be 15 characters or less")
@@ -46,7 +45,8 @@ console.log(singleUser)
     }),
     onSubmit: (values) => {
       updateUser.mutate({ values, id });
-      // toast.success("user updated successfully");
+      toast.success("User updated successfully");
+      setDisplaySubmit(false);
     },
   });
 
@@ -85,17 +85,17 @@ console.log(singleUser)
         >
           <span>Edit User</span>
           <button
-              style={{
-                backgroundColor: "#36b9cc",
-                border: "1px solid #36b9cc",
-                borderRadius: "4px",
-                padding: "8px",
-                display: displaySubmit ? "none" : "block",
-              }}
-              onClick={onEdit}
-            >
-              Edit
-            </button>
+            style={{
+              backgroundColor: "#36b9cc",
+              border: "1px solid #36b9cc",
+              borderRadius: "4px",
+              padding: "8px",
+              display: displaySubmit ? "none" : "block",
+            }}
+            onClick={onEdit}
+          >
+            Edit
+          </button>
         </span>
         <form
           onSubmit={formik.handleSubmit}
@@ -117,6 +117,10 @@ console.log(singleUser)
             name="firstName"
             value={formik.values.firstName}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+            disabled={!displaySubmit}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
@@ -129,6 +133,10 @@ console.log(singleUser)
             name="lastName"
             value={formik.values.lastName}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+            disabled={!displaySubmit}
           />
           <span
             style={{ marginBottom: "10px", textAlign: "left", fontWeight: 500 }}
@@ -145,14 +153,15 @@ console.log(singleUser)
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            disabled={!displaySubmit}
           />
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             name="userType"
             value={formik.values.userType}
-            label=""
             onChange={formik.handleChange}
+            disabled={!displaySubmit}
           >
             <MenuItem style={{ textAlign: "left" }} value={"cashier"}>
               Cashier
@@ -179,27 +188,27 @@ console.log(singleUser)
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            disabled={!displaySubmit}
           />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            {
-              displaySubmit &&
-         <>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={formik.handleSubmit}
-            >
-              Submit
-            </Button>
-            <Button
+            {displaySubmit && (
+              <>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                <Button
                   color="primary"
                   variant="contained"
                   onClick={handleCancel}
                 >
                   Cancel
                 </Button>
-                </>
-                   }
+              </>
+            )}
           </div>
         </form>
       </div>
@@ -220,7 +229,6 @@ console.log(singleUser)
         </div>
       </div>
     </div>
-    // </>
   );
 };
 
