@@ -58,3 +58,31 @@ const getAll = async () => {
   
     return response.json();
   };
+
+  const updateTable = async (tableData) => {
+ 
+    const response = await fetch(
+      `http://localhost:3001/api/table/updateTable`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tableData),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  
+    return response;
+  };
+  
+  export const useUpdateTable = () => {
+    const queryClient = useQueryClient();
+    const updatedTable = useMutation(updateTable, {
+    
+    });
+  
+    return updatedTable;
+  };

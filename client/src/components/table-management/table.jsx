@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { removeTable, useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
 import DeleteModal from "../DeleteModal";
+import EditTableModal from "../EditTableModal";
 
 export const Button = ({ type, id, onClick }) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const Button = ({ type, id, onClick }) => {
       return (
         <button
           style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
-          onClick={() => navigate("#")}
+        onClick={onClick}
         >
           <RiPencilFill />
         </button>
@@ -33,6 +34,7 @@ export const Button = ({ type, id, onClick }) => {
 function Table() {
   const { data, isError, isLoading, isSuccess } = useAllTable();
   const [open, setOpen] = React.useState(false);
+
   const [openTableId, setOpenTableId] = useState(null);
 
   const handleOpen = (id) => {
@@ -49,7 +51,6 @@ function Table() {
     return <h3>Loading ...</h3>;
   }
 
-  const handleEdit = (e) => {};
 
   const handleDelete = (id) => {
     setOpen(false);
@@ -104,16 +105,7 @@ function Table() {
                 <div
                   style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <Button type="edit" id={d._id} />
-                  {/* <DeleteModal
-                    description={"Are you sure want to delete table?"}
-                    id={d?.tableNumber}
-                    handleDelete={handleDelete}
-                    open={open}
-                    handleOpen={handleOpen}
-                    handleClose={handleClose}
-                  ></DeleteModal>
-                  <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)}/> */}
+               <EditTableModal id={d._id} />
                   {(
                     <DeleteModal
                       description={'Are you sure you want to delete this table?'}

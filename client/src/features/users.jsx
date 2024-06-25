@@ -75,7 +75,7 @@ function Users() {
     <div
       style={{
         width: "70%",
-        paddingLeft: "300px",
+        paddingLeft: "350px",
         paddingTop: "20px",
         textAlign: "left",
         display: "flex",
