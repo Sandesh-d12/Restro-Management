@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useGetProducts } from "./react-query/products";
 import { useNavigate } from "react-router-dom";
+import SearchProduct from "../components/SearchProduct";
 
 
 const Menu = () => {
@@ -87,6 +88,7 @@ function FoodMenu() {
       }}
     >
       <span> Menu Items</span>
+      <SearchProduct />
       <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems:'center',justifyContent:'center' }}>
         <Menu />
       </div>

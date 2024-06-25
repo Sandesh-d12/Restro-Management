@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { removeUser } from "./react-query/users";
 import DeleteModal from "../components/DeleteModal";
 
-export const Button = ({ type, id, onClick }) => {
+export const CustomButton = ({ type, id, onClick }) => {
   const navigate = useNavigate();
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
@@ -123,7 +123,7 @@ function Users() {
                   <div
                     style={{ display: "flex", justifyContent: "space-evenly" }}
                   >
-                    <Button type="edit" id={d._id} />
+                    <CustomButton type="edit" id={d._id} />
                     {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} disable /> */}
                     {/* <Button type="delete" id={d._id} onClick={} disable /> */}
                     <DeleteModal

@@ -52,8 +52,9 @@ export default function AllDrawer({ type}) {
       <React.Fragment>
             <Button
             variant="outlined"
+            sx={{color:'#1976d2'}}
             onClick={toggleDrawer("right", true)}
-            disabled={isDisabled(user.userType)}
+            disabled={isDisabled(user?.userType)}
           >
             Add New {type}
        

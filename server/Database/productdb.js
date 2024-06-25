@@ -114,6 +114,42 @@ async function getProductsById(productIds) {
 }
 
 
+async function searchProductByKeyWords(keyword) {
+  try {
+    let db = await DB.db_connect("products");
+    let allProduct = await db.find({}).toArray();
+
+    const result = [];
+    for (let products of allProduct) {
+      for (let key in products) {
+        if (key === "id") {
+          continue;
+        } else {
+          if (
+            typeof products[key] === "string" &&
+            typeof keyword === "string"
+          ) {
+            if (
+              products[key].toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+            ) {
+              result.push(products);
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (result.length > 0) {
+      return result;
+    }
+    throw new Error("no product found");
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+
 
 
 module.exports = {
@@ -123,5 +159,6 @@ module.exports = {
   getProductById,
   getProductsById,
   getProductByCategory,
-  getCategoryByProductName
+  getCategoryByProductName,
+  searchProductByKeyWords
 };

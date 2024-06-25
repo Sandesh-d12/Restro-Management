@@ -55,10 +55,20 @@ async function getProductsByCategory(category) {
 }
 
 
+async function searchProduct(keyword) {
+  try {
+    const res = await product.searchProductByKeyWords(keyword);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
-  getProductsByCategory
+  getProductsByCategory,
+  searchProduct
 };

@@ -137,7 +137,7 @@ export const SignUp = () => {
             ) : null}
             </div>
             <Button
-              style={{ height: "40px", marginTop: "20px", textAlign: "center", color:'black' }}
+              style={{ height: "40px", marginTop: "20px", textAlign: "center", color:'#1976d2' }}
               type="submit"
               variant='outlined'
             >

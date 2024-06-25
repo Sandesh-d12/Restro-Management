@@ -44,16 +44,16 @@ function PlaceOrder({ tableNumber, onClick }) {
               color: "#042848eb",
               fontSize: "20px",
               fontWeight: 700,
-              marginBottom: "8px",
+              // paddingBottom: "24px",
             }}
           >
-            Proceed to Place Order
+          Place Order
           </span>
           <br />
           <Form
             style={{ display: "flex", flexDirection: "column", gap: "12px" }}
           >
-            <div>
+            <div style={{marginTop:'8px'}}>
               <label htmlFor="table_number">Table Number</label>
               <br />
               <Field
@@ -91,7 +91,7 @@ function PlaceOrder({ tableNumber, onClick }) {
                 className="error-message"
               />
             </div>
-            <Button type="submit" variant="outlined" disabled={isLoading}>
+            <Button type="submit" variant="outlined" sx={{color:'#1976d2'}} disabled={isLoading}>
               Submit
             </Button>
           </Form>

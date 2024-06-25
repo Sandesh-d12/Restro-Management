@@ -49,9 +49,21 @@ async function getProductByCategory(req, res) {
   }
 }
 
+async function searchProduct(req, res) {
+  try {
+    const keyword = req.params.keyword;
+    const result = await productService.searchProduct(keyword);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(401).json(err.message);
+  }
+}
+
+
 module.exports = {
   addNewProduct,
   allProducts,
   updateProduct,
-  getProductByCategory
+  getProductByCategory,
+  searchProduct
 };

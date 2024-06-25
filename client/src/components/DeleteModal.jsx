@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Button } from '../features/users';
+import { CustomButton } from '../features/users';
 import { CiTrash } from "react-icons/ci";
 
 const style = {
@@ -24,7 +24,7 @@ export default function DeleteModal({description, id, handleDelete, handleOpen, 
 
   return (
     <div>
-        <Button type='delete' style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={()=>handleOpen(tableId)} ><CiTrash  /></Button>
+        <CustomButton type='delete' style={{border:'none', backgroundColor:'#fff', cursor:'pointer'}} onClick={()=>handleOpen(tableId)} ><CiTrash  /></CustomButton>
       <Modal
         open={open}
         onClose={handleClose}

@@ -7,7 +7,7 @@ import AllDrawer from "../food-menu/Drawer";
 import DeleteModal from "../DeleteModal";
 import EditTableModal from "../EditTableModal";
 
-export const Button = ({ type, id, onClick }) => {
+export const CustomButton = ({ type, id, onClick }) => {
   const navigate = useNavigate();
   switch (type) {
     case "edit":

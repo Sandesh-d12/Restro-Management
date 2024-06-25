@@ -96,9 +96,39 @@ export const getProductsByCategory = async (category) => {
     }
   );
   if (!response.ok) {
+
     throw new Error("Network response was not ok");
   }
 
   return response.json();
 };
 
+const searchProducts = async (keyword) => {
+  const response = await fetch(
+    `http://localhost:3001/api/product/searchProduct/${keyword}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorMessage = await response.json();
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
+};
+
+export const useSearchProduct = (keyword) => {
+  const { data, isLoading, isError, error } = useQuery(["searchProducts", keyword], () => searchProducts(keyword), {
+    enabled: !!keyword, 
+    refetchOnWindowFocus: false, 
+    cacheTime: 600000,
+    staleTime: 300000,
+  });
+
+  return { data, isLoading, isError, error };
+};

@@ -2,12 +2,13 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Button } from "./table-management/Table";
+import { CustomButton } from "./table-management/Table";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import TextField from '@mui/material/TextField';
 import { useAllTable, useUpdateTable } from "../features/react-query/table";
 import FormHelperText from '@mui/material/FormHelperText';
+import { Button } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -52,7 +53,7 @@ export default function EditTableModal({id}) {
 
   return (
     <div>
-      <Button type="edit" onClick={handleOpen} />
+      <CustomButton type="edit" onClick={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -111,9 +112,9 @@ export default function EditTableModal({id}) {
                       {msg => <FormHelperText className="error-text">{msg}</FormHelperText>}
                     </ErrorMessage>
                   }                />
-                <button type="submit">
+                <Button variant="contained" type="submit">
                   Submit
-                </button>
+                </Button>
               </Form>
             )}
           </Formik>

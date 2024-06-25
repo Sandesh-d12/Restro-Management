@@ -152,7 +152,7 @@ export default function AddProduct() {
                 height: "40px",
                 marginTop: "20px",
                 textAlign: "center",
-                color: "black",
+                color: "#1976d2",
               }}
               type="submit"
               variant="outlined"

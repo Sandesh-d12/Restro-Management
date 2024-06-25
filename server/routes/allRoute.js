@@ -16,6 +16,7 @@ router.post("/product/addNewProduct", productApi.addNewProduct);
 router.get("/product/allProducts", productApi.allProducts);
 router.post("/product/updateProduct/:id", productApi.updateProduct);
 router.post("/product/getProductByCategory", productApi.getProductByCategory);
+router.get("/product/searchProduct/:keyword", productApi.searchProduct);
 
 
 //TABLE
