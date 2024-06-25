@@ -20,11 +20,17 @@
   padding-top: 20px;
   display: flex;
   gap: 20px;
-  /* align-items: center; */
   flex-wrap: wrap;
   justify-content: center;
-  /* overflow: hidden; */
   align-items: center;
-  padding-left: 300px;
-  /* height:300px */
+  padding:32px 32px 32px 300px; 
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height: 750px;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.card::-webkit-scrollbar {
+  display: none; 
 }

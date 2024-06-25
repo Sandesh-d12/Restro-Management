@@ -42,9 +42,6 @@ export default function Products({ Id, title, price, quantity, selected,orderQua
     <Card
       sx={{
         minWidth: "200px",
-        overflow:'visible',
-        overflowX:'visivle',
-        overflowY:'visible'
       }}
     >
         <FormControlLabel
