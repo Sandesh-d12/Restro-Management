@@ -87,7 +87,7 @@ export default function AddProduct() {
               </span>
               <label htmlFor="name"> Name</label>
               <input
-                style={{ height: "40px" }}
+                style={{ height: "40px", padding:'0px', width:'100%' }}
                 id="name"
                 type="text"
                 {...formik.getFieldProps("name")}
@@ -101,7 +101,7 @@ export default function AddProduct() {
             >
               <label htmlFor="price">Price</label>
               <input
-                style={{ height: "40px" }}
+                style={{ height: "40px", padding:'0px', width:'100%' }}
                 id="price"
                 type="number"
                 {...formik.getFieldProps("price")}
@@ -119,7 +119,7 @@ export default function AddProduct() {
                 id="quantity"
                 type="number"
                 {...formik.getFieldProps("quantity")}
-                style={{ height: "40px" }}
+                style={{ height: "40px", padding:'0px', width:'100%' }}
               />
               {formik.touched.quantity && formik.errors.quantity ? (
                 <div style={{ color: "red" }}>{formik.errors.quantity}</div>
@@ -133,7 +133,7 @@ export default function AddProduct() {
               <select
                 id="category"
                 {...formik.getFieldProps("category")}
-                style={{ height: "40px" }}
+                style={{ height: "40px", padding:'0px', width:'100%' }}
               >
                 <option value="" label="Select category" />
                 {categoryOptions.map((option) => (

@@ -17,7 +17,7 @@ export const addTable = async (tableData) => {
   return response.json();
 };
 
-const getAll = async () => {
+const getAllTable = async () => {
     const response = await fetch("http://localhost:3001/api/table/getAll", {
       method: "GET",
       headers: {
@@ -33,8 +33,7 @@ const getAll = async () => {
   };
 
   export const useAllTable = () => {
-    const allTable = useQuery("getAll", () => getAll(), {});
-  
+    const allTable = useQuery("getAllTable", () => getAllTable(), {});
     return allTable;
   };
 

@@ -3,7 +3,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import NavBar from "./components/Nav-Bar";
 import Details from "./components/profile/details";
 import FoodMenu from "./features/FoodMenu";
-import Dashboard from "./features/dashboard";
+import Dashboard from "./features/Dashboard";
 import AllProducts from "./features/Products";
 import TableManagement from "./features/table-management";
 import Users from "./features/users";

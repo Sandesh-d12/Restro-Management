@@ -1,13 +1,10 @@
-
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-
-export default function liveTable({ data }) {
-
+export default function LiveTable({ data }) {
+  console.log("table", data);
   return (
     <Card
       sx={{
@@ -15,8 +12,10 @@ export default function liveTable({ data }) {
         alignItems: "center",
         padding: "10px",
         minHeight: "60px",
-        backgroundColor: data.occupancy == data.tableCapacity ? "#36b9cc" : "white",
+        backgroundColor:
+          data?.occupancy == data?.tableCapacity ? "#36b9cc" : "white",
         display: "flex",
+       
       }}
     >
       <Box
@@ -41,13 +40,12 @@ export default function liveTable({ data }) {
             color="text.secondary"
             gutterBottom
           >
-           table {data.tableNumber}
+            table {data.tableNumber}
           </Typography>
           <div>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {data.occupancy}/{data.tableCapacity}
             </Typography>
-       
           </div>
         </div>
       </Box>

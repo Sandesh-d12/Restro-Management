@@ -9,18 +9,30 @@ import { removeOrder, useAllOrder } from "../react-query/order";
 import { RiFileUnknowFill } from "react-icons/ri";
 import DeleteModal from "../../components/DeleteModal";
 import EditOrderModal from "../../components/EditOrderModal";
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
-const Info = ()=> {
+const Info = () => {
   return (
     <Tooltip title="Expand to see the product list">
       <IconButton>
-   <div style={{height:'auto', width:'25px',display:'felx',alignItems:'center', justifyContent:'center', background:'#69bdfa', borderRadius:'50%'}}><span style={{fontSize:'16px', fontStyle:'Work Sans'}}>i</span></div>
+        <div
+          style={{
+            height: "auto",
+            width: "25px",
+            display: "felx",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#69bdfa",
+            borderRadius: "50%",
+          }}
+        >
+          <span style={{ fontSize: "16px", fontStyle: "Work Sans" }}>i</span>
+        </div>
       </IconButton>
     </Tooltip>
   );
-}
+};
 
 export default function OrderList() {
   const allOrder = useAllOrder();
@@ -55,16 +67,17 @@ export default function OrderList() {
   return (
     <div
       style={{
-        maxWidth: "1500px",
-        marginLeft: "18rem",
-        marginTop: "2rem",
+        width: "76%",
+        marginLeft: "21rem",
+        padding: "20px",
         textAlign: "left",
         zIndex: 2,
-        padding: "0px 32px 0px 32px",
       }}
     >
-      <h1>Orders</h1>
-      <div style={{ maxHeight: "800px", overflowY: "auto" }}>
+      <span style={{ fontSize: "32px", lineHeight: "normal", fontWeight: 700 }}>
+        Order Management
+      </span>
+      <div style={{ maxHeight: "800px", overflowY: "auto", marginTop: "16px" }}>
         <table
           border={1}
           style={{
@@ -101,7 +114,12 @@ export default function OrderList() {
                         <Accordion>
                           <AccordionSummary
                             expandIcon={
-                              <ExpandMoreIcon style={{ paddingLeft: "1rem" }} />
+                              <ExpandMoreIcon
+                                style={{
+                                  paddingLeft: "1rem",
+                                  color: "#1976d2",
+                                }}
+                              />
                             }
                             aria-controls={`panel${index + 1}-content`}
                             id={`panel${index + 1}-header`}
@@ -132,11 +150,12 @@ export default function OrderList() {
                                   {...label}
                                   checked={checked}
                                   onChange={handleChange}
+                                  style={{ color: "#1976d2 !important" }}
                                 />
                                 <EditOrderModal id={d._id} />
                                 <DeleteModal
                                   description={
-                                    "Are you sure you want to delete?"
+                                    "Are you sure you want to delete the order ?"
                                   }
                                   handleDelete={handleDelete}
                                   id={d._id}

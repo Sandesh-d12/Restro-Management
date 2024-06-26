@@ -6,27 +6,29 @@ import { removeTable, useAllTable } from "../../features/react-query/table";
 import AllDrawer from "../food-menu/Drawer";
 import DeleteModal from "../DeleteModal";
 import EditTableModal from "../EditTableModal";
+import { Button } from "@mui/material";
 
 export const CustomButton = ({ type, id, onClick }) => {
   const navigate = useNavigate();
   switch (type) {
     case "edit":
       return (
-        <button
-          style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
+        <Button
+          style={{ cursor: "pointer", border: "none" }}
         onClick={onClick}
         >
           <RiPencilFill />
-        </button>
+        </Button>
       );
     case "delete":
       return (
-        <button
-          style={{ border: "none", backgroundColor: "#fff", cursor: "pointer" }}
+        <Button
+          style={{ border: "none", cursor: "pointer", backgroundColor:'transparent' }}
           onClick={onClick}
+          variant="outlined"
         >
           <CiTrash />
-        </button>
+        </Button>
       );
   }
 };
@@ -61,9 +63,9 @@ function Table() {
   return (
     <div
       style={{
-        width: "70%",
-        paddingLeft: "300px",
-        paddingTop: "20px",
+        width: "76%",
+        padding: "20px",
+        marginLeft: "21rem",
         textAlign: "left",
         display: "flex",
         flexDirection: "column",
@@ -71,7 +73,9 @@ function Table() {
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>Table Management</span>
         <AllDrawer type={"table"} />
+      
       </div>
       <table
         border={1}

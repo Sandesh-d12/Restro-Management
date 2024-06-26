@@ -6,6 +6,7 @@ import AllDrawer from "../components/food-menu/Drawer";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "./react-query/users";
 import DeleteModal from "../components/DeleteModal";
+import { Button } from "@mui/material";
 
 export const CustomButton = ({ type, id, onClick }) => {
   const navigate = useNavigate();
@@ -22,23 +23,23 @@ export const CustomButton = ({ type, id, onClick }) => {
   switch (type) {
     case "edit":
       return (
-        <button
-          style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
+        <Button
+          style={{ cursor: "pointer", border: "none", color:'#007bff', display:'flex', alignItems:'center' }}
           onClick={() => navigate(`/editUser/${id}`)}
           disabled={isDisable(user?.userType)}
         >
           <RiPencilFill />
-        </button>
+        </Button>
       );
     case "delete":
       return (
-        <button
-          style={{ border: "none", backgroundColor: "#fff", cursor: "pointer" }}
+        <Button
+          style={{ border: "none", cursor: "pointer", backgroundColor:'transparent', color:'#007bff' }}
           onClick={onClick}
           disabled={isDisable(user?.userType)}
         >
           <CiTrash />
-        </button>
+        </Button>
       );
   }
 };
@@ -74,17 +75,17 @@ function Users() {
   return (
     <div
       style={{
-        width: "70%",
-        paddingLeft: "350px",
-        paddingTop: "20px",
+        width: "76%",
+        marginLeft: "21rem",
+        padding: "20px",
         textAlign: "left",
         display: "flex",
         flexDirection: "column",
         gap: "16px",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h1>Users Management</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems:'center' }}>
+      <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>User Management</span>
         {/* <UserDrawer /> */}
         <AllDrawer type={"user"} />
       </div>
@@ -121,13 +122,13 @@ function Users() {
                   }}
                 >
                   <div
-                    style={{ display: "flex", justifyContent: "space-evenly" }}
+                    style={{ display: "flex", justifyContent: "space-evenly", alignItems:'center' }}
                   >
                     <CustomButton type="edit" id={d._id} />
                     {/* <Button type="delete" id={d._id} onClick={()=>handleDelete(d.email)} disable /> */}
                     {/* <Button type="delete" id={d._id} onClick={} disable /> */}
                     <DeleteModal
-                      description={"Are you sure you want to delete?"}
+                      description={"Are you sure you want to delete the user ?"}
                       handleDelete={handleDelete}
                       id={d.email}
                       open={openTableId === d?._id}

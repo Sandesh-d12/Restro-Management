@@ -43,7 +43,7 @@ export const AddTable = () => {
       })}
       onSubmit={(values) => {
         addTable(values);
-        toast.success("table added successfully");
+        alert('Table added successfully')
         setReload(true)
       }}
     >
@@ -64,7 +64,7 @@ export const AddTable = () => {
             </span>
             <label htmlFor="tableNumber">Table Number</label>
             <Field
-              style={{ height: "40px" }}
+              style={{ height: "40px", padding:'0px', width:'100%' }}
               id="tableNumber"
               type="text"
               name="tableNumber"
@@ -78,7 +78,7 @@ export const AddTable = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <label htmlFor="tableCapacity">Table Capacity</label>
             <Field
-              style={{ height: "40px" }}
+              style={{ height: "40px", padding:'0px', width:'100%' }}
               id="tableCapacity"
               type="text"
               name="tableCapacity"

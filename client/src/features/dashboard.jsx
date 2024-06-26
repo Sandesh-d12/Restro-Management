@@ -1,55 +1,31 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import LiveTable from "../components/Card";
-import DashboardCard from "../components/dashboard/dashboardCard";
+import LiveTable from "../components/TableCard.jsx";
 import styles from "./styles/dashboard.module.css";
-import { useAllTable } from "./react-query/table";
+import { useAllTable } from "./react-query/table.js";
+import RecentOrder from "../components/dashboard/RecentOrder.jsx";
 
 export default function Dashboard() {
 
   const {data} = useAllTable()
 
-
-  const dashboardData = [
-    { id: 1, title: "Today's Sale", number: "332" },
-    { id: 2, title: "Yesterday's Sale", number: "332" },
-    { id: 3, title: "Last 7 days Sale", number: "2323" },
-    { id: 4, title: "All time sales", number: "23232323" },
-  ];
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Typography
-        sx={{
-          fontSize: "24px",
-          textAlign: "left !important",
-          marginLeft: "290px",
-          marginTop: "20px",
-        }}
-      >
-        Dashboard
-      </Typography>
+
       <div className={styles.wrapper}>
-        {" "}
-        <div className={styles.dashboardCard}>
-          {dashboardData.map((d, index) => (
-            <DashboardCard title={d.title} number={d.number} key={index} />
-          ))}
-        </div>
+        <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>Dashboard</span>
         <div className={styles.container}>
           <div className={styles.text}> Live Table Status </div>
           <div className={styles.card}>
-            {data?.length !== 0 ? data?.map((d, index) => (
+            {data && data?.length !== 0 ? data?.map((d, index) => (
               <LiveTable data={d} key={index} />
             )) : <p>No table found</p>}
           </div>
         </div>
+        <div>
+       
+        </div>
+        <RecentOrder />
       </div>
-    </Box>
+
   );
 }

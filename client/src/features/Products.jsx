@@ -3,7 +3,6 @@ import styles from "./styles/orders.module.css";
 import Products from "../components/products";
 import { useGetProducts } from "./react-query/products";
 import { Button } from "@mui/material";
-import ProductDrawer from "../components/food-menu/Drawer";
 import { useParams } from "react-router-dom";
 import { usePlaceOrder } from "./react-query/order";
 import OrderDrawer from "../components/OrderDrawer";
@@ -66,7 +65,7 @@ const AllProducts = () => {
       >
         <h1>Available Items</h1>
      
-        <ProductDrawer type={"product"} />
+      
       </div>
       <Button
         variant="outlined"

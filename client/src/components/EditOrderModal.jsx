@@ -4,11 +4,12 @@ import { Formik, FieldArray } from "formik";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Button from "./table-management/Table";
+import CustomButton from "./table-management/Table";
 import { RiPencilFill } from "react-icons/ri";
 import { getOrder, useUpdateOrder } from "../features/react-query/order";
 import { useSearchParams } from "react-router-dom";
 import { categoryOptions } from "../features/product/AddProduct";
+import { Button } from "@mui/material";
 import {
   getProductsByCategory,
   useGetProducts,
@@ -104,12 +105,13 @@ export default function EditOrderModal({ id }) {
 
   return (
     <div>
-      <button
+      <Button
         style={{ cursor: "pointer", backgroundColor: "#fff", border: "none" }}
         onClick={() => handleEditButtonClick(id)}
+        variant="outlined"
       >
         <RiPencilFill />
-      </button>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

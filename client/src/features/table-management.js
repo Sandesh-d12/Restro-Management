@@ -7,14 +7,6 @@ function TableManagement() {
   const [open, setOpen] = React.useState(false)
   return (
     <div
-      style={{
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        width: "100%",
-      }}
     >
       {/* <Typography
         sx={{
@@ -28,7 +20,6 @@ function TableManagement() {
       >
         Table Management
       </Typography> */}
-      <h1>Table Management</h1>
       <Table />
     </div>
   );

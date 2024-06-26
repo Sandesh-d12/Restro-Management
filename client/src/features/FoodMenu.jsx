@@ -7,6 +7,7 @@ import { CardActionArea } from "@mui/material";
 import { useGetProducts } from "./react-query/products";
 import { useNavigate } from "react-router-dom";
 import SearchProduct from "../components/SearchProduct";
+import ProductDrawer from '../components/food-menu/Drawer'
 
 
 const Menu = () => {
@@ -83,13 +84,18 @@ function FoodMenu() {
         display: "flex",
         flexDirection: "column",
         gap: "42px",
-        marginLeft: "25rem",
-        padding:'30px'
+        marginLeft: "21rem",
+        padding:'20px'
       }}
     >
-      <span> Menu Items</span>
-      <SearchProduct />
-      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems:'center',justifyContent:'center' }}>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>Menu Items</span>
+        <div style={{marginRight:'4.5rem'}}>
+      <ProductDrawer type={"product"} />
+      </div>
+      </div>
+      {/* <SearchProduct /> */}
+      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems:'center',justifyContent:'start' }}>
         <Menu />
       </div>
     </div>
