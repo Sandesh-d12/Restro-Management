@@ -38,7 +38,7 @@ export const CustomButton = ({ type, id, onClick }) => {
           onClick={onClick}
           disabled={isDisable(user?.userType)}
         >
-          <CiTrash />
+          <CiTrash color={'red'} />
         </Button>
       );
   }

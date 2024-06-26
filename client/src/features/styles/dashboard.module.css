@@ -15,8 +15,8 @@
   gap: 20px;
   align-items: center;
   flex-wrap: wrap;
-overflow:hidden;
-height:200px
+margin-bottom: 32px;
+
 }
 .text {
   text-align: left !important;

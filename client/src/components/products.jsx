@@ -9,10 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import * as React from "react";
-import PlaceOrderModal from "./orderModal";
-import { useParams } from "react-router-dom";
-import OrderDrawer from "./OrderDrawer";
 import { getFirstLetter } from "../utils";
+import EditProductModal from "./EditProductModal";
 
 export default function Products({ Id, title, price, quantity, selected,orderQuantity, onSelect,onQuantityChange, selectionEnabled }) {
   const [open, setOpen] = React.useState(false);
@@ -92,7 +90,7 @@ export default function Products({ Id, title, price, quantity, selected,orderQua
         )}
         {/* <OrderDrawer productId={Id} /> */}
       </CardContent>
-      <PlaceOrderModal
+      <EditProductModal
         title={title}
         id={Id}
         open={open}

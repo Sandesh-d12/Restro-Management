@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
 export default function LiveTable({ data }) {
-  console.log("table", data);
+
   return (
     <Card
       sx={{

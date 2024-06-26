@@ -38,7 +38,9 @@ export default function OrderList() {
   const pendingOrder = allOrder && allOrder?.filter((item)=>item?.paymentDetails?.status === 'pending')
   return (
     <Box sx={{ width: '76%', marginLeft: '21rem', padding: '20px', textAlign: 'left', zIndex: 2 }}>
-    <Typography variant="h4" fontWeight="700">Order Management</Typography>
+ <span style={{ fontSize: "32px", lineHeight: "normal", fontWeight: 700 }}>
+        Order Management
+      </span>
     <Box sx={{ maxHeight: '800px', overflowY: 'auto', marginTop: '16px' }}>
       <table border={1} style={{ borderCollapse: 'collapse', border: '1px solid #ccc', width: '100%' }}>
         <thead style={{ backgroundColor: '#eee', position: 'sticky', top: 0, zIndex: 1 }}>

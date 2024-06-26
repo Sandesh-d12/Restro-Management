@@ -52,7 +52,7 @@ export default function ArchivedOrder() {
       }}
     >
       <span style={{ fontSize: "32px", lineHeight: "normal", fontWeight: 700 }}>
-        Order Management
+       Archieved Orders
       </span>
       <div style={{ maxHeight: "800px", overflowY: "auto", marginTop: "16px" }}>
         <table

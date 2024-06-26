@@ -21,9 +21,8 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  padding:32px 32px 32px 300px; 
   overflow-x: scroll;
   overflow-y: scroll;
   max-height: 750px;

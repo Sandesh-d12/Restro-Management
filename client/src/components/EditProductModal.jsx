@@ -6,12 +6,13 @@ import { useUpdateProduct } from "../features/react-query/products";
 import { useFormik } from "formik";
 import { toast } from "react-hot-toast";
 import * as Yup from "yup";
+import { Button } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PlaceOrderModal({
+export default function EditProductModal({
   id,
   open,
   handleClose,
@@ -46,14 +47,14 @@ export default function PlaceOrderModal({
     }),
     onSubmit: (values) => {
       updateProduct.mutate({ values, id });
-      toast.success("product updated successfully");
+      alert("product updated successfully");
       handleClose();
       window.location.reload();
     },
   });
 
   return (
-    <div>
+    <div >
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -69,7 +70,7 @@ export default function PlaceOrderModal({
             alignItems: "center",
           }}
         >
-          <span>Edit the product details of: {title} </span>
+          <span><b>Edit the product details of: </b>{title} </span>
           <button
             style={{
               float: "right",
@@ -142,7 +143,7 @@ export default function PlaceOrderModal({
           {formik.touched.quantity && formik.errors.quantity ? (
             <div style={{ color: "red" }}>{formik.errors.quantity}</div>
           ) : null}
-          <button
+          {/* <button
             style={{
               padding: "10px 10px",
               border: "none",
@@ -160,7 +161,8 @@ export default function PlaceOrderModal({
             type="submit"
           >
             Edit
-          </button>
+          </button> */}
+          <Button variant="outlined" type="submit">Edit</Button>
         </form>
       </Dialog>
     </div>

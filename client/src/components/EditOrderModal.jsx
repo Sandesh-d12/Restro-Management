@@ -18,14 +18,15 @@ const style = {
   left: "170%",
   transform: "translate(-50%, -50%)",
   width: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
+  bgcolor: "#fff",
+  // boxShadow: 24,
   p: 4,
   overflowY:'scroll',
   maxHeight:700,
   scrollbarWwidth: 'none', 
-  msOverflowStyle: 'none'
+  msOverflowStyle: 'none',
+  borderRadius:'8px',
+  boxShadow:'-2px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)'
 };
 
 export default function EditOrderModal({ id }) {
@@ -144,6 +145,8 @@ export default function EditOrderModal({ id }) {
                 };
                 updateOrder.mutate(data);
                 setOpen(false);
+                alert('order updated successfully')
+                window.location.reload()
               }}
             >
               {({

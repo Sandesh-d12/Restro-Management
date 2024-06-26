@@ -54,26 +54,34 @@ const AllProducts = () => {
   const filteredData = data?.filter((item) => item.category === category);
 
   return (
-    <div className={styles.wrapper}>
+    <div   style={{
+      width: "76%",
+      marginLeft: "21rem",
+      padding: "20px",
+      textAlign: "left",
+      display: "flex",
+      flexDirection: "column",
+      gap: "16px",
+    }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          width: "30%",
+          width: "100%",
           alignItems: "center",
         }}
       >
-        <h1>Available Items</h1>
-     
-      
-      </div>
-      <Button
+        <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>Available Items</span>
+        <Button
         variant="outlined"
         onClick={handlePlaceOrderClick}
         disabled={selectionEnabled}
       >
         Select Items
       </Button>
+      
+      </div>
+    
       <div className={styles.card}>
         {filteredData && filteredData.length !== 0 ? (
           filteredData.map((p, index) => (
