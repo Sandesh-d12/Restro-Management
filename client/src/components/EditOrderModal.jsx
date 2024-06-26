@@ -34,14 +34,23 @@ export default function EditOrderModal({ id }) {
   let [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [singleOrder, setSingleOrder] = React.useState([]);
+  const [disableCategory, setDisableCategory] = React.useState(true);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+
+  const userString = localStorage.getItem("user") ?? null;
+  let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getOrder(id);
         setSingleOrder(data);
+        if (user.userType == "admin" || user.userType == "cashier") {
+          setDisableCategory(false);
+        } else {
+          setDisableCategory(true);
+        }
       } catch (error) {
         console.error("Error fetching order:", error);
       }
@@ -157,14 +166,17 @@ export default function EditOrderModal({ id }) {
                   <br />
 
                   <label htmlFor="paymentDetails.status">Payment Status</label>
-                  <input
+                  <select
                     id="paymentDetails.status"
                     name="paymentDetails.status"
-                    type="text"
                     onChange={handleChange}
                     value={values.paymentDetails.status}
-                    disabled
-                  />
+                    disabled={disableCategory}
+                    style={{ height: "40px", padding: "0px", width: "100%" }}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                  </select>
                   <br />
                   <FieldArray name="product">
                     {({ push, remove }) => (

@@ -39,16 +39,16 @@ export default function NavBar() {
     },
     {
       id: 5,
-      title: "Orders",
+      title: "Active Orders",
       icon: "",
       path: "/order",
    
     },
     {
       id: 6,
-      title: "Payment",
+      title: "Archived Orders",
       icon: "",
-      path: "#",
+      path: "/archived-order",
    
     },
   ];

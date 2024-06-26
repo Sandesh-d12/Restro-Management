@@ -62,8 +62,8 @@ export default function OrderList() {
     window.location.reload();
   };
 
-  const label = { inputProps: { "aria-label": "Switch demo" } };
-
+  const pendingOrder = allOrder && allOrder?.filter((item)=>item?.paymentDetails?.status === 'pending')
+console.log('pooo',pendingOrder)
   return (
     <div
       style={{
@@ -103,8 +103,8 @@ export default function OrderList() {
             </tr>
           </thead>
           <tbody>
-            {allOrder &&
-              allOrder
+            {pendingOrder &&
+              pendingOrder
                 .slice()
                 .reverse()
                 .map((d, index) => (
@@ -146,12 +146,12 @@ export default function OrderList() {
                                 }}
                               >
                                 {/* <Info /> */}
-                                <Switch
+                                {/* <Switch
                                   {...label}
                                   checked={checked}
                                   onChange={handleChange}
                                   style={{ color: "#1976d2 !important" }}
-                                />
+                                /> */}
                                 <EditOrderModal id={d._id} />
                                 <DeleteModal
                                   description={

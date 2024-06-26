@@ -12,6 +12,7 @@ import { LogIn } from "./features/users/logIn/LogIn";
 import EditUsers from "./features/users/edit/EditUsers";
 import PlaceOrder from "./features/order/PlaceOrder";
 import OrderList from "./features/order/OrderList";
+import ArchivedOrder from "./features/order/ArchivedOrders";
 
 
 function AllRoute() {
@@ -31,6 +32,7 @@ function AllRoute() {
           <Route path="/profile" element={<Details />} />
           <Route path="/editUser/:id" element={<EditUsers />} />
           <Route path='/order' element={<OrderList />} />
+          <Route path='/archived-order' element={<ArchivedOrder />} />
           <Route path="*" element={<Dashboard />} />
         </Route>
       )}

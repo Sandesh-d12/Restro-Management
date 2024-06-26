@@ -7,8 +7,7 @@ import { CardActionArea } from "@mui/material";
 import { useGetProducts } from "./react-query/products";
 import { useNavigate } from "react-router-dom";
 import SearchProduct from "../components/SearchProduct";
-import ProductDrawer from '../components/food-menu/Drawer'
-
+import ProductDrawer from "../components/food-menu/Drawer";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -16,50 +15,53 @@ const Menu = () => {
     {
       id: 1,
       category: "beverage",
-      url:"beverage",
+      url: "beverage",
       description: "enjoy the bev",
       image: "",
     },
     {
       id: 2,
       category: "starter",
-      url:'starter',
+      url: "starter",
       description: "enjoy the bev",
       image: "",
     },
     {
       id: 3,
       category: "main course",
-      url:"main_course",
+      url: "main_course",
       description: "enjoy the bev",
       image: "",
     },
     {
       id: 4,
       category: "desserts",
-      url:'desserts',
+      url: "desserts",
       description: "enjoy the bev",
       image: "",
     },
     {
       id: 5,
       category: "chief special",
-      url:'chef_special',
+      url: "chef_special",
       description: "enjoy the bev",
       image: "",
     },
   ];
 
   const handleClick = (category) => {
-    navigate(`/products/${category}`)
-  }
+    navigate(`/products/${category}`);
+  };
   return data.map((item) => (
-    <Card sx={{ maxWidth: 345, width:'100%' }}     onClick={() => handleClick(item.url)}>
+    <Card
+      sx={{ maxWidth: 345, width: "100%" }}
+      onClick={() => handleClick(item.url)}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-       image="https://source.unsplash.com/random/200x200?sig=3"
+          image="https://source.unsplash.com/random/200x200?sig=3"
           alt="green iguana"
         />
         <CardContent>
@@ -85,17 +87,35 @@ function FoodMenu() {
         flexDirection: "column",
         gap: "42px",
         marginLeft: "21rem",
-        padding:'20px'
+        padding: "20px",
       }}
     >
-      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-        <span style={{fontSize:'32px', lineHeight:'normal', fontWeight:700}}>Menu Items</span>
-        <div style={{marginRight:'4.5rem'}}>
-      <ProductDrawer type={"product"} />
-      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <span
+          style={{ fontSize: "32px", lineHeight: "normal", fontWeight: 700 }}
+        >
+          Menu Items
+        </span>
+        <div style={{ marginRight: "4.5rem" }}>
+          <ProductDrawer type={"product"} />
+        </div>
       </div>
       {/* <SearchProduct /> */}
-      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems:'center',justifyContent:'start' }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "24px",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "start",
+        }}
+      >
         <Menu />
       </div>
     </div>
