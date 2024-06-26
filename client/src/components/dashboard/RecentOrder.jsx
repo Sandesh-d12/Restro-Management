@@ -12,13 +12,13 @@ const navigate = useNavigate()
   return  (
     <Card sx={{ maxWidth: 345, width: '100%', border: '1px solid #ddd', boxShadow: 3, padding:'16px' }} onClick={handleClick}>
     <CardActionArea>
-      <CardMedia
+      {/* <CardMedia
         component="img"
         height="140"
         image="/order.jpg"
         alt="Order Image"
         style={{borderRadius:'4px'}}
-      />
+      /> */}
       <CardContent>
         <Box>
         <Typography gutterBottom variant="body2" component="div">
@@ -69,7 +69,7 @@ function RecentOrder() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
         <span style={{fontSize:'28px', lineHeight:'normal', fontWeight:500, marginBottom:'8px'}}>Latest Orders</span>
-      <a href="/order" style={{ textDecoration:'none'}}><span color="blue">Take a look at all orders</span></a>.
+      <a href="/order" style={{ textDecoration:'none', width:'190px'}}><span color="blue">Take a look at all orders</span></a>.
       <div style={{ display: 'flex', gap:'20px' }}>
         {recentOrder && recentOrder?.map((item, index) => (
           <OrderCard

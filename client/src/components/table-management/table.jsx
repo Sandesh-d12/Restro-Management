@@ -95,7 +95,8 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data?.map((d, index) => (
+          {data && data.length > 0 ? 
+          (data?.map((d, index) => (
             <tr key={index}>
               <td style={{ padding: "8px" }}>{index + 1}</td>
               <td style={{ padding: "8px" }}>{d?.tableNumber}</td>
@@ -124,7 +125,9 @@ function Table() {
                 </div>
               </td>
             </tr>
-          ))}
+          ))) :(
+            <span>No Table Found</span>
+          )}
         </tbody>
       </table>
     </div>

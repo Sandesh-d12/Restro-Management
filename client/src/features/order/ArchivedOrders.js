@@ -80,97 +80,72 @@ export default function ArchivedOrder() {
             </tr>
           </thead>
           <tbody>
-            {pendingOrder &&
-              pendingOrder
-                .slice()
-                .reverse()
-                .map((d, index) => (
-                  <React.Fragment key={d._id}>
-                    <tr>
-                      <td colSpan={5}>
-                        <Accordion>
-                          <AccordionSummary
-                            expandIcon={
-                              <ExpandMoreIcon
-                                style={{
-                                  paddingLeft: "1rem",
-                                  color: "#1976d2",
-                                }}
-                              />
-                            }
-                            aria-controls={`panel${index + 1}-content`}
-                            id={`panel${index + 1}-header`}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                width: "100%",
-                                justifyContent: "space-between",
-                                zIndex: 0,
-                              }}
-                            >
-                              <Typography>Order {index + 1}</Typography>
-                              <Typography>{d?.table_number}</Typography>
-                              <Typography>{d?.paymentDetails?.type}</Typography>
-                              <Typography>
-                                {d?.paymentDetails?.status}
-                              </Typography>
-                              <Typography>
-                                {d?.total_cost}
-                              </Typography>
-                            </div>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Accordion>
-                              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography>Products</Typography>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                <table
-                                  border={1}
-                                  style={{
-                                    width: "100%",
-                                    borderCollapse: "collapse",
-                                    border: "1px solid #ccc",
-                                  }}
-                                >
-                                  <thead>
-                                    <th style={{ padding: "18px" }}>Name</th>
-                                    <th style={{ padding: "18px" }}>
-                                      Category
-                                    </th>
-                                    <th style={{ padding: "18px" }}>
-                                      Quantity
-                                    </th>
-                                    <th style={{ padding: "18px" }}>Price</th>
-                                  </thead>
-                                  {d?.product?.map((product, prodIndex) => (
-                                    <tbody key={prodIndex}>
-                                      <tr>
-                                        <td style={{ padding: "18px" }}>
-                                          {product?.name}
-                                        </td>
-                                        <td style={{ padding: "18px" }}>
-                                          {product?.category}
-                                        </td>
-                                        <td style={{ padding: "18px" }}>
-                                          {product?.quantity}
-                                        </td>
-                                        <td style={{ padding: "18px" }}>
-                                          {product?.price}
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  ))}
-                                </table>
-                              </AccordionDetails>
-                            </Accordion>
-                          </AccordionDetails>
-                        </Accordion>
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                ))}
+          {pendingOrder && pendingOrder.length > 0 ? (
+    pendingOrder
+      .slice()
+      .reverse()
+      .map((d, index) => (
+        <React.Fragment key={d._id}>
+          <tr>
+            <td colSpan={6}>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon style={{ paddingLeft: '1rem', color: '#1976d2' }} />}
+                  aria-controls={`panel${index + 1}-content`}
+                  id={`panel${index + 1}-header`}
+                >
+                  <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', zIndex: 0 }}>
+                    <Typography>Order {index + 1}</Typography>
+                    <Typography>{d?.table_number}</Typography>
+                    <Typography>{d?.paymentDetails?.type}</Typography>
+                    <Typography>{d?.paymentDetails?.status}</Typography>
+                    <Typography>{d?.total_cost}</Typography>
+                  </div>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography>Products</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <table
+                        border={1}
+                        style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ccc' }}
+                      >
+                        <thead>
+                          <tr>
+                            <th style={{ padding: '18px' }}>Name</th>
+                            <th style={{ padding: '18px' }}>Category</th>
+                            <th style={{ padding: '18px' }}>Quantity</th>
+                            <th style={{ padding: '18px' }}>Unit Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {d?.product?.map((product, prodIndex) => (
+                            <tr key={prodIndex}>
+                              <td style={{ padding: '18px' }}>{product?.name}</td>
+                              <td style={{ padding: '18px' }}>{product?.category}</td>
+                              <td style={{ padding: '18px' }}>{product?.quantity}</td>
+                              <td style={{ padding: '18px' }}>{product?.price}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </AccordionDetails>
+                  </Accordion>
+                </AccordionDetails>
+              </Accordion>
+            </td>
+          </tr>
+        </React.Fragment>
+      ))
+  ) : (
+    <tr>
+      <td colSpan={6}>
+        <Typography>No Archived Order Found</Typography>
+      </td>
+    </tr>
+  )}
           </tbody>
         </table>
       </div>

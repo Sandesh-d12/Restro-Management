@@ -80,9 +80,23 @@ async function placeOrder(table_number, payment, products) {
 
 async function updateOrder(orderId, orderInfo) {
   const { id, ...data } = orderInfo;
+let total_cost = 0;
+const paymentDetails = {
+  type: orderInfo.paymentDetails?.type,
+  status: orderInfo.paymentDetails?.status,
+};
+data.product.forEach((product) => {
+  total_cost += product.price * product.quantity;
+});
 
+const orderData = {
+  product:data.product,
+  paymentDetails,
+  total_cost
+
+}
   try {
-    if (await order.updateOrder(orderId, data)) {
+    if (await order.updateOrder(orderId, orderData)) {
       return "order updated";
     }
     throw new Error("error while updating");

@@ -68,6 +68,7 @@ export default function EditOrderModal({ id }) {
       name: item?.name,
       quantity: item?.quantity,
       category: item?.category,
+      price:item?.price
     })),
   };
 
