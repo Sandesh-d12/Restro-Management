@@ -73,6 +73,8 @@ export default function EditTableModal({id}) {
                     ...values
                 }
             updateTable.mutate(data)
+            setOpen(false)
+            alert('successfully updated table')
             }}
           >
             {({ isSubmitting, formik }) => (
