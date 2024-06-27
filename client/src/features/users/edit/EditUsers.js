@@ -34,10 +34,10 @@ const EditUsers = () => {
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
-      firstName: Yup.string()
+      firstName: Yup.string().trim().strict(true)
         .max(15, "Must be 15 characters or less")
         .required("First Name is Required Field"),
-      lastName: Yup.string()
+      lastName: Yup.string().trim().strict(true)
         .max(20, "Must be 20 characters or less")
         .required("Last Name is Required Field"),
       email: Yup.string().email("Invalid email address").required("Required"),

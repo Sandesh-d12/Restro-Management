@@ -100,7 +100,6 @@ if(user.userType === 'cashier'){
     ).min(1, "At least one product is required"),
   });
 
-  const category = singleOrder.map((item) => item.product.map((i) => i.name));
 
   const handleEditButtonClick = (id) => {
     handleOpen(id);
@@ -315,10 +314,12 @@ if(user.userType === 'cashier'){
                                 value={item.quantity}
                                 style={{ border: "1px solid #ccc" }}
                                 disabled={disableProduct}
+                                required
+                                min={1}
                               />
-                              {errors.product?.[index]?.quantity &&
-                              touched.product?.[index]?.quantity ? (
-                                <div>{errors?.product[index]?.quantity}</div>
+                              {errors.product?.[0]?.quantity &&
+                              touched.product?.[0]?.quantity ? (
+                                <div>{errors?.product[0]?.quantity}</div>
                               ) : null}
                             </div>
                             </div>
