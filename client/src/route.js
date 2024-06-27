@@ -13,6 +13,7 @@ import EditUsers from "./features/users/edit/EditUsers";
 import PlaceOrder from "./features/order/PlaceOrder";
 import OrderList from "./features/order/OrderList";
 import ArchivedOrder from "./features/order/ArchivedOrders";
+import {ForbiddenPage} from '../src/features/forbiddenPage/ForbiddenPage'
 
 
 function AllRoute() {

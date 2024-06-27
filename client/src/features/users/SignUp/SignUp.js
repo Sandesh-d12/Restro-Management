@@ -42,11 +42,13 @@ export const SignUp = () => {
         lastName: Yup.string()
           .max(20, "Must be 20 characters or less")
           .required("Last Name is a required field"),
-        email: Yup.string().email("Invalid email address").required("Required"),
+        email: Yup.string().email("Invalid email address").required("Email address is Required"),
         userType: Yup.string().required("User Type is required"),
+        password: Yup.string().required("Password is required"),
       })}
-      onSubmit={(values) => {
+      onSubmit={(values,{resetForm}) => {
         handleSubmit(values);
+        resetForm()
       }}
     >
       {(formik) => (

@@ -138,7 +138,9 @@ export default function EditOrderModal({ id }) {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
+
               onSubmit={(values) => {
+                console.log('values',values)
                 const data = {
                   ...values,
                   id: id,
@@ -161,12 +163,14 @@ export default function EditOrderModal({ id }) {
                   <div style={{ display: "flex", gap: "20px" }}>
                     <label htmlFor="paymentDetails.type">Payment Type</label>
                     <select
+                     name="paymentDetails.type"
+                     onChange={handleChange}
                       style={{ height: "30px", padding: "0px", width: "15%",border:'1px solid #ccc', borderRadius:'4px' }}
                     >
                       {options.map((item) => (
                         <option
-                          value={item.key}
-                          initialValues={values.paymentDetails.type}
+                          value={item?.key}
+                          initialValues={values?.paymentDetails?.type}
                         >
                           {item.value}
                         </option>
