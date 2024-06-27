@@ -59,11 +59,22 @@ async function searchProduct(req, res) {
   }
 }
 
+async function removeProduct(req, res){
+  try{
+    const id = req.params.id
+    const result = await productService.removeProduct(id);
+    res.status(200).json(result);
+  }catch(err){
+    res.status(400).json(err.message);
+  }
+}
+
 
 module.exports = {
   addNewProduct,
   allProducts,
   updateProduct,
   getProductByCategory,
-  searchProduct
+  searchProduct,
+  removeProduct
 };

@@ -11,12 +11,35 @@ import { red } from "@mui/material/colors";
 import * as React from "react";
 import { getFirstLetter } from "../utils";
 import EditProductModal from "./EditProductModal";
+import { CustomButton } from "../features/users";
+import DeleteModal from "./DeleteModal";
+import { removeProduct } from "../features/react-query/products";
 
-export default function Products({ Id, title, price, quantity, selected,orderQuantity, onSelect,onQuantityChange, selectionEnabled }) {
+export default function Products({
+  Id,
+  title,
+  price,
+  quantity,
+  selected,
+  orderQuantity,
+  onSelect,
+  onQuantityChange,
+  selectionEnabled,
+}) {
   const [open, setOpen] = React.useState(false);
+  const [openId, setOpenId] = React.useState(null);
 
+  console.log(Id);
   const handleOpen = (e) => {
     setOpen(true);
+  };
+
+  const handleDeleteOpen = (id) => {
+    setOpenId(id);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenId(null);
   };
 
   const handleClose = () => {
@@ -29,12 +52,15 @@ export default function Products({ Id, title, price, quantity, selected,orderQua
     }
   };
 
-
-
   const handleQuantityChange = (change) => {
     onQuantityChange(Id, orderQuantity + change);
   };
 
+  const handleDelete = () => {
+    removeProduct(Id);
+    setOpenId(null);
+    alert("product removed successfully");
+  };
 
   return (
     <Card
@@ -42,16 +68,36 @@ export default function Products({ Id, title, price, quantity, selected,orderQua
         minWidth: "200px",
       }}
     >
-        <FormControlLabel
-          control={
+        <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              alignItems:'center'
+            }}
+          >
+      <FormControlLabel
+        control={
+        
             <Checkbox
               checked={selected}
               onChange={handleCheckboxChange}
               disabled={!selectionEnabled}
             />
-          }
-          label=""
-        />
+ 
+        }
+        style={{ margin: "0px !important", width: "100%" }}
+        label=""
+      />
+      <DeleteModal
+        description={"Are you sure you want to delete product?"}
+        id={Id}
+        handleOpen={() => handleDeleteOpen(Id)}
+        handleClose={handleCloseDelete}
+        open={Id == openId}
+        handleDelete={handleDelete}
+      />
+               </div>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -78,14 +124,24 @@ export default function Products({ Id, title, price, quantity, selected,orderQua
           Price: {price}
         </Typography>
         {selectionEnabled && (
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-            <Button variant="outlined" onClick={() => handleQuantityChange(-1)} disabled={orderQuantity <= 1}>-</Button>
+          <div
+            style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => handleQuantityChange(-1)}
+              disabled={orderQuantity <= 1}
+            >
+              -
+            </Button>
             <TextField
               value={orderQuantity}
               inputProps={{ readOnly: true }}
-              style={{ width: '40px', textAlign: 'center', margin: '0 10px' }}
+              style={{ width: "40px", textAlign: "center", margin: "0 10px" }}
             />
-            <Button variant="outlined" onClick={() => handleQuantityChange(1)}>+</Button>
+            <Button variant="outlined" onClick={() => handleQuantityChange(1)}>
+              +
+            </Button>
           </div>
         )}
         {/* <OrderDrawer productId={Id} /> */}

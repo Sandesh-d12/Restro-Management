@@ -64,11 +64,22 @@ async function searchProduct(keyword) {
   }
 }
 
+async function removeProduct(id) {
+  try {
+
+      await product.deleteProduct(id)
+      return "product removed successfully";
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 module.exports = {
   getProducts,
   addProduct,
   updateProduct,
   getProductsByCategory,
-  searchProduct
+  searchProduct,
+  removeProduct
 };

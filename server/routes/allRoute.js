@@ -17,6 +17,7 @@ router.get("/product/allProducts", productApi.allProducts);
 router.post("/product/updateProduct/:id", productApi.updateProduct);
 router.post("/product/getProductByCategory", productApi.getProductByCategory);
 router.get("/product/searchProduct/:keyword", productApi.searchProduct);
+router.post("/product/removeProduct/:id", productApi.removeProduct);
 
 
 //TABLE

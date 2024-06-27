@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.wrapper}>
-      <div style={{ marginBottom: "40px" }}>
+      <div>
         <span
           style={{ fontSize: "32px", lineHeight: "normal", fontWeight: 700 }}
         >
@@ -20,7 +20,7 @@ export default function Dashboard() {
       <div className={styles.container}>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <span
-            style={{ fontSize: "28px", lineHeight: "normal", fontWeight: 500 }}
+            style={{ fontSize: "24px", lineHeight: "normal", fontWeight: 500 }}
           >
             Live Table Status
           </span>

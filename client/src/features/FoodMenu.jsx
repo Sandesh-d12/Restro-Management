@@ -16,35 +16,35 @@ const Menu = () => {
       id: 1,
       category: "beverage",
       url: "beverage",
-      description: "enjoy the bev",
+      description: "Look at beverages",
       image: "",
     },
     {
       id: 2,
       category: "starter",
       url: "starter",
-      description: "enjoy the bev",
+      description: "Look at starter items",
       image: "",
     },
     {
       id: 3,
       category: "main course",
       url: "main_course",
-      description: "enjoy the bev",
+      description: "Look at main course",
       image: "",
     },
     {
       id: 4,
       category: "desserts",
       url: "desserts",
-      description: "enjoy the bev",
+      description: "Look at desserts",
       image: "",
     },
     {
       id: 5,
-      category: "chief special",
+      category: "chef special",
       url: "chef_special",
-      description: "enjoy the bev",
+      description: "Look at chef special",
       image: "",
     },
   ];
@@ -62,7 +62,7 @@ const Menu = () => {
           component="img"
           height="140"
           image="https://source.unsplash.com/random/200x200?sig=3"
-          alt="green iguana"
+          alt="product image"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

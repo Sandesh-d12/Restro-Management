@@ -149,7 +149,21 @@ async function searchProductByKeyWords(keyword) {
 }
 
 
+async function deleteProduct(productId) {
+  try {
 
+    let db = await DB.db_connect("products");
+    const user = await db.findOne({ _id: new mongodb.ObjectId(productId) });
+    if (!user) {
+   throw new Error('product not found')
+    }
+          const result = await db.deleteOne({ _id: new mongodb.ObjectId(productId)});
+   
+      return result.acknowledged;
+  } catch (err) {
+    throw err;
+  }
+}
 
 
 module.exports = {
@@ -160,5 +174,6 @@ module.exports = {
   getProductsById,
   getProductByCategory,
   getCategoryByProductName,
-  searchProductByKeyWords
+  searchProductByKeyWords,
+  deleteProduct
 };

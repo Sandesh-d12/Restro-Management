@@ -37,23 +37,23 @@ async function findOrder(order_id) {
   }
 }
 
-async function updateOrder(order_id, new_order) {
-  try {
-    let db = await DB.db_connect("orders");
-    const order = await db.findOne({ _id: new mongodb.ObjectId(order_id) });
-    if (order) {
-      const result = await db.updateOne(
-        { _id: new mongodb.ObjectId(order_id) },
-        { $set: new_order }
-      );
-      return result.acknowledged;
-    }
-    // throw new Error("Error  Updating Order");
-    return false;
-  } catch (err) {
-    throw err;
-  }
-}
+// async function updateOrder(order_id, new_order) {
+//   try {
+//     let db = await DB.db_connect("orders");
+//     const order = await db.findOne({ _id: new mongodb.ObjectId(order_id) });
+//     if (order) {
+//       const result = await db.updateOne(
+//         { _id: new mongodb.ObjectId(order_id) },
+//         { $set: new_order }
+//       );
+//       return result.acknowledged;
+//     }
+//     // throw new Error("Error  Updating Order");
+//     return false;
+//   } catch (err) {
+//     throw err;
+//   }
+// }
 
 async function decreaseQuantityOnStore(product_id, quantity) {
   console.log(product_id, quantity);
@@ -137,6 +137,5 @@ module.exports = {
   decreaseQuantityOnStore,
   getProductById,
   deleteOrder,
-  updateOrder,
   getOrderById
 };

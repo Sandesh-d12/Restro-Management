@@ -7,7 +7,13 @@ const OrderCard = ({tableNumber, paymentDetails, products, totalCost}) => {
 const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(`/order`)
+    if(paymentDetails.status === 'pending'){
+      navigate(`/order`)
+    }
+    else{
+      navigate(`/archived-order`)
+    }
+
   }
   return  (
     <Card sx={{ maxWidth: 345, width: '100%', border: '1px solid #ddd', boxShadow: 3, padding:'16px' }} onClick={handleClick}>
@@ -68,7 +74,7 @@ function RecentOrder() {
   const recentOrder = allOrder && [...allOrder].reverse().slice(0, 4);
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <span style={{fontSize:'28px', lineHeight:'normal', fontWeight:500, marginBottom:'8px'}}>Latest Orders</span>
+        <span style={{fontSize:'24px', lineHeight:'normal', fontWeight:500, marginBottom:'8px'}}>Latest Orders</span>
       <a href="/order" style={{ textDecoration:'none', width:'190px'}}><span color="blue">Take a look at all orders</span></a>.
       <div style={{ display: 'flex', gap:'20px' }}>
         {recentOrder && recentOrder?.map((item, index) => (
