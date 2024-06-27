@@ -41,9 +41,15 @@ async function removeOrder(id) {
 async function placeOrder(table_number, payment, products) {
   try {
     let total_cost = 0;
-    products.forEach((product) => {
-      total_cost += product.price * product.quantity;
-    });
+console.log('pddd',products)
+    for (const product of products) {
+      const result = await order.decreaseQuantityOnStore(product._id, product.quantity);
+      if (result) {
+        total_cost += product.price * product.quantity;
+      } else {
+        throw new Error('Order quantity should not be greater than available quantity');
+      }
+    }
 
     const paymentDetails = {
       type: payment?.type,
@@ -55,7 +61,7 @@ async function placeOrder(table_number, payment, products) {
       paymentDetails,
       total_cost,
       product: products.map((product) => ({
-        _id: product._id,
+        id: product._id,
         name: product.name,
         price: product.price,
         quantity: product.quantity,
@@ -78,32 +84,41 @@ async function placeOrder(table_number, payment, products) {
   }
 }
 
+
 async function updateOrder(orderId, orderInfo) {
   const { id, ...data } = orderInfo;
-let total_cost = 0;
-const paymentDetails = {
-  type: orderInfo.paymentDetails?.type,
-  status: orderInfo.paymentDetails?.status,
-};
-data.product.forEach((product) => {
-  total_cost += product.price * product.quantity;
-});
+  let total_cost = 0;
+  const paymentDetails = {
+    type: orderInfo.paymentDetails?.type,
+    status: orderInfo.paymentDetails?.status,
+  };
 
-const orderData = {
-  product:data.product,
-  paymentDetails,
-  total_cost
-
-}
   try {
-    if (await order.updateOrder(orderId, orderData)) {
-      return "order updated";
+
+    for (const product of data.product) {
+      const result = await order.decreaseQuantityOnStore(product.id, product.quantity);
+      if (result) {
+        total_cost += product.price * product.quantity;
+      } else {
+        throw new Error('Order quantity should not be greater than available quantity');
+      }
     }
-    throw new Error("error while updating");
+    const orderData = {
+      product: data.product,
+      paymentDetails,
+      total_cost
+    };
+
+    if (await order.updateOrder(orderId, orderData)) {
+      return "Order updated successfully";
+    } else {
+      throw new Error("Error while updating order");
+    }
   } catch (err) {
     throw err;
   }
 }
+
 
 module.exports = {
   placeOrder,

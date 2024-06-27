@@ -13,9 +13,12 @@ const placeOrder = async (data) => {
         body:JSON.stringify(data)
       }
     );
-  
+  if(response.ok){
+    alert('order placed successfully')
+  }
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const errorMessage = await response.json()
+      alert(errorMessage)
     }
   
     return response.json();
@@ -25,7 +28,7 @@ const placeOrder = async (data) => {
     const queryClient = useQueryClient();
     const addProduct = useMutation(placeOrder, {
       onSuccess: (data) => {
-        toast.success(data.message)
+    
       },
     });
   
@@ -85,11 +88,17 @@ const placeOrder = async (data) => {
         },
         body: JSON.stringify(orderData),
       }
+     
     );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    if(response.ok){
+      alert('order updated successfully')
     }
   
+    if (!response.ok) {
+      const errorMessage = await response.json()
+      alert(errorMessage)
+    }
+ 
     return response;
   };
   

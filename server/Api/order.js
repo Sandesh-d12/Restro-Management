@@ -15,7 +15,7 @@ async function placeOrder(req, res) {
     );
     res.status(200).send(result);
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(400).json(err.message);
   }
 }
 
@@ -43,11 +43,11 @@ async function updateOrder(req, res) {
   try {
  
     const data = req.body;
- 
+
     const result = await orderService.updateOrder(data.id, data);
     res.status(200).send(result);
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(400).json(err.message);
   }
 }
 
