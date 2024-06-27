@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { toast } from "react-hot-toast";
+
 
 const schema = Yup.object().shape({
   email: Yup.string()

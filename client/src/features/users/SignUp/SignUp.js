@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik } from "../../../components/FormContext/formContext";
 import * as Yup from "yup";
-import { toast } from "react-hot-toast";
 import { useCreateUserMutation } from "../../react-query/users";
 import { Button } from "@mui/material";
 
@@ -46,9 +45,9 @@ export const SignUp = () => {
         userType: Yup.string().required("User Type is required"),
         password: Yup.string().required("Password is required"),
       })}
-      onSubmit={(values,{resetForm}) => {
+      onSubmit={(values, { resetForm }) => {
         handleSubmit(values);
-        resetForm()
+        resetForm();
       }}
     >
       {(formik) => (
@@ -100,6 +99,7 @@ export const SignUp = () => {
                 id="userType"
                 {...formik.getFieldProps("userType")}
               >
+                <option value="">Select User Type</option>
                 <option value="waiter">Waiter</option>
                 <option value="cashier">Cashier</option>
               </select>

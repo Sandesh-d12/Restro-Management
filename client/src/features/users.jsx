@@ -82,6 +82,8 @@ function Users() {
         display: "flex",
         flexDirection: "column",
         gap: "16px",
+        overflowY:'scroll',
+        height:'880px'
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems:'center' }}>
