@@ -157,8 +157,11 @@ export const removeUser = async (email) => {
       },
       body: JSON.stringify({ email }), 
     }
+   
   );
-
+if(response.ok){
+  alert("succesfully deleted user");
+}
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }

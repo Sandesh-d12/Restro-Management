@@ -69,7 +69,7 @@ function PlaceOrder({ tableNumber, onClick }) {
                 ))}
               </Field>
 
-              <ErrorMessage style={{ color: "red" }} name="table_number" />
+              <ErrorMessage style={{ color: "red" }}   as="select"    component="div" name="table_number" />
             </div>
             <div>
               <label htmlFor="payment.type">Payment Type</label>
@@ -89,6 +89,7 @@ function PlaceOrder({ tableNumber, onClick }) {
                 name="payment.type"
                 component="div"
                 className="error-message"
+                style={{ color: "red" }}
               />
             </div>
             <Button type="submit" variant="outlined" sx={{color:'#1976d2'}} disabled={isLoading}>

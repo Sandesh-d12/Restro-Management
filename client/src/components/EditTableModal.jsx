@@ -27,7 +27,12 @@ const validationSchema = Yup.object().shape({
   tableNumber: Yup.number().required("Table number is required"),
   tableCapacity: Yup.number()
     .required("Table capacity is required")
-    .min(1, "Capacity must be at least 1"),
+    .min(1, "Capacity must be at least 1")
+    .test(
+      "max-capacity",
+      "Table Capacity must not be greater than 20",
+      (value) => parseInt(value) <= 20
+    ),
   occupancy: Yup.number()
     .required("Occupancy is required")
     .min(0, "Occupancy must be at least 0")

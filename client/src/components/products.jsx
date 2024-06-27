@@ -28,10 +28,18 @@ export default function Products({
 }) {
   const [open, setOpen] = React.useState(false);
   const [openId, setOpenId] = React.useState(null);
+  const [disable, setIsDisable] = React.useState(true)
 
-  console.log(Id);
+  const userString = localStorage.getItem("user") ?? null;
+  let user = userString !== "undefined" ? JSON.parse(userString) : null;
+
+
   const handleOpen = (e) => {
-    setOpen(true);
+  
+    if(user.userType === 'admin'){
+      setOpen(true);
+      setIsDisable(false)
+    }
   };
 
   const handleDeleteOpen = (id) => {
@@ -108,7 +116,7 @@ export default function Products({
         title={title}
         price={`price:${price}`}
       />
-      <Button onClick={(e) => handleOpen(e)}>
+      <Button onClick={(e) => handleOpen(e)} disable={disable}>
         <CardMedia
           component="img"
           height="104"

@@ -8,18 +8,22 @@ import { removeUser } from "./react-query/users";
 import DeleteModal from "../components/DeleteModal";
 import { Button } from "@mui/material";
 
-export const CustomButton = ({ type, id, onClick }) => {
+export const CustomButton = ({ type, id, onClick, entity }) => {
   const navigate = useNavigate();
   const userString = localStorage.getItem("user") ?? null;
   let user = userString !== "undefined" ? JSON.parse(userString) : null;
 
-  const isDisable = (userType) => {
+  const isDisable = (userType, entity) => {
     if (userType === "admin") {
       return false;
-    } else {
+    }else if (entity === 'order' && userType === "waiter"){
+      return false
+    }
+     else if(user) {
       return true;
     }
   };
+
   switch (type) {
     case "edit":
       return (
@@ -36,9 +40,9 @@ export const CustomButton = ({ type, id, onClick }) => {
         <Button
           style={{ border: "none", cursor: "pointer", backgroundColor:'transparent', color:'#007bff' }}
           onClick={onClick}
-          disabled={isDisable(user?.userType)}
+          disabled={isDisable(user?.userType, entity)}
         >
-          <CiTrash color={'red'} />
+          <CiTrash color={'red'}  />
         </Button>
       );
   }
@@ -69,7 +73,7 @@ function Users() {
   const handleDelete = (id) => {
     setOpen(false);
     removeUser(id);
-    alert("succesfully deleted user");
+    // alert("succesfully deleted user");
     window.location.reload();
   };
   return (

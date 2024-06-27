@@ -17,7 +17,7 @@ const style = {
   top: "50%",
   left: "170%",
   transform: "translate(-50%, -50%)",
-  width: 500,
+  width: 580,
   bgcolor: "#fff",
   // boxShadow: 24,
   p: 4,
@@ -36,6 +36,7 @@ export default function EditOrderModal({ id }) {
   const [open, setOpen] = React.useState(false);
   const [singleOrder, setSingleOrder] = React.useState([]);
   const [disableCategory, setDisableCategory] = React.useState(true);
+  const [disableProduct, setDisableProduct] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
@@ -56,7 +57,11 @@ export default function EditOrderModal({ id }) {
         console.error("Error fetching order:", error);
       }
     };
-
+if(user.userType === 'cashier'){
+  setDisableProduct(true)
+}else{
+  setDisableProduct(false)
+}
     fetchData();
   }, [id]);
 
@@ -92,7 +97,7 @@ export default function EditOrderModal({ id }) {
           .positive("Quantity must be positive"),
         category: Yup.string().required("Category is required"),
       })
-    ),
+    ).min(1, "At least one product is required"),
   });
 
   const category = singleOrder.map((item) => item.product.map((i) => i.name));
@@ -206,7 +211,7 @@ export default function EditOrderModal({ id }) {
                           >
                             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                             <Button
-                              style={{ height: "30px !important", width:'10px !important' }}
+                              style={{ height: "20px !important", width:'10px !important', background:disableProduct ? '#eee' : '' }}
                               onClick={() =>
                                 push({
                                   name: singleOrder[0]?.product[0]?.name || "",
@@ -216,13 +221,14 @@ export default function EditOrderModal({ id }) {
                                     "beverage",
                                 })
                               }
+                              disabled={disableProduct}
                             >
                               <span style={{color:"#1976d2", fontSize:'24px'}}>+</span>
                             </Button>
                             <Button
-                              
+                               disabled={disableProduct}
                               onClick={() => remove(index)}
-                              style={{ height: "30px !important", width:'10px !important' }}
+                              style={{ height: "30px !important", width:'10px !important', background:disableProduct ? '#eee':'' }}
                             >
                               <CiTrash color="red"  />
                             </Button>
@@ -280,6 +286,7 @@ export default function EditOrderModal({ id }) {
                                   border: "1px solid #ccc",
                                   borderRadius: "4px",
                                 }}
+                                disabled={disableProduct}
                               >
                                 {data.map((option) => (
                                   <option key={option.name} value={option.name}>
@@ -307,18 +314,23 @@ export default function EditOrderModal({ id }) {
                                 onChange={handleChange}
                                 value={item.quantity}
                                 style={{ border: "1px solid #ccc" }}
+                                disabled={disableProduct}
                               />
                               {errors.product?.[index]?.quantity &&
                               touched.product?.[index]?.quantity ? (
-                                <div>{errors.product[index].quantity}</div>
+                                <div>{errors?.product[index]?.quantity}</div>
                               ) : null}
                             </div>
                             </div>
                            
                           </div>
                         ))}
-                        {}
+                            {errors.product &&
+                        touched.product ? (
+                          <div style={{color:'red'}}>{errors.product}</div>
+                        ) : null}
                       </div>
+                  
                     )}
                   </FieldArray>
 

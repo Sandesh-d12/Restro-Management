@@ -49,9 +49,19 @@ export default function AddProduct() {
           .max(35, "Must be 35 characters or less")
           .required("Product Name is Required Field"),
         price: Yup.number()
-          .required("Price is Required Field"),
+          .required("Price is Required Field")
+          .test(
+            "is-number",
+            "price must be a number and greater than 0",
+            (value) => !isNaN(value) && value > 0
+          ),
         quantity: Yup.number()
-          .required("Quantity is Required Field"),
+          .required("Quantity is Required Field")
+          .test(
+            "is-number",
+            "Quantity must be a number and greater than 0",
+            (value) => !isNaN(value) && value > 0
+          ),
         category: Yup.string()
           .oneOf(
             categoryOptions.map(option => option.value),

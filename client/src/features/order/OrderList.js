@@ -82,6 +82,7 @@ export default function OrderList() {
                               open={openOrderId === d._id}
                               handleOpen={() => handleOpen(d._id)}
                               handleClose={handleClose}
+                              type={'order'}
                             />
                           </Box>
                         </Box>
