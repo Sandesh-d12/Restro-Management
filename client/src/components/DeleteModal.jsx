@@ -22,7 +22,7 @@ const style = {
   gap:'24px'
 };
 
-export default function DeleteModal({description, id, handleDelete, handleOpen, open, handleClose, tableId}) {
+export default function DeleteModal({description, subDescription, id, handleDelete, handleOpen, open, handleClose, tableId}) {
 
   return (
     <div>
@@ -34,11 +34,16 @@ export default function DeleteModal({description, id, handleDelete, handleOpen, 
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Box sx={{display:'flex', flexDirection:'column', gap:'6px'}}>
           <Typography>
             {description}
           </Typography>
+          <Typography>
+            {subDescription}
+          </Typography>
+          </Box>
           <Box style={{display:"flex", justifyContent:'space-between'}}>
-          <Button onClick={()=>handleDelete(id)}>Delete</Button>
+          <Button color='error' onClick={()=>handleDelete(id)}>Delete</Button>
           <Button onClick={handleClose}>Cancel</Button>
           </Box>
         </Box>

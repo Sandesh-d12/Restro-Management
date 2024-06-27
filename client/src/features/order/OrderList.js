@@ -75,8 +75,9 @@ export default function OrderList() {
                           <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', padding: '18px' }}>
                             <EditOrderModal id={d._id} />
                             <DeleteModal
-                              description={"Are you sure you want to delete the order?"}
+                              description={"Are you sure you want to cancel the order ?"}
                               handleDelete={handleDelete}
+                              subDescription={'Cancelling the order will erase all the details about order.'}
                               id={d._id}
                               open={openOrderId === d._id}
                               handleOpen={() => handleOpen(d._id)}
