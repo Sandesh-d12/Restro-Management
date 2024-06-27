@@ -28,6 +28,7 @@ const validationSchema = Yup.object().shape({
   tableCapacity: Yup.number()
     .required("Table capacity is required")
     .min(1, "Capacity must be at least 1")
+
     .test(
       "max-capacity",
       "Table Capacity must not be greater than 20",
@@ -36,7 +37,8 @@ const validationSchema = Yup.object().shape({
   occupancy: Yup.number()
     .required("Occupancy is required")
     .min(0, "Occupancy must be at least 0")
-    .max(Yup.ref('tableCapacity'), "Occupancy cannot exceed table capacity"),
+    .max(Yup.ref('tableCapacity'), "Occupancy cannot exceed table capacity")
+
 });
 
 
@@ -88,6 +90,7 @@ export default function EditTableModal({id}) {
                   as={TextField}
                   name="tableNumber"
                   label="Table Number"
+                 type="number"
                   fullWidth
                     sx={formStyles}
                     helperText={
@@ -100,6 +103,7 @@ export default function EditTableModal({id}) {
                   as={TextField}
                   name="tableCapacity"
                   label="Table Capacity"
+                      type="number"
                   fullWidth
                   sx={formStyles}
                 helperText={
@@ -112,6 +116,7 @@ export default function EditTableModal({id}) {
                   as={TextField}
                   name="occupancy"
                   label="Occupancy"
+                 type="number"
                   fullWidth
                   sx={formStyles}
                 helperText={

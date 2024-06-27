@@ -42,12 +42,14 @@ export default function AddProduct() {
         name: "",
         price: "",
         quantity: "",
-        category: "", // Added category field
+        category: "", 
       }}
       validationSchema={Yup.object({
-        name: Yup.string()
+        name: Yup.string().trim()
+        .strict(true)
           .max(35, "Must be 35 characters or less")
-          .required("Product Name is Required Field"),
+          .required("Product Name is Required Field")
+       ,
         price: Yup.number()
           .required("Price is Required Field")
           .test(
@@ -67,7 +69,7 @@ export default function AddProduct() {
             categoryOptions.map(option => option.value),
             "Invalid Category"
           )
-          .required("Category is Required Field"), // Added validation for category
+          .required("Category is Required Field"),
       })}
       onSubmit={(values) => {
         handleSubmit(values);

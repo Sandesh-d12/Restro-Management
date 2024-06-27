@@ -21,7 +21,7 @@ export default function EditProductModal({
   quantity,
 }) {
   const updateProduct = useUpdateProduct();
-  
+
   const formik = useFormik({
     initialValues: {
       name: title,
@@ -29,7 +29,7 @@ export default function EditProductModal({
       price: price,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
+      name: Yup.string().required("Name is required").trim().strict(true),
       quantity: Yup.number()
         .required("Quantity is required")
         .test(
@@ -54,7 +54,7 @@ export default function EditProductModal({
   });
 
   return (
-    <div >
+    <div>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -70,7 +70,10 @@ export default function EditProductModal({
             alignItems: "center",
           }}
         >
-          <span><b>Edit the product details of: </b>{title} </span>
+          <span>
+            <b>Edit the product details of: </b>
+            {title}{" "}
+          </span>
           <button
             style={{
               float: "right",
@@ -162,7 +165,9 @@ export default function EditProductModal({
           >
             Edit
           </button> */}
-          <Button variant="outlined" type="submit">Edit</Button>
+          <Button variant="outlined" type="submit">
+            Edit
+          </Button>
         </form>
       </Dialog>
     </div>
